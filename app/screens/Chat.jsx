@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 import Screen from "../components/Screen";
@@ -7,11 +7,10 @@ import {
     ListItem,
     ListItemSeparator,
 } from "../components/lists";
-import getNotifications from '../api/getNofification'
+import getChatListAPI from '../api/getChatList'
 import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
 import colors from "../config/colors";
-import GestureRecognizer from 'react-native-swipe-gestures';
 import AppText from "../components/AppText";
 
 function NotificationScreen(props) {
@@ -26,41 +25,38 @@ function NotificationScreen(props) {
     };
 
     const loadNotification = async () => {
-        const results = await getNotifications.get(user.token);
-        setMessages([...messages, ...results.data]);
-        setTotalNotificaiton(results.unseen);
+        const results = await getChatListAPI.get(user.token);
+        setMessages([...messages, ...results.data.data]);
+        setTotalNotificaiton(results.data.count);
     };
     useEffect(() => {
         loadNotification();
     }, []);
     return (
-        <GestureRecognizer
-            config={config}
-            onSwipeLeft={() => navigator.navigate(Routes.DASHBOARD)}
-            onSwipeRight={() => navigator.navigate(Routes.SEARCH_RESULTS)}
-            style={{ width: "100%", height: "100%" }}>
-            <Screen>
-                <AppText
-                    style={styles.header}>جميع المحادثات المفتوحة:{totalNotificaiton}
-                </AppText>
-                <FlatList
-                    data={messages}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                        <ListItem
-                            title={`${item.title} - ${item.order_no}`}
-                            subTitle={`${item.body} `}
-                            date={item.date}
-                            seen={item.client_seen == 1 ? colors.white : colors.gray}
-                            image={item.client_seen == 1 ? require("../assets/notifications/seen.png") : require("../assets/notifications/unseen.png")}
-                            onPress={() => navigator.navigate(Routes.ORDER_DETAILS, { id: item.order_id })}
-                        />
-                    )}
-                    ItemSeparatorComponent={ListItemSeparator}
+        <Screen>
+            <AppText
+                style={styles.header}>جميع المحادثات المفتوحة:{totalNotificaiton}
+            </AppText>
+            <FlatList
+                data={messages}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => (
+                    <ListItem
+                        title={item.order_no}
+                        subTitle={item.message}
+                        date={item.date}
+                        seen={item.client_seen === "1" ? colors.white : colors.gray}
+                        image={item.client_seen === "1" ? require("../assets/notifications/seen.png") : require("../assets/notifications/unseen.png")}
+                        onPress={() =>
+                            navigator.navigate(Routes.CHAT_MODEL, { id: item.id })
 
-                />
-            </Screen>
-        </GestureRecognizer>
+                        }
+                    />
+                )}
+                ItemSeparatorComponent={ListItemSeparator}
+
+            />
+        </Screen>
     );
 }
 const styles = StyleSheet.create({

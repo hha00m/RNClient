@@ -4,11 +4,14 @@ import HTML from 'react-native-render-html';
 
 import AppText from '../AppText';
 import colors from '../../config/colors'
+import { ScrollView } from 'react-native-gesture-handler';
 const AdsCompany = ({ title }) => {
     return (
         <View style={styles.adsContainer}>
-            {/* <Image style={styles.adsAlart} source={require('../../assets/avatar/002-promotion-1.png')} /> */}
-            <HTML html={title} style={styles.htmltag} imagesMaxWidth={Dimensions.get('window').width} />
+            <ScrollView>
+                {/* <Image style={styles.adsAlart} source={require('../../assets/avatar/002-promotion-1.png')} /> */}
+                <HTML html={title} style={styles.htmltag} imagesMaxWidth={Dimensions.get('window').width} />
+            </ScrollView>
         </View>
 
     )
@@ -18,21 +21,12 @@ const styles = StyleSheet.create({
     adsContainer: {
         direction: "rtl",
         width: "98%",
+        height: 200,
         flexDirection: 'row',
         justifyContent: 'center',
         backgroundColor: colors.white,
         margin: "1%",
         padding: 20,
-        borderRadius: 12,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
-        elevation: 6,
-
     },
     adsAlart: {
         width: 60,
@@ -43,6 +37,5 @@ const styles = StyleSheet.create({
     },
     htmltag: {
         direction: "rtl",
-
     }
 })

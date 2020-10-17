@@ -2,41 +2,24 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
 
-import Dashboard from "./../screens/Dashboard";
 import Profile from "./../screens/Profile";
 import SearchResults from "./../navigations/SearchNavigator";
-import Notification from "./../screens/Notificaitons";
 import DashboardButton from "./../components/DashboardButton";
-import Chat from "./../screens/Chat";
 import colors from "../config/colors";
 import Routes from "../Routes";
 import UserNavigator from "./UserNavigation";
 import DashboardNavigator from "./DashboardNavigator";
+import ChatNavigator from "./ChatNavigator";
 import NotificationsNavigator from "./NotificationsNavigator";
 const Tab = createBottomTabNavigator();
 const AppNavigator = () => {
   return (
     <Tab.Navigator
-      activeColor="#e91e63"
+      activeColor={colors.primery}
       style={{ backgroundColor: colors.primery }}
       initialRouteName={Routes.DASHBOARD}
       // screenOptions={{ headerShown: false }}
     >
-      <Tab.Screen
-        name={Routes.DASHBOARD}
-        component={DashboardNavigator}
-        options={({ navigation }) => ({
-          tabBarLabel: "محادثتي",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="home" color={color} size={size} />
-          ),
-          // tabBarButton: () => (
-          //   <DashboardButton
-          //     onPress={() => navigation.navigate(Routes.DASHBOARD)}
-          //   />
-          // ),
-        })}
-      />
       <Tab.Screen
         name={Routes.SEARCH_RESULTS}
         component={SearchResults}
@@ -57,10 +40,25 @@ const AppNavigator = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name={Routes.DASHBOARD}
+        component={DashboardNavigator}
+        options={({ navigation }) => ({
+          tabBarLabel: "لوحة التحكم",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="home" color={color} size={size} />
+          ),
+          // tabBarButton: () => (
+          //   <DashboardButton
+          //     onPress={() => navigation.navigate(Routes.DASHBOARD)}
+          //   />
+          // ),
+        })}
+      />
 
       <Tab.Screen
         name={Routes.CHAT}
-        component={Chat}
+        component={ChatNavigator}
         options={{
           tabBarLabel: "محادثتي",
           tabBarIcon: ({ color, size }) => (

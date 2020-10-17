@@ -12,10 +12,12 @@ import authStorage from "./app/auth/storage";
 import OrderDetails from "./app/screens/OrderDetails";
 import ChatModel from "./app/screens/ChatModel";
 import Disclosure from "./app/screens/Disclosures";
+import { I18nManager } from "react-native";
 
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
+  I18nManager.forceRTL(false);
 
   const restoreUser = async () => {
     const user = await authStorage.getUser();

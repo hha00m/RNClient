@@ -49,7 +49,7 @@ const ChatModel = () => {
                         onPress={() => sendMessages(user.token, route.params.id, value)}
                     />
                 </View>
-                <View style={{ flexDirection: "column-reverse", justifyContent: "space-around", width: "100%", height: "100%", paddingTop: 70 }}>
+                <View style={{ flexDirection: "column-reverse", justifyContent: "space-around", width: "100%", height: "85%" }}>
                     <FlatList
                         style={{ flex: 1 }}
                         data={messages}

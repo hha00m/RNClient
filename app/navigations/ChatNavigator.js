@@ -1,26 +1,20 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import OrderDetails from "../screens/OrderDetails";
-import Notificaitons from "../screens/Notificaitons";
 import Routes from "../Routes";
 import ChatModel from "../screens/ChatModel";
+import Chat from "../screens/Chat";
 
 const Stack = createStackNavigator();
 const DashboardNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={Routes.Notificaitons}>
+    <Stack.Navigator initialRouteName={Routes.CHAT}>
       <Stack.Screen
-        name={Routes.NOTIFICATION}
-        component={Notificaitons}
-        options={{ headerShown: false, title: "صفحة الاشعارات" }}
+        name={Routes.CHAT}
+        component={Chat}
+        options={{ headerShown: false, title: "صفحة المحادثات" }}
       />
 
-      <Stack.Screen
-        name={Routes.ORDER_DETAILS}
-        component={OrderDetails}
-        options={{ title: "طلبية" }}
-      />
       <Stack.Screen
         name={Routes.CHAT_MODEL}
         component={ChatModel}
