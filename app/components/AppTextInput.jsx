@@ -36,19 +36,19 @@ const styles = StyleSheet.create({
     contaioner: {
         paddingHorizontal: 15,
         borderColor: "black",
-        marginVertical: 10,
+        backgroundColor: defultStyle.colors.white,
 
     },
     inputContainer: {
         backgroundColor: defultStyle.colors.light,
         borderRadius: 5,
         width: '100%',
-        padding: 15,
+        padding: 10,
         alignSelf: 'center',
         marginHorizontal: 5,
         flexDirection: 'row-reverse',
-        borderWidth: 2,
-        borderColor: defultStyle.colors.borderColor,
+        borderWidth: 1,
+        borderColor: defultStyle.colors.black,
 
 
     },

@@ -32,10 +32,7 @@ function Dashboard() {
     const [isLoading, setIsLoading] = useState(false);
     const [LoadMore, setLoadMore] = useState("1");
 
-    const config = {
-        velocityThreshold: 0.3,
-        directionalOffsetThreshold: 80
-    };
+
 
     const loadOrders = async () => {
         setIsLoading(true);
@@ -102,7 +99,7 @@ function Dashboard() {
                 onChangeText={x => setSearch(x)}
                 placeholder='بحث رقم الوصل او رقم الهاتف...' />
             <View
-                style={{ flexDirection: "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.white }}>
+                style={{ flexDirection: "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.white, paddingHorizontal: 2 }}>
                 <View style={{ width: "27%", marginHorizontal: 2 }}>
                     <AppPickerCity items={cities} placeholder={city ? city : "المحافظة"} name="city"
                         onSelectItem={item => setCity(item)}
@@ -133,7 +130,6 @@ function Dashboard() {
                 width: "100%",
                 borderBottomColor: colors.primery,
                 borderBottomWidth: 2,
-                marginBottom: 5,
                 backgroundColor: colors.white
             }}>
                 <Button onPress={loadOrders} title="أبداء البحث" />
@@ -145,7 +141,7 @@ function Dashboard() {
                 renderItem={({ item }) => (
                     <OrderCard
                         item={item}
-                        onPress={() => navigator.navigate(Routes.ORDER_DETAILS, { id: item.id })} />
+                    />
                 )}
                 ItemSeparatorComponent={ListItemSeparator}
                 onEndReachedThreshold={0.25}

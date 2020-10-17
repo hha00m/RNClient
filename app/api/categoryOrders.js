@@ -1,15 +1,7 @@
 import client from "./client";
 
-const getOrders = (
-  token,
-  status,
-  city,
-  store,
-  search,
-  page = 1,
-  limit = 10
-) => {
-  let url = `https://albarqexpress.com/client/api/search.php?token=${token}`;
+const get = (token, status, city, store, search, page = 1, limit = 10) => {
+  let url = `https://albarqexpress.com/client/api/getOrders.php?token=${token}`;
   if (status) url += `&status=${status}`;
   if (search) url += `&search=${search}`;
   if (limit) url += `&limit=${limit}`;
@@ -27,5 +19,5 @@ const getOrders = (
 };
 
 export default {
-  getOrders,
+  get,
 };

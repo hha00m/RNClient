@@ -9,7 +9,10 @@ import {
 import Icon from "./../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
+import Routes from "../../Routes";
+import { useNavigation } from "@react-navigation/native";
 function OrderCard({ item, onPress }) {
+  const navigation = useNavigation();
   const handelColor = (id) => {
     switch (id) {
       case "4":
@@ -31,48 +34,57 @@ function OrderCard({ item, onPress }) {
     }
   };
   return (
-    <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
-      <View
-        style={{
-          alignSelf: "center",
-          width: "90%",
-          height: 80,
-          // backgroundColor: colors.primery,
-        }}
-      >
-        <View style={styles.container}>
-          <View style={styles.detailsContainer}>
-            <Text style={styles.title} numberOfLines={1}>
-              {item.order_no}
-            </Text>
-            {item.city && (
-              <Text style={styles.subTitle} numberOfLines={1}>
-                {item.city} - {item.town}
+    <View
+      style={{
+        alignSelf: "center",
+        width: "90%",
+        height: 80,
+        paddingTop: 10,
+        // backgroundColor: colors.primery,
+      }}
+    >
+      <View style={styles.container}>
+        <TouchableHighlight
+          style={{ width: "85%", height: "100%" }}
+          underlayColor={colors.light}
+          onPress={() =>
+            navigation.navigate(Routes.ORDER_DETAILS, { id: item.id })
+          }
+        >
+          <View style={{ width: "100%", height: "100%", flexDirection: "row" }}>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.title} numberOfLines={1}>
+                {item.order_no}
               </Text>
-            )}
-          </View>
-          <View style={styles.detailsContainer}>
-            <Text style={styles.title} numberOfLines={1}>
-              {item.store_name}
-            </Text>
-            {item.city && (
-              <Text style={styles.subTitle} numberOfLines={1}>
-                {item.status_name} - {item.t_note}
+              {item.city && (
+                <Text style={styles.subTitle} numberOfLines={1}>
+                  {item.city} - {item.town}
+                </Text>
+              )}
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.title} numberOfLines={1}>
+                {item.store_name}
               </Text>
-            )}
+              {item.city && (
+                <Text style={styles.subTitle} numberOfLines={1}>
+                  {item.status_name} - {item.t_note}
+                </Text>
+              )}
+            </View>
           </View>
-          <TouchableWithoutFeedback
-            onPress={() => Linking.openURL(`tel:${item.driver_phone}`)}
-          >
-            <Icon
-              backgroundColor={handelColor(item.order_status_id)}
-              name="phone"
-              size={60}
-            />
-          </TouchableWithoutFeedback>
-        </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => Linking.openURL(`tel:${item.driver_phone}`)}
+        >
+          <Icon
+            backgroundColor={handelColor(item.order_status_id)}
+            name="phone"
+            size={65}
+          />
+        </TouchableHighlight>
       </View>
-    </TouchableHighlight>
+    </View>
   );
 }
 
@@ -97,6 +109,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     marginBottom: 10,
+    width: "100%",
   },
   detailsContainer: {
     flex: 1,

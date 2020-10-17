@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         padding: 10,
-        width: '90%',
-        marginVertical: 20,
+        width: '95%',
+        marginVertical: 5,
         shadowColor: colors.black,
         shadowOffset: {
             width: 0,
@@ -33,8 +33,9 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     text: {
-        fontSize: 20,
+        fontSize: 18,
         color: colors.white,
+        fontWeight: "bold"
     }
 
 

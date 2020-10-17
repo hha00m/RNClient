@@ -68,11 +68,11 @@ const DashboardNavigator = () => {
         component={ChatModel}
         options={{ title: "محادثة فورية" }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name={Routes.PDF_VIEW}
         component={pdfViewerScreen}
-        options={{ title: "كشف" }} */}
-      {/* /> */}
+        options={{ title: "كشف" }}
+      />
     </Stack.Navigator>
   );
 };
