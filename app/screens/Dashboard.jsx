@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { ScrollView, StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
 
 import AdsCompany from './../components/dashboard/AdsCompany'
 import Screen from '../components/Screen'
@@ -33,7 +33,8 @@ const Dashboard = () => {
 
         <Screen>
             <ScrollView>
-                <AdsCompany title={adsText.c_ad1} />
+                {!adsText.c_ad1 ? <ActivityIndicator animating={isLoading} size="large" /> :
+                    <AdsCompany title={adsText.c_ad1} />}
                 <SummaryBoxes />
                 <OptionsList />
             </ScrollView>

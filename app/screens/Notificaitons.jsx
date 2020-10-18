@@ -23,8 +23,8 @@ function NotificationScreen(props) {
 
     const loadNotification = async () => {
         const results = await getNotifications.get(user.token);
-        setMessages([...messages, ...results.data]);
-        setTotalNotificaiton(results.unseen);
+        setMessages([...messages, ...results.data.data]);
+        setTotalNotificaiton(results.data.unseen);
     };
     useEffect(() => {
         loadNotification();

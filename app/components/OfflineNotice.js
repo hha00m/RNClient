@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.black,
+    textAlign: "center",
   },
 });
 

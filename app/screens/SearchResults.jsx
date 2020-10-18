@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,7 +8,6 @@ import Screen from './../components/Screen'
 import AppPickerCity from './../components/AppPickerCites'
 import Button from './../components/AppButton'
 import useAuth from "../auth/useAuth";
-import Routes from '../Routes';
 import getCities from '../api/getCities'
 import getStores from '../api/getStores'
 import getStatues from '../api/getStatues'
@@ -20,7 +19,7 @@ import colors from '../config/colors';
 function Dashboard() {
     const navigator = useNavigation();
     let { user } = useAuth();
-    const [orders, setOrders] = useState({});
+    const [orders, setOrders] = useState([]);
     const [cities, setCities] = useState([]);
     const [city, setCity] = useState(null);
     const [stores, setStores] = useState([]);
@@ -31,28 +30,39 @@ function Dashboard() {
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [LoadMore, setLoadMore] = useState("1");
+    const [update, setUpdate] = useState(false);
 
 
 
     const loadOrders = async () => {
         setIsLoading(true);
         const results = (await getOrders.getOrders(user.token, status ? status.id : null, city ? city.id : null, store ? store.id : null, search ? search : null, LoadMore));
-        // const array = [...orders, ...results.data]
-        // setOrders(array);
-        setOrders(results.data);
+        if (!results.ok) {
+            setUpdate(false);
+            return setIsLoading(false);
+        }
+        if (update) {
+            setOrders([]);
+            setUpdate(false);
+        }
+
+        const array = [...orders, ...results.data.data]
+        // setOrders(results.data.data);
         setIsLoading(false);
-        // setLoadMore(results.nextPage);
+        setLoadMore(results.nextPage);
+        setOrders(array);
+
 
     };
     useEffect(() => {
-        // setLoadMore("1");
+        setLoadMore("1");
         loadCities();
         loadStores();
         loadStatues();
     }, []);
     useEffect(() => {
-        // setLoadMore("1");
-        // setOrders([]);
+        setLoadMore("1");
+        setUpdate(true);
         loadOrders();
     }, [status, city, store]);
     const loadCities = async () => {

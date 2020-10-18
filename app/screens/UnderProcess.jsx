@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -11,7 +11,6 @@ import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
 import getCities from '../api/getCities'
 import getStores from '../api/getStores'
-import getStatues from '../api/getStatues'
 import getOrders from '../api/categoryOrders'
 import colors from '../config/colors';
 
@@ -25,8 +24,6 @@ function Dashboard() {
     const [city, setCity] = useState(null);
     const [stores, setStores] = useState([]);
     const [store, setStore] = useState(null);
-    const [statues, setStatues] = useState([]);
-    const [status, setStatus] = useState(null);
     const [search, setSearch] = useState("");
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -78,7 +75,7 @@ function Dashboard() {
         setUpdate(true);
         loadOrders();
 
-    }, [status, city, store]);
+    }, [city, store]);
     //================================================
     const onEndReachedMohamed = () => {
         loadOrders();

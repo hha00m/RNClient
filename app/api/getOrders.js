@@ -16,14 +16,7 @@ const getOrders = (
   if (page) url += `&page=${page}`;
   if (store) url += `&store=${store}`;
   if (city) url += `&city=${city}`;
-  return fetch(url)
-    .then((response) => response.json())
-    .then((json) => {
-      return json;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  return client.get(url);
 };
 
 export default {
