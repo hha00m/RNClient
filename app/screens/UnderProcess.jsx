@@ -20,7 +20,7 @@ import colors from '../config/colors';
 function Dashboard() {
     const navigator = useNavigation();
     let { user } = useAuth();
-    const [orders, setOrders] = useState({});
+    const [orders, setOrders] = useState([]);
     const [cities, setCities] = useState([]);
     const [city, setCity] = useState(null);
     const [stores, setStores] = useState([]);
@@ -31,28 +31,26 @@ function Dashboard() {
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [LoadMore, setLoadMore] = useState("1");
-
+    const [update, setUpdate] = useState(false);
 
     const loadOrders = async () => {
         setIsLoading(true);
         const results = (await getOrders.get(user.token, "returned", city ? city.id : null, store ? store.id : null, search ? search : null, LoadMore));
-        // const array = [...orders, ...results.data]
-        // setOrders(array);
-        setOrders(results.data);
+        if (!results.ok) {
+            setUpdate(false);
+            return setIsLoading(false);
+        }
+        if (update) {
+            setOrders([]);
+            setUpdate(false);
+        }
+        const array = [...orders, ...results.data.data]
         setIsLoading(false);
-        // setLoadMore(results.nextPage);
+        setOrders(array);
+        setLoadMore(results.nextPage);
 
     };
-    useEffect(() => {
-        // setLoadMore("1");
-        loadCities();
-        loadStores();
-    }, []);
-    useEffect(() => {
-        // setLoadMore("1");
-        // setOrders([]);
-        loadOrders();
-    }, [status, city, store]);
+
     const loadCities = async () => {
         const results = await getCities.getCities(user.token);
         const array = [{
@@ -70,6 +68,18 @@ function Dashboard() {
         setStores([...array, ...results.data.data]);
     };
 
+    useEffect(() => {
+        setLoadMore("1");
+        loadCities();
+        loadStores();
+    }, []);
+    useEffect(() => {
+        setLoadMore("1");
+        setUpdate(true);
+        loadOrders();
+
+    }, [status, city, store]);
+    //================================================
     const onEndReachedMohamed = () => {
         loadOrders();
     }
@@ -99,7 +109,6 @@ function Dashboard() {
                         backgroundColor={colors.white}
                         color={colors.white} />
                 </View>
-
                 <View style={{ width: "45%", marginHorizontal: 2 }}>
                     <AppPickerCity placeholder="صفحة" name="page"
                         onSelectItem={item => setStore(item)}
@@ -114,6 +123,7 @@ function Dashboard() {
                 width: "100%",
                 borderBottomColor: colors.primery,
                 borderBottomWidth: 2,
+                marginBottom: 5,
                 backgroundColor: colors.white
             }}>
                 <Button onPress={loadOrders} title="أبداء البحث" />
@@ -125,8 +135,7 @@ function Dashboard() {
                 renderItem={({ item }) => (
                     <OrderCard
                         item={item}
-                    //onPress={() => navigator.navigate(Routes.ORDER_DETAILS, { id: item.id })} 
-                    />
+                        onPress={() => navigator.navigate(Routes.ORDER_DETAILS, { id: item.id })} />
                 )}
                 ItemSeparatorComponent={ListItemSeparator}
                 onEndReachedThreshold={0.25}

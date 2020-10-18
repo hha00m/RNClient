@@ -12,4 +12,6 @@ export default {
   success: "#39C555",
   pause: "#FFA500",
   returned: "#FF3730",
+  offline: "#F0E2A4",
+  basic: "#383838",
 };

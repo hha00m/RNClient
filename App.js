@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppLoading } from "expo";
-import NetInfo from "@react-native-community/netinfo";
 
 import navigationTheme from "./app/navigations/NavigationTheme";
 import AppNavigator from "./app/navigations/AppNavigation";
 import AuthNavigator from "./app/navigations/AuthNavigator";
-import DashboardNavigator from "./app/navigations/DashboardNavigator";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
-import OrderDetails from "./app/screens/OrderDetails";
-import ChatModel from "./app/screens/ChatModel";
-import Disclosure from "./app/screens/Disclosures";
+import OfflineNotice from "./app/components/OfflineNotice";
 import { I18nManager } from "react-native";
 
 export default function App() {
@@ -32,11 +28,9 @@ export default function App() {
     );
 
   return (
-    // <Disclosure/>
     <AuthContext.Provider value={{ user, setUser }}>
+      {/* <OfflineNotice /> */}
       <NavigationContainer theme={navigationTheme}>
-        {/* <DashboardNavigator /> */}
-
         {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>
