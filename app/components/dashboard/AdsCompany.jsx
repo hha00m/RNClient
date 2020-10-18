@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';
 import HTML from 'react-native-render-html';
 
-import AppText from '../AppText';
 import colors from '../../config/colors'
 import { ScrollView } from 'react-native-gesture-handler';
 const AdsCompany = ({ title }) => {

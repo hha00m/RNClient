@@ -28,9 +28,7 @@ const ChatModel = () => {
 
     const sendMessages = async (token, id, message) => {
         console.log("send message from method")
-        const results = (await getMessages.sendMessages(token, id, message));
-        // setMessages(...messages, ...message);
-        // setIsLoading(false);
+            (await getMessages.sendMessages(token, id, message));
         loadMessages(token, id);
     };
     //---------------------------------------------------------
