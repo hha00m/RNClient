@@ -13,11 +13,11 @@ import getStores from '../api/getStores'
 import getStatues from '../api/getStatues'
 import getOrders from '../api/getOrders'
 import colors from '../config/colors';
+import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 
 
 
 function Dashboard() {
-    const navigator = useNavigation();
     let { user } = useAuth();
     const [orders, setOrders] = useState([]);
     const [cities, setCities] = useState([]);
@@ -29,42 +29,49 @@ function Dashboard() {
     const [search, setSearch] = useState("");
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [LoadMore, setLoadMore] = useState("1");
+    const [loadMore, setLoadMore] = useState("1");
     const [update, setUpdate] = useState(false);
 
 
 
     const loadOrders = async () => {
-        setIsLoading(true);
-        const results = (await getOrders.getOrders(user.token, status ? status.id : null, city ? city.id : null, store ? store.id : null, search ? search : null, LoadMore));
+        const results = (await getOrders.getOrders(user.token, status ? status.id : null, city ? city.id : null, store ? store.id : null, search ? search : null, loadMore));
         if (!results.ok) {
             setUpdate(false);
             return setIsLoading(false);
         }
         if (update) {
-            setOrders([]);
             setUpdate(false);
+            setIsLoading(false);
+            setLoadMore(results.data.nextPage);
+            return setOrders(results.data.data);
         }
 
         const array = [...orders, ...results.data.data]
         // setOrders(results.data.data);
         setIsLoading(false);
-        setLoadMore(results.nextPage);
+        setLoadMore(results.data.nextPage);
         setOrders(array);
 
 
     };
+    let isFistTime = true;
     useEffect(() => {
-        setLoadMore("1");
-        loadCities();
-        loadStores();
-        loadStatues();
-    }, []);
-    useEffect(() => {
-        setLoadMore("1");
-        setUpdate(true);
+        if (!isFistTime) {
+            setLoadMore("1");
+            setOrders([]);
+            setUpdate(true);
+        }
+        if (isFistTime) {
+            loadCities();
+            setIsLoading(true);
+            loadStores();
+            loadStatues();
+            isFistTime = false;
+        }
         loadOrders();
     }, [status, city, store]);
+
     const loadCities = async () => {
         const results = await getCities.getCities(user.token);
         const array = [{
@@ -159,7 +166,7 @@ function Dashboard() {
             // refreshing={refreshing}
             // onRefresh={() => refreshingMethod()}
             />
-            {isLoading && <ActivityIndicator animating={isLoading} size="large" hidesWhenStopped={true} />}
+            {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
 
         </Screen>
     );

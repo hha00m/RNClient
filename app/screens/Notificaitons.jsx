@@ -9,10 +9,12 @@ import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
 import colors from "../config/colors";
 import AppText from "../components/AppText";
+import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorNotifications";
 
 function NotificationScreen(props) {
     const [messages, setMessages] = useState([]);
     const [totalNotificaiton, setTotalNotificaiton] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
     const navigator = useNavigation();
     let { user } = useAuth();
 
@@ -22,9 +24,11 @@ function NotificationScreen(props) {
     };
 
     const loadNotification = async () => {
+        setIsLoading(true);
         const results = await getNotifications.get(user.token);
         setMessages([...messages, ...results.data.data]);
         setTotalNotificaiton(results.data.unseen);
+        setIsLoading(false);
     };
     useEffect(() => {
         loadNotification();
@@ -34,6 +38,7 @@ function NotificationScreen(props) {
             <AppText
                 style={styles.header}>جميع الاشعارات:{totalNotificaiton}
             </AppText>
+            {isLoading && <ActivityIndecator visable={isLoading} />}
             <FlatList
                 data={messages}
                 keyExtractor={(item) => item.id.toString()}

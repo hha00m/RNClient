@@ -8,7 +8,7 @@ import colors from '../config/colors'
 import Screen from './../components/Screen'
 import getMessages from './../api/getMessages'
 import useAuth from "../auth/useAuth";
-
+import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorChatLoading'
 const ChatModel = () => {
     const [value, onChangeText] = React.useState('');
     const route = useRoute();
@@ -35,7 +35,6 @@ const ChatModel = () => {
     return (
         <Screen>
             <View style={styles.container}>
-
                 <View style={styles.sendingBottonContainer}>
                     <InputTextMessage
                         autoCapitalize="none"
@@ -48,15 +47,17 @@ const ChatModel = () => {
                     />
                 </View>
                 <View style={{ flexDirection: "column-reverse", justifyContent: "space-around", width: "100%", height: "85%" }}>
-                    <FlatList
-                        style={{ flex: 1 }}
-                        data={messages}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) => (
-                            item.is_client === "1" ? <Sender item={item} key={item.id} /> : <Reciever item={item} key={item.id} />
-                        )}
-                    // ItemSeparatorComponent={ListItemSeparator}
-                    />
+                    {isLoading ? <ActivityIndecator visable={isLoading} /> :
+                        <FlatList
+                            style={{ flex: 1 }}
+                            data={messages}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({ item }) => (
+                                item.is_client === "1" ? <Sender item={item} key={item.id} /> : <Reciever item={item} key={item.id} />
+                            )}
+                        // ItemSeparatorComponent={ListItemSeparator}
+                        />
+                    }
                 </View>
 
             </View>

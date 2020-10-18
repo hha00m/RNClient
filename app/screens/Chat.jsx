@@ -12,11 +12,13 @@ import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
 import colors from "../config/colors";
 import AppText from "../components/AppText";
+import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorNotifications";
 
 function NotificationScreen(props) {
     const [messages, setMessages] = useState([]);
     const [totalNotificaiton, setTotalNotificaiton] = useState(0);
     const navigator = useNavigation();
+    const [isLoading, setIsLoading] = useState(false);
     let { user } = useAuth();
 
     const config = {
@@ -25,9 +27,11 @@ function NotificationScreen(props) {
     };
 
     const loadNotification = async () => {
+        setIsLoading(true);
         const results = await getChatListAPI.get(user.token);
         setMessages([...messages, ...results.data.data]);
         setTotalNotificaiton(results.data.count);
+        setIsLoading(false);
     };
     useEffect(() => {
         loadNotification();
@@ -37,6 +41,7 @@ function NotificationScreen(props) {
             <AppText
                 style={styles.header}>جميع المحادثات المفتوحة:{totalNotificaiton}
             </AppText>
+            {isLoading && <ActivityIndecator visable={isLoading} />}
             <FlatList
                 data={messages}
                 keyExtractor={(item) => item.id.toString()}

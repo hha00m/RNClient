@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import AppText from '../AppText';
 import SummaryBox from './SummaryBox';
 import getStatistic from '../../api/getSummayBoxed'
@@ -29,15 +29,12 @@ const SummaryBoxes = () => {
         <>
 
             <AppText style={styles.text}>خلاصة الطلبيات والمبالغ</AppText>
+            <View style={styles.summaryContainer}>
+                {oneDay && <SummaryBox background="#4CAF50" boxes={oneDay.orders} amount={oneDay.client_price} time="اليوم" />}
+                {sevenDay && <SummaryBox background="#0B4EBC" boxes={sevenDay.orders} amount={sevenDay.client_price} time="٧ ايام" colorM="#fff"></SummaryBox>}
+                {month && <SummaryBox background="#F4B400" boxes={month.orders} amount={month.client_price} time="٣٠ يوم"></SummaryBox>}
 
-            { isLoading ? <ActivityIndicator animating={isLoading} size="large" /> :
-                <View style={styles.summaryContainer}>
-
-                    {oneDay && <SummaryBox background="#4CAF50" boxes={oneDay.orders} amount={oneDay.client_price} time="اليوم" />}
-                    {sevenDay && <SummaryBox background="#0B4EBC" boxes={sevenDay.orders} amount={sevenDay.client_price} time="٧ ايام" colorM="#fff"></SummaryBox>}
-                    {month && <SummaryBox background="#F4B400" boxes={month.orders} amount={month.client_price} time="٣٠ يوم"></SummaryBox>}
-
-                </View>}
+            </View>
         </>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import { Image } from 'react-native-animatable'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
@@ -10,6 +10,7 @@ import TrackingBox from '../components/TrackingBox'
 import getOrder from '../api/getOrder'
 import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
+import ActivityIndicator from '../components/ActivtyIndectors/ActivityIndecatorOrderDetails'
 
 
 
@@ -93,7 +94,7 @@ const OrderDetails = () => {
                     </ScrollView>
                 </View>
                 :
-                <ActivityIndicator size="large" animating={isLoading} />
+                <ActivityIndicator visable={isLoading} />
             }
         </Screen >
     )

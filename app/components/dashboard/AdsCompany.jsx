@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import HTML from 'react-native-render-html';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import colors from '../../config/colors'
-import { ScrollView } from 'react-native-gesture-handler';
+
 const AdsCompany = ({ title }) => {
     return (
         <View style={styles.adsContainer}>
@@ -26,6 +27,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         margin: "1%",
         padding: 20,
+        borderColor: colors.black,
+        borderWidth: 2,
     },
     adsAlart: {
         width: 60,

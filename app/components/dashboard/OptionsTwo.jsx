@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import Option from './Option';
 const OptionsList = ({ options }) => {

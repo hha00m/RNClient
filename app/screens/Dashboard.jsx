@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import AdsCompany from './../components/dashboard/AdsCompany'
 import Screen from '../components/Screen'
@@ -8,7 +9,9 @@ import OptionsList from '../components/dashboard/OptionsList'
 import Routes from '../Routes';
 import getAdsAPI from '../api/getAds';
 import useAuth from "../auth/useAuth";
-import { useNavigation } from '@react-navigation/native';
+import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorAds';
+import loadings from '../config/loadings';
+
 const Dashboard = () => {
 
     const [adsText, setText] = useState("");
@@ -33,7 +36,7 @@ const Dashboard = () => {
 
         <Screen>
             <ScrollView>
-                {!adsText.c_ad1 ? <ActivityIndicator animating={isLoading} size="large" /> :
+                {!adsText.c_ad1 ? <ActivityIndecator visable={isLoading} type={loadings.adsTab} /> :
                     <AdsCompany title={adsText.c_ad1} />}
                 <SummaryBoxes />
                 <OptionsList />
