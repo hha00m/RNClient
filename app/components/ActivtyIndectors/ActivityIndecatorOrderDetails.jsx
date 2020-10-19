@@ -10,6 +10,7 @@ const ActivityIndecator = (visable = false, style) => {
             marginTop: 20,
             width: 400,
             height: 400,
+            alignSelf: "center"
         }}
         autoPlay
         loop

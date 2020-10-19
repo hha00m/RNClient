@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import AppText from '../AppText';
 import SummaryBox from './SummaryBox';
 import getStatistic from '../../api/getSummayBoxed'
+import ActivityIndecator from '../ActivtyIndectors/ActivityIndecatorSquers';
 
 const SummaryBoxes = () => {
     const [oneDay, setOneDay] = useState(null);
@@ -30,8 +31,11 @@ const SummaryBoxes = () => {
 
             <AppText style={styles.text}>خلاصة الطلبيات والمبالغ</AppText>
             <View style={styles.summaryContainer}>
-                {oneDay && <SummaryBox background="#4CAF50" boxes={oneDay.orders} amount={oneDay.client_price} time="اليوم" />}
+                {isLoading && <ActivityIndecator style={styles.summaryContainer} visable={isLoading} />}
+                {oneDay && <SummaryBox isLoading={isLoading} background="#4CAF50" boxes={oneDay.orders} amount={oneDay.client_price} time="اليوم" />}
+                {isLoading && <ActivityIndecator style={styles.summaryContainer} visable={isLoading} />}
                 {sevenDay && <SummaryBox background="#0B4EBC" boxes={sevenDay.orders} amount={sevenDay.client_price} time="٧ ايام" colorM="#fff"></SummaryBox>}
+                {isLoading && <ActivityIndecator style={styles.summaryContainer} visable={isLoading} />}
                 {month && <SummaryBox background="#F4B400" boxes={month.orders} amount={month.client_price} time="٣٠ يوم"></SummaryBox>}
 
             </View>

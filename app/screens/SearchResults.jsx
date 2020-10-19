@@ -29,48 +29,39 @@ function Dashboard() {
     const [search, setSearch] = useState("");
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [loadMore, setLoadMore] = useState("1");
-    const [update, setUpdate] = useState(false);
+    const [noOrders, setNoOrders] = useState("0");
+    const [page, setPage] = useState("1");
 
+    const prefix = "SearchResults";
 
-
-    const loadOrders = async () => {
-        const results = (await getOrders.getOrders(user.token, status ? status.id : null, city ? city.id : null, store ? store.id : null, search ? search : null, loadMore));
+    const loadOrders = async (nextPage) => {
+        const results = (await getOrders.getOrders(user.token, status ? status.id : null, city ? city.id : null, store ? store.id : null, search ? search : null, nextPage));
         if (!results.ok) {
-            setUpdate(false);
+
             return setIsLoading(false);
         }
-        if (update) {
-            setUpdate(false);
-            setIsLoading(false);
-            setLoadMore(results.data.nextPage);
-            return setOrders(results.data.data);
-        }
+        setPage(results.data.nextPage);
 
-        const array = [...orders, ...results.data.data]
-        // setOrders(results.data.data);
+        if (nextPage === "1") {
+            setNoOrders(results.data.orders);
+            setOrders(results.data.data);
+            return setIsLoading(false);
+        }
+        setOrders([...orders, ...results.data.data]);
         setIsLoading(false);
-        setLoadMore(results.data.nextPage);
-        setOrders(array);
+    }
 
-
-    };
-    let isFistTime = true;
     useEffect(() => {
-        if (!isFistTime) {
-            setLoadMore("1");
-            setOrders([]);
-            setUpdate(true);
-        }
-        if (isFistTime) {
-            loadCities();
-            setIsLoading(true);
-            loadStores();
-            loadStatues();
-            isFistTime = false;
-        }
-        loadOrders();
+        setIsLoading(true);
+        loadOrders("1");
     }, [status, city, store]);
+
+    useEffect(() => {
+        setIsLoading(true);
+        loadCities();
+        loadStores();
+        loadStatues();
+    }, []);
 
     const loadCities = async () => {
         const results = await getCities.getCities(user.token);
@@ -97,14 +88,11 @@ function Dashboard() {
         setStatues([...array, ...results.data.data]);
     };
     const onEndReachedMohamed = () => {
-        loadOrders();
+        loadOrders(page);
     }
     const refreshingMethod = () => {
         setRefreshing(true);
-
-        setLoadMore("1");
-        setOrders([]);
-        loadOrders();
+        loadOrders("1");
         setRefreshing(false);
     }
     return (
@@ -149,12 +137,12 @@ function Dashboard() {
                 borderBottomWidth: 2,
                 backgroundColor: colors.white
             }}>
-                <Button onPress={loadOrders} title="أبداء البحث" />
+                <Button onPress={() => loadOrders("1")} title={`أبحث في (${noOrders}) طلبية`} />
             </View>
             <FlatList
                 style={{ flex: 1, width: "100%", }}
                 data={orders}
-                keyExtractor={(item) => (`${item.id}-${item.date}`).toString()}
+                keyExtractor={(item) => (`${item.id}-${prefix}`).toString()}
                 renderItem={({ item }) => (
                     <OrderCard
                         item={item}

@@ -13,6 +13,7 @@ import getCities from '../api/getCities'
 import getStores from '../api/getStores'
 import getOrders from '../api/categoryOrders'
 import colors from '../config/colors';
+import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 
 
 
@@ -27,26 +28,28 @@ function Dashboard() {
     const [search, setSearch] = useState("");
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [LoadMore, setLoadMore] = useState("1");
     const [update, setUpdate] = useState(false);
+    const [noOrders, setNoOrders] = useState("0");
+    const [page, setPage] = useState("1");
 
-    const loadOrders = async () => {
-        setIsLoading(true);
-        const results = (await getOrders.get(user.token, "returned", city ? city.id : null, store ? store.id : null, search ? search : null, LoadMore));
+    const prefix = "UnderProcess";
+
+    const loadOrders = async (nextPage) => {
+        const results = (await getOrders.get(user.token, "returned", city ? city.id : null, store ? store.id : null, search ? search : null, nextPage));
         if (!results.ok) {
-            setUpdate(false);
+
             return setIsLoading(false);
         }
-        if (update) {
-            setOrders([]);
-            setUpdate(false);
-        }
-        const array = [...orders, ...results.data.data]
-        setIsLoading(false);
-        setOrders(array);
-        setLoadMore(results.nextPage);
+        setPage(results.data.nextPage);
 
-    };
+        if (nextPage === "1") {
+            setNoOrders(results.data.orders);
+            setOrders(results.data.data);
+            return setIsLoading(false);
+        }
+        setOrders([...orders, ...results.data.data]);
+        setIsLoading(false);
+    }
 
     const loadCities = async () => {
         const results = await getCities.getCities(user.token);
@@ -66,26 +69,22 @@ function Dashboard() {
     };
 
     useEffect(() => {
-        setLoadMore("1");
+        setIsLoading(true);
+        loadOrders("1");
+    }, [city, store]);
+
+    useEffect(() => {
+        setIsLoading(true);
         loadCities();
         loadStores();
     }, []);
-    useEffect(() => {
-        setLoadMore("1");
-        setUpdate(true);
-        loadOrders();
-
-    }, [city, store]);
     //================================================
     const onEndReachedMohamed = () => {
-        loadOrders();
+        loadOrders(page);
     }
     const refreshingMethod = () => {
         setRefreshing(true);
-
-        setLoadMore("1");
-        setOrders([]);
-        loadOrders();
+        loadOrders("1");
         setRefreshing(false);
     }
     return (
@@ -123,12 +122,12 @@ function Dashboard() {
                 marginBottom: 5,
                 backgroundColor: colors.white
             }}>
-                <Button onPress={loadOrders} title="أبداء البحث" />
+                <Button onPress={() => loadOrders("1")} title={`أبحث في (${noOrders}) طلبية`} color="returned" />
             </View>
             <FlatList
                 style={{ flex: 1, width: "100%", }}
                 data={orders}
-                keyExtractor={(item) => (`${item.id}-${item.date}`).toString()}
+                keyExtractor={(item) => (`${item.id}-${prefix}`).toString()}
                 renderItem={({ item }) => (
                     <OrderCard
                         item={item}
@@ -140,7 +139,7 @@ function Dashboard() {
             // refreshing={refreshing}
             // onRefresh={() => refreshingMethod()}
             />
-            {isLoading && <ActivityIndicator animating={isLoading} size="large" hidesWhenStopped={true} />}
+            {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
 
         </Screen>
     );

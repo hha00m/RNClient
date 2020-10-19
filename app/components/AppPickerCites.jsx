@@ -6,6 +6,7 @@ import AppText from './AppText';
 import defultStyle from '../config/styles';
 import PickerItem from './PickerItem'
 import colors from '../config/colors';
+import ListItemSeparator from './lists/ListItemSeparator'
 export default function AppPicker({ icon, items, width = "100%", onSelectItem, placeholder, selectedItem, PickerItemComponent = PickerItem, backgroundColor, color }) {
     const [modalVisable, setModalVisable] = useState(false);
     return (
@@ -34,6 +35,8 @@ export default function AppPicker({ icon, items, width = "100%", onSelectItem, p
                                     onSelectItem(item);
 
                                 }} />}
+                        ItemSeparatorComponent={ListItemSeparator}
+
                     />
                 </Screen>
             </Modal>

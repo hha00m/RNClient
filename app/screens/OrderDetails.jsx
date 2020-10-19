@@ -29,6 +29,7 @@ const OrderDetails = () => {
     };
     useEffect(() => {
         loadDetails(user.token, route.params.id);
+        // loadDetails("5f637eb2b080f5f637eb2b08115f637eb2b08135f637eb2b0814", "198932");
     }, [])
     const handelColor = (id) => {
         switch (id) {
@@ -116,8 +117,9 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     container: {
-        backgroundColor: colors.gray,
-        flex: 1
+        backgroundColor: colors.black,
+        width: "100%",
+        height: "100%"
     },
     orderDetailsContainer: {
         backgroundColor: colors.white,
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        marginBottom: 10
+        // marginBottom: 10
     },
     textContainer: {
         width: "100%",
@@ -143,13 +145,13 @@ const styles = StyleSheet.create({
         // backgroundColor: "gray",
         marginRight: "10%",
         marginBottom: "5%",
-        marginTop: "2%",
+        // marginTop: "2%",
         flexDirection: "column",
     },
 
     chatShadow: {
-        width: 50,
-        height: 50,
+        width: 70,
+        height: 70,
         position: "absolute",
         top: 150,
         left: 30,
@@ -163,6 +165,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
 
         elevation: 5,
+        padding: 5,
     },
     chatIcon: {
         width: "100%",
@@ -200,7 +203,8 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
         flexDirection: "row-reverse",
-        justifyContent: "space-around"
+        justifyContent: "space-around",
+        margin: 5,
     },
     trackingTitle: {
         color: "#39C555",

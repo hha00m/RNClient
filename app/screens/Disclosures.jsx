@@ -27,6 +27,7 @@ function Dashboard() {
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [LoadMore, setLoadMore] = useState("1");
+    const prefix = "Disclosures";
 
 
 
@@ -126,7 +127,7 @@ function Dashboard() {
             <FlatList
                 style={{ flex: 1, width: "100%", }}
                 data={pdfs}
-                keyExtractor={(item) => (`${item.id}-${item.date}`).toString()}
+                keyExtractor={(item) => (`${item.id}-${prefix}`).toString()}
                 renderItem={({ item }) => (
                     <ReportCard
                         item={item}

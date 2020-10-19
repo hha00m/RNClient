@@ -17,6 +17,7 @@ function NotificationScreen(props) {
     const [isLoading, setIsLoading] = useState(false);
     const navigator = useNavigation();
     let { user } = useAuth();
+    const prefix = "notificaiotnsScreens";
 
     const config = {
         velocityThreshold: 0.3,
@@ -41,7 +42,7 @@ function NotificationScreen(props) {
             {isLoading && <ActivityIndecator visable={isLoading} />}
             <FlatList
                 data={messages}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item) => `${item.id}-${prefix}`.toString()}
                 renderItem={({ item }) => (
                     <ListItem
                         title={`${item.title} - ${item.order_no}`}

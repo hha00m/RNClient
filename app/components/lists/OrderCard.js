@@ -45,7 +45,7 @@ function OrderCard({ item, onPress }) {
     >
       <View style={styles.container}>
         <TouchableHighlight
-          style={{ width: "85%", height: "100%" }}
+          style={{ width: "87%", height: "100%" }}
           underlayColor={colors.light}
           onPress={() =>
             navigation.navigate(Routes.ORDER_DETAILS, { id: item.id })

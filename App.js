@@ -9,7 +9,8 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import OfflineNotice from "./app/components/OfflineNotice";
 import { I18nManager } from "react-native";
-import AcvityIn from "./app/components/ActivtyIndectors/ActivityIndecatorNotifications";
+import AcvityIn from "./app/components/ActivtyIndectors/ActivityIndecatorSquers";
+import OrderDetails from "./app/screens/OrderDetails";
 
 export default function App() {
   const [user, setUser] = useState();
@@ -29,6 +30,7 @@ export default function App() {
     );
 
   return (
+    // <OrderDetails />
     // <AcvityIn visable={true} />
     <AuthContext.Provider value={{ user, setUser }}>
       <OfflineNotice />
