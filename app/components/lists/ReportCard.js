@@ -38,7 +38,7 @@ function OrderCard({ item, onPress }) {
         <View style={styles.container}>
           <View style={styles.detailsContainer}>
             <Text style={styles.title} numberOfLines={1}>
-              {item.date}
+              {item.in_date}
             </Text>
             <Text style={styles.subTitle} numberOfLines={1}>
               {item.store_name}
@@ -78,7 +78,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row-reverse",
     backgroundColor: colors.white,
-    borderRadius: 10,
+    borderRadius: 5,
+    borderTopLeftRadius: 35,
+    borderBottomLeftRadius: 35,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

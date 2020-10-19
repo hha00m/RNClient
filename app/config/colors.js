@@ -14,4 +14,6 @@ export default {
   returned: "#FF3730",
   offline: "#f1e5bc",
   basic: "#383838",
+  lightGreen: "#F3FBD0",
+  unseen: "#f7fbfd",
 };

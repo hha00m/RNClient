@@ -9,7 +9,7 @@ import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
 import colors from "../config/colors";
 import AppText from "../components/AppText";
-import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorNotifications";
+import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorSimpleLine";
 
 function NotificationScreen(props) {
     const [messages, setMessages] = useState([]);
@@ -48,8 +48,8 @@ function NotificationScreen(props) {
                         title={`${item.title} - ${item.order_no}`}
                         subTitle={`${item.body} `}
                         date={item.date}
-                        seen={item.client_seen == 1 ? colors.white : colors.gray}
-                        image={item.client_seen == 1 ? require("../assets/notifications/seen.png") : require("../assets/notifications/unseen.png")}
+                        seen={item.client_seen === "1" ? colors.white : colors.unseen}
+                        image={item.client_seen === "1" ? require("../assets/notifications/seen.png") : require("../assets/notifications/unseen.png")}
                         onPress={() => navigator.navigate(Routes.ORDER_DETAILS, { id: item.order_id })}
                     />
                 )}

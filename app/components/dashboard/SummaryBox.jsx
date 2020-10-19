@@ -5,9 +5,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import AppText from '../AppText';
 import colors from '../../config/colors'
 const SummaryBox = ({ background, boxes, amount, time, colorM }) => {
-    function numberWithCommas(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
+
     return (
         <View
             style={{

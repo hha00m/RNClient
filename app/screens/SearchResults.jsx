@@ -88,6 +88,7 @@ function Dashboard() {
         setStatues([...array, ...results.data.data]);
     };
     const onEndReachedMohamed = () => {
+        setIsLoading(true);
         loadOrders(page);
     }
     const refreshingMethod = () => {
@@ -137,7 +138,10 @@ function Dashboard() {
                 borderBottomWidth: 2,
                 backgroundColor: colors.white
             }}>
-                <Button onPress={() => loadOrders("1")} title={`أبحث في (${noOrders}) طلبية`} />
+                <Button onPress={() => {
+                    setIsLoading(true);
+                    loadOrders("1")
+                }} title={`أبحث في (${noOrders}) طلبية`} />
             </View>
             <FlatList
                 style={{ flex: 1, width: "100%", }}
@@ -149,7 +153,7 @@ function Dashboard() {
                     />
                 )}
                 ItemSeparatorComponent={ListItemSeparator}
-                onEndReachedThreshold={0.25}
+                onEndReachedThreshold={0.5}
                 onEndReached={() => onEndReachedMohamed()}
             // refreshing={refreshing}
             // onRefresh={() => refreshingMethod()}

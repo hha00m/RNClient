@@ -9,7 +9,7 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import OfflineNotice from "./app/components/OfflineNotice";
 import { I18nManager } from "react-native";
-import AcvityIn from "./app/components/ActivtyIndectors/ActivityIndecatorLoading.jsx";
+import AcvityIn from "./app/components/ActivtyIndectors/ActivityIndecatorLoading";
 import { navigationRef } from "./app/navigations/rootNavigation";
 
 export default function App() {

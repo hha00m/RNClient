@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native'
 import * as Yup from 'yup';
 
-import { ErrorMessage, AppFormFieldLogin, AppForm, SubmitButtonLogin } from '../components/forms'
+import { ErrorMessage, AppFormField, AppForm, SubmitButton } from '../components/forms'
 import authApi from "../api/auth";
 import useAuth from "../auth/useAuth";
 import Screen from '../components/Screen';
@@ -48,7 +48,7 @@ export default function LoginPage() {
                 </View>
                 <View style={styles.formContainer}>
                     <ErrorMessage error="رقم الهاتف او كلمة المرور خطاْ" visible={loginFailed} />
-                    <AppFormFieldLogin
+                    <AppFormField
                         rightIcon='cellphone-iphone'
                         name="phone"
                         caption="رقم الموبايل"
@@ -56,7 +56,7 @@ export default function LoginPage() {
                         keyboardType="phone-pad"
                         autoCorrect={false}
                     />
-                    <AppFormFieldLogin
+                    <AppFormField
                         rightIcon='lock'
                         leftIcon='eye'
                         caption="كلمة المرور"
@@ -65,7 +65,7 @@ export default function LoginPage() {
                         autoCorrect={false}
                         textContentType="password"
                     />
-                    <SubmitButtonLogin title="تسجيل دخول" />
+                    <SubmitButton title="تسجيل دخول" />
                 </View>
             </AppForm>
 
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     formContainer: {
         backgroundColor: colors.white,
         width: "95%",
-        height: "38%",
+        height: 220,
         top: "10%",
         alignSelf: 'center',
         borderWidth: 1,

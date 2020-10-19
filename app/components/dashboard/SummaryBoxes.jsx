@@ -30,12 +30,10 @@ const SummaryBoxes = () => {
         <>
 
             <AppText style={styles.text}>خلاصة الطلبيات والمبالغ</AppText>
+            {isLoading && <ActivityIndecator style={styles.summaryContainer} visable={isLoading} />}
             <View style={styles.summaryContainer}>
-                {isLoading && <ActivityIndecator style={styles.summaryContainer} visable={isLoading} />}
                 {oneDay && <SummaryBox isLoading={isLoading} background="#4CAF50" boxes={oneDay.orders} amount={oneDay.client_price} time="اليوم" />}
-                {isLoading && <ActivityIndecator style={styles.summaryContainer} visable={isLoading} />}
                 {sevenDay && <SummaryBox background="#0B4EBC" boxes={sevenDay.orders} amount={sevenDay.client_price} time="٧ ايام" colorM="#fff"></SummaryBox>}
-                {isLoading && <ActivityIndecator style={styles.summaryContainer} visable={isLoading} />}
                 {month && <SummaryBox background="#F4B400" boxes={month.orders} amount={month.client_price} time="٣٠ يوم"></SummaryBox>}
 
             </View>

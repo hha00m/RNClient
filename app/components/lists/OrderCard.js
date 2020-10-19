@@ -43,7 +43,15 @@ function OrderCard({ item, onPress }) {
         // backgroundColor: colors.primery,
       }}
     >
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor:
+              item.money_status === "1" ? colors.lightGreen : colors.white,
+          },
+        ]}
+      >
         <TouchableHighlight
           style={{ width: "87%", height: "100%" }}
           underlayColor={colors.light}
@@ -80,7 +88,7 @@ function OrderCard({ item, onPress }) {
           <Icon
             backgroundColor={handelColor(item.order_status_id)}
             name="phone"
-            size={65}
+            size={60}
           />
         </TouchableHighlight>
       </View>
@@ -98,8 +106,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flexDirection: "row-reverse",
-    backgroundColor: colors.white,
-    borderRadius: 35,
+    borderRadius: 5,
+    borderTopLeftRadius: 35,
+    borderBottomLeftRadius: 35,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
