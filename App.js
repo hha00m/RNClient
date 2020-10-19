@@ -9,8 +9,8 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import OfflineNotice from "./app/components/OfflineNotice";
 import { I18nManager } from "react-native";
-import AcvityIn from "./app/components/ActivtyIndectors/ActivityIndecatorSquers";
-import OrderDetails from "./app/screens/OrderDetails";
+import AcvityIn from "./app/components/ActivtyIndectors/ActivityIndecatorLoading.jsx";
+import { navigationRef } from "./app/navigations/rootNavigation";
 
 export default function App() {
   const [user, setUser] = useState();
@@ -19,9 +19,8 @@ export default function App() {
 
   const restoreUser = async () => {
     const user = await authStorage.getUser();
-    console.log("from app user:", user);
 
-    if (user) setUser(user);
+    if (user.code != "300") setUser(user);
   };
 
   if (!isReady)
@@ -34,8 +33,16 @@ export default function App() {
     // <AcvityIn visable={true} />
     <AuthContext.Provider value={{ user, setUser }}>
       <OfflineNotice />
-      <NavigationContainer theme={navigationTheme}>
-        {user ? <AppNavigator /> : <AuthNavigator />}
+      <NavigationContainer ref={navigationRef} theme={navigationTheme}>
+        {user ? (
+          user.token ? (
+            <AppNavigator />
+          ) : (
+            <AuthNavigator />
+          )
+        ) : (
+          <AuthNavigator />
+        )}
       </NavigationContainer>
     </AuthContext.Provider>
   );

@@ -13,11 +13,14 @@ import DashboardNavigator from "./DashboardNavigator";
 import ChatNavigator from "./ChatNavigator";
 import NotificationsNavigator from "./NotificationsNavigator";
 import expoPushTokenApi from "../api/expoPushTokens";
-
+import Navigation from "./rootNavigation";
 const Tab = createBottomTabNavigator();
-const AppNavigator = () => {
+const AppNavigator = (ref) => {
   useEffect(() => {
     regesterForPushNotificaition();
+    Notifications.addNotificationReceivedListener((notification) =>
+      Navigation.navigate(Routes.CHAT)
+    );
   }, []);
   const regesterForPushNotificaition = async () => {
     try {

@@ -7,10 +7,7 @@ const ActivityIndecator = (visable = false, style) => {
     if (!visable) return null;
     return <LottieView
         style={{
-            marginTop: 20,
-            width: 400,
-            height: 400,
-            alignSelf: "center"
+            flex: 1,
         }}
         autoPlay
         loop

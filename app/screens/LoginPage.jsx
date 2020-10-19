@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native'
 import * as Yup from 'yup';
 
-import { ErrorMessage, AppFormField, AppForm, SubmitButton } from '../components/forms'
+import { ErrorMessage, AppFormFieldLogin, AppForm, SubmitButtonLogin } from '../components/forms'
 import authApi from "../api/auth";
 import useAuth from "../auth/useAuth";
 import Screen from '../components/Screen';
 import colors from '../config/colors';
-// import ActivityIndecator from '../components/ActivityIndecator';
+import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorLoading';
 
 const validationSchema = Yup.object().shape({
     phone: Yup.string().required().min(11).max(11).label("رقم الهاتف"),
@@ -24,6 +24,10 @@ export default function LoginPage() {
             setIsLoading(false);
             return setLoginFailed(true);
         }
+        if (!results.data.token) {
+            setIsLoading(false);
+            return setLoginFailed(true);
+        }
         setLoginFailed(false);
         setIsLoading(false);
         console.log("from inside of login page:", results)
@@ -31,7 +35,8 @@ export default function LoginPage() {
     }
     return (
         <Screen >
-            <ActivityIndicator animating={isLoading} size="large" />
+            {isLoading && <ActivityIndecator visible={isLoading} />}
+
             <AppForm
                 initialValues={{ phone: '', password: '' }}
                 onSubmit={handleSubmit}
@@ -43,7 +48,7 @@ export default function LoginPage() {
                 </View>
                 <View style={styles.formContainer}>
                     <ErrorMessage error="رقم الهاتف او كلمة المرور خطاْ" visible={loginFailed} />
-                    <AppFormField
+                    <AppFormFieldLogin
                         rightIcon='cellphone-iphone'
                         name="phone"
                         caption="رقم الموبايل"
@@ -51,7 +56,7 @@ export default function LoginPage() {
                         keyboardType="phone-pad"
                         autoCorrect={false}
                     />
-                    <AppFormField
+                    <AppFormFieldLogin
                         rightIcon='lock'
                         leftIcon='eye'
                         caption="كلمة المرور"
@@ -60,7 +65,7 @@ export default function LoginPage() {
                         autoCorrect={false}
                         textContentType="password"
                     />
-                    <SubmitButton title="تسجيل دخول" />
+                    <SubmitButtonLogin title="تسجيل دخول" />
                 </View>
             </AppForm>
 
@@ -88,11 +93,12 @@ const styles = StyleSheet.create({
     formContainer: {
         backgroundColor: colors.white,
         width: "95%",
-        top: "5%",
+        height: "38%",
+        top: "10%",
         alignSelf: 'center',
         borderWidth: 1,
-        borderColor: "#BFC4CE",
-        borderRadius: 12,
+        borderColor: colors.gray,
+        borderRadius: 5,
         shadowColor: colors.black,
         shadowOffset: {
             width: 0,
