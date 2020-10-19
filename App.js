@@ -11,7 +11,7 @@ import OfflineNotice from "./app/components/OfflineNotice";
 import { I18nManager } from "react-native";
 import AcvityIn from "./app/components/ActivtyIndectors/ActivityIndecatorLoading";
 import { navigationRef } from "./app/navigations/rootNavigation";
-
+import TimePickerReport from "./app/components/AppPickerTime";
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
@@ -29,7 +29,7 @@ export default function App() {
     );
 
   return (
-    // <OrderDetails />
+    // <TimePickerReport />
     // <AcvityIn visable={true} />
     <AuthContext.Provider value={{ user, setUser }}>
       <OfflineNotice />

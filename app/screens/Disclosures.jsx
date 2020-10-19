@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, ActivityIndicator, Text } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { ReportCard, ListItemSeparator } from "../components/lists";
@@ -12,6 +12,8 @@ import getStatues from '../api/getStatues'
 import getPdfs from '../api/getPdfs'
 import colors from '../config/colors';
 import Routes from '../Routes';
+import ActivityIndicator from '../components/ActivtyIndectors/ActivityIndecatorSimpleLine'
+import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorMoneyTotal';
 
 
 
@@ -33,21 +35,19 @@ function Dashboard() {
 
     const loadPdfs = async () => {
         setIsLoading(true);
-        const results = (await getPdfs.getPdfs(user.token));
+        const results = (await getPdfs.getPdfs(user.token, store));
         setPdfs(results.data.data);
         setTotal(results.data.total)
         setIsLoading(false);
     };
     useEffect(() => {
-        // setLoadMore("1");
         loadStores();
         loadStatues();
     }, []);
     useEffect(() => {
-        // setLoadMore("1");
-        // setPdfs([]);
+
         loadPdfs();
-    }, [status, store]);
+    }, [store]);
 
     const loadStores = async () => {
         const results = await getStores.getStores(user.token);
@@ -65,34 +65,25 @@ function Dashboard() {
         }];
         setStatues([...array, ...results.data.data]);
     };
-    const onEndReachedMohamed = () => {
-        loadPdfs();
-    }
+
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-    const refreshingMethod = () => {
-        setRefreshing(true);
 
-        setLoadMore("1");
-        setPdfs([]);
-        loadPdfs();
-        setRefreshing(false);
-    }
     return (
         <Screen>
             <View
                 style={{ flexDirection: "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.white }}>
 
-                <View style={{ width: "45%", marginHorizontal: 2 }}>
-                    <AppPickerCity placeholder="الحالة" name="town"
+                <View style={{ width: "60%", marginHorizontal: 2 }}>
+                    <AppPickerCity placeholder="الحالة" name="calendar"
                         items={statues}
                         onSelectItem={item => setStatus(item)}
                         selectedItem={status}
                         backgroundColor={colors.white}
-                        icon="crosshairs-gps" />
+                        icon="calendar" />
                 </View>
-                <View style={{ width: "45%", marginHorizontal: 2 }}>
+                <View style={{ width: "30%", marginHorizontal: 2 }}>
                     <AppPickerCity placeholder="صفحة" name="page"
                         onSelectItem={item => setStore(item)}
                         selectedItem={store}
@@ -112,14 +103,18 @@ function Dashboard() {
                 <View style={{ width: "100%", alignItems: "center" }}>
                     <Text>مبالغ لم يتم التحاسب عليها بعد</Text>
                     <View style={{ backgroundColor: colors.white, borderColor: "gray", borderWidth: 1, margin: 10, padding: 10, width: "50%" }}>
-                        <View style={{ flexDirection: "row-reverse", alignItems: "flex-end" }}>
-                            <Text style={{ paddingHorizontal: 10 }}> عدد الطلبيات:</Text>
-                            <Text style={{ paddingHorizontal: 10 }}> {(total.orders)}</Text>
-                        </View>
-                        <View style={{ flexDirection: "row-reverse" }}>
-                            <Text style={{ paddingHorizontal: 10 }}>صافي الحساب:</Text>
-                            <Text style={{ paddingHorizontal: 10 }}> {total.income && numberWithCommas(total.income)}</Text>
-                        </View>
+                        {isLoading ? <ActivityIndecator visable={isLoading} /> :
+                            <>
+                                <View style={{ flexDirection: "row-reverse", alignItems: "flex-end" }}>
+                                    <Text style={{ paddingHorizontal: 10 }}> عدد الطلبيات:</Text>
+                                    <Text style={{ paddingHorizontal: 10 }}> {(total.orders)}</Text>
+                                </View>
+                                <View style={{ flexDirection: "row-reverse" }}>
+                                    <Text style={{ paddingHorizontal: 10 }}>صافي الحساب:</Text>
+                                    <Text style={{ paddingHorizontal: 10 }}> {total.income && numberWithCommas(total.income)}</Text>
+                                </View>
+                            </>
+                        }
                     </View>
                 </View>
 
@@ -135,10 +130,6 @@ function Dashboard() {
 
                 )}
                 ItemSeparatorComponent={ListItemSeparator}
-                onEndReachedThreshold={0.25}
-                onEndReached={() => onEndReachedMohamed()}
-            // refreshing={refreshing}
-            //  onRefresh={() => refreshingMethod()}
             />
             {isLoading && <ActivityIndicator animating={isLoading} size="large" hidesWhenStopped={true} />}
 

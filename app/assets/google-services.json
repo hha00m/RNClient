@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "410160983978",
+    "firebase_url": "https://alnahr-3a32e.firebaseio.com",
+    "project_id": "alnahr-3a32e",
+    "storage_bucket": "alnahr-3a32e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410160983978:android:011ad31c0b9a68229185d3",
+        "android_client_info": {
+          "package_name": "com.alnahr.clientExpo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410160983978-g8d9mhc3a1t749gejf547drjproane4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFuXGKDPxDw4eWQj1tQvZwocsk49Fqkmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410160983978-g8d9mhc3a1t749gejf547drjproane4k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "410160983978-alrvbgvhpfvam6043hri8rl4kt7jet1r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alnahr.clientExpo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

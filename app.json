@@ -17,10 +17,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.alnahr.clientExpo",
+      "buildNumber": "1.0.0"
     },
     "android": {
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "package": "com.alnahr.clientExpo",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

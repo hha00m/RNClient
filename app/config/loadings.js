@@ -8,4 +8,5 @@ export default {
   chatLoading: require("../assets/loading/chatLoading.json"),
   orderDetails: require("../assets/loading/orderDetails.json"),
   loadingList: require("../assets/loading/loadingList.json"),
+  moneyTotal: require("../assets/loading/moneyTotal.json"),
 };
