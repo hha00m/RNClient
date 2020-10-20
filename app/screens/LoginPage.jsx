@@ -30,7 +30,6 @@ export default function LoginPage() {
         }
         setLoginFailed(false);
         setIsLoading(false);
-        console.log("from inside of login page:", results)
         auth.logIn((results.data))
     }
     return (

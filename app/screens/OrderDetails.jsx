@@ -22,7 +22,6 @@ const OrderDetails = () => {
     const [order, setOrder] = useState(null);
     const navigation = useNavigation();
     const loadDetails = async (token, id) => {
-        console.log("load details called")
         const results = (await getOrder.getOrder(token, id));
         setOrder(results.data.data[0]);
         setIsLoading(false);
@@ -52,7 +51,6 @@ const OrderDetails = () => {
         }
     };
     const startChating = (id) => {
-        console.log("start chating");
         navigation.navigate(Routes.CHAT_MODEL, { id: id })
     }
     return (

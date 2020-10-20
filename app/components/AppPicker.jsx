@@ -7,7 +7,6 @@ import defultStyle from '../config/styles';
 import PickerItem from './PickerItem'
 export default function AppPicker({ icon, items, width = "100%", onSelectItem, placeholder, selectedItem, PickerItemComponent = PickerItem }) {
     const [modalVisable, setModalVisable] = useState(false);
-    console.log("from app picker", items);
     return (
         <>
             <TouchableWithoutFeedback onPress={() => setModalVisable(!modalVisable)}>

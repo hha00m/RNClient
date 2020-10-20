@@ -4,7 +4,6 @@ const key = "authToken";
 
 const storeToken = async (authToken) => {
   try {
-    console.log("from insde storage set:", authToken);
     await SecureStore.setItemAsync(key, JSON.stringify(authToken));
   } catch (error) {
     console.log("Error storing the auth token", error);
@@ -14,7 +13,6 @@ const storeToken = async (authToken) => {
 const getToken = async () => {
   try {
     const user = JSON.parse(await SecureStore.getItemAsync(key));
-    console.log("from insde storage get:", user);
     return user;
   } catch (error) {
     console.log("Error getting the auth token", error);
@@ -23,7 +21,6 @@ const getToken = async () => {
 
 const getUser = async () => {
   const token = await getToken();
-  console.log(token);
   return token ? token : null;
 };
 

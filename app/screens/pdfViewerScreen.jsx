@@ -1,7 +1,7 @@
 import { useRoute } from '@react-navigation/native';
 import React from 'react'
 import WebView from 'react-native-webview';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Linking } from 'react-native';
 
 const pdfViewerScreen = () => {
     const route = useRoute();
@@ -16,8 +16,10 @@ const pdfViewerScreen = () => {
 
     return (
         <View style={styles.container}>
-            <PdfReader url={`http://docs.google.com/gview?embedded=true&url=https://albarqexpress.com/dash/invoice/${route.params.item.path}`}
-            />
+            Linking.openURL({`http://docs.google.com/gview?embedded=true&url=https://albarqexpress.com/dash/invoice/${route.params.item.path}`}).catch((err) => {
+                console.log(err)
+            //   <PdfReader url={`http://docs.google.com/gview?embedded=true&url=https://albarqexpress.com/dash/invoice/${route.params.item.path}`}
+            // />
         </View>
 
     )
@@ -27,8 +29,8 @@ export default pdfViewerScreen
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+                container: {
+                flex: 1,
         backgroundColor: '#ecf0f1',
     },
 });

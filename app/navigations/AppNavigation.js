@@ -1,49 +1,19 @@
 import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
-import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
-import { Platform } from "react-native";
+
 import Profile from "./../screens/Profile";
 import SearchResults from "./../navigations/SearchNavigator";
 import colors from "../config/colors";
 import Routes from "../Routes";
-import UserNavigator from "./UserNavigation";
 import DashboardNavigator from "./DashboardNavigator";
 import ChatNavigator from "./ChatNavigator";
 import NotificationsNavigator from "./NotificationsNavigator";
-import expoPushTokenApi from "../api/expoPushTokens";
-import Navigation from "./rootNavigation";
-import useAuth from "../auth/useAuth";
+import useNotifications from "../hooks/useNotifications";
+
 const Tab = createBottomTabNavigator();
 const AppNavigator = (ref) => {
-  const { user } = useAuth();
-  useEffect(() => {
-    regesterForPushNotificaition();
-    Notifications.addNotificationReceivedListener(
-      Navigation.navigate(Routes.CHAT)
-    );
-  }, []);
-  const regesterForPushNotificaition = async () => {
-    try {
-      const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      if (!permission.granted) return null;
-      const token = await Notifications.getExpoPushTokenAsync();
-      expoPushTokenApi.register(user.token, token);
-      if (Platform.OS === "android") {
-        Notifications.setNotificationChannelAsync(
-          "haydermohamedaliweaakalialiweaakalihellosafarticabogauallylayer",
-          {
-            name:
-              "haydermohamedaliweaakalialiweaakalihellosafarticabogauallylayer",
-            sound: true,
-          }
-        );
-      }
-    } catch (error) {
-      console.log("Error getting a push token", error);
-    }
-  };
+  useNotifications();
   return (
     <Tab.Navigator
       activeColor={colors.primery}
