@@ -56,7 +56,7 @@ const OrderDetails = () => {
         navigation.navigate(Routes.CHAT_MODEL, { id: id })
     }
     return (
-        <Screen>
+        <View style={{ flex: 1 }}>
             {order ?
                 <View style={{ flex: 1 }}>
                     <View style={styles.orderDetailsContainer}>
@@ -80,6 +80,7 @@ const OrderDetails = () => {
                             {order.new_price && <ListItemOrderDetail caption="المبلغ المستلم" details={order.new_price} />}
                             {order.driver_name && <ListItemOrderDetail caption="أسم المندوب" details={order.driver_name} />}
                             {order.driver_phone && <ListItemOrderDetail onPress={true} caption="هاتف المندوب" details={order.driver_phone} />}
+                            {order.driver_phone && <ListItemOrderDetail caption="تم التحاسب؟" details={order.money_status === "1" ? "نعم" : "كلا"} />}
                         </View>
 
                     </View>
@@ -97,7 +98,7 @@ const OrderDetails = () => {
                 :
                 <ActivityIndicator visable={isLoading} />
             }
-        </Screen >
+        </View >
     )
 }
 

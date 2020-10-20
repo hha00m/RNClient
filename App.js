@@ -11,7 +11,7 @@ import OfflineNotice from "./app/components/OfflineNotice";
 import { I18nManager } from "react-native";
 import AcvityIn from "./app/components/ActivtyIndectors/ActivityIndecatorLoading";
 import { navigationRef } from "./app/navigations/rootNavigation";
-import TimePickerReport from "./app/components/AppPickerTime";
+import TimePickerReport from "./app/components/TimeApp";
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);

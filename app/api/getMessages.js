@@ -1,4 +1,4 @@
-import client from "./client";
+import client from "./clientChat";
 
 const getMessages = (token, id) =>
   client.get(`/getMessages.php?token=${token}&orderid=${id}`);

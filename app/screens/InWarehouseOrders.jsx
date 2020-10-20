@@ -87,7 +87,7 @@ function Dashboard() {
     setRefreshing(false);
   }
   return (
-    <Screen>
+    <View style={{ flex: 1 }}>
       <AppFormField
         rightIcon='table-search'
         autoCapitalize="none"
@@ -135,12 +135,12 @@ function Dashboard() {
         ItemSeparatorComponent={ListItemSeparator}
         onEndReachedThreshold={0.25}
         onEndReached={() => onEndReachedMohamed()}
-      // refreshing={refreshing}
-      // onRefresh={() => refreshingMethod()}
+        refreshing={refreshing}
+        onRefresh={() => refreshingMethod()}
       />
       {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
 
-    </Screen>
+    </View>
   );
 }
 export default Dashboard;

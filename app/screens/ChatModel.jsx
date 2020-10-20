@@ -17,7 +17,6 @@ const ChatModel = () => {
     const [messages, setMessages] = useState([]);
     //---------------------------------------------------------
     const loadMessages = async (token, id) => {
-        console.log("load details called")
         const results = (await getMessages.getMessages(token, id));
         setMessages(results.data.data);
         setIsLoading(false);
@@ -27,9 +26,9 @@ const ChatModel = () => {
     }, [])
 
     const sendMessages = async (token, id, message) => {
-        console.log("send message from method")
-            (await getMessages.sendMessages(token, id, message));
-        loadMessages(token, id);
+        const result = (await getMessages.sendMessages(token, id, message));
+        if (!result.ok) loadMessages(token, id);
+        if (result.ok) loadMessages(token, id);
     };
     //---------------------------------------------------------
     return (
@@ -50,12 +49,12 @@ const ChatModel = () => {
                     {isLoading ? <ActivityIndecator visable={isLoading} /> :
                         <FlatList
                             style={{ flex: 1 }}
-                            data={messages}
+                            data={messages.reverse()}
+                            inverted={-1}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({ item }) => (
                                 item.is_client === "1" ? <Sender item={item} key={item.id} /> : <Reciever item={item} key={item.id} />
                             )}
-                        // ItemSeparatorComponent={ListItemSeparator}
                         />
                     }
                 </View>

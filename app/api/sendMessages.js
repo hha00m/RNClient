@@ -1,4 +1,4 @@
-import client from "./client";
+import client from "./clientChat";
 
 const endpoint = "/getOrders.php";
 const getListings = (phone, password, type) =>

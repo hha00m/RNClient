@@ -14,11 +14,13 @@ import ChatNavigator from "./ChatNavigator";
 import NotificationsNavigator from "./NotificationsNavigator";
 import expoPushTokenApi from "../api/expoPushTokens";
 import Navigation from "./rootNavigation";
+import useAuth from "../auth/useAuth";
 const Tab = createBottomTabNavigator();
 const AppNavigator = (ref) => {
+  const { user } = useAuth();
   useEffect(() => {
     regesterForPushNotificaition();
-    Notifications.addNotificationReceivedListener((notification) =>
+    Notifications.addNotificationReceivedListener(
       Navigation.navigate(Routes.CHAT)
     );
   }, []);
@@ -27,12 +29,16 @@ const AppNavigator = (ref) => {
       const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
       if (!permission.granted) return null;
       const token = await Notifications.getExpoPushTokenAsync();
-      expoPushTokenApi.register(token);
+      expoPushTokenApi.register(user.token, token);
       if (Platform.OS === "android") {
-        Notifications.createChannelAndroidAsync("chat-messages", {
-          name: "Chat messages",
-          sound: true,
-        });
+        Notifications.setNotificationChannelAsync(
+          "haydermohamedaliweaakalialiweaakalihellosafarticabogauallylayer",
+          {
+            name:
+              "haydermohamedaliweaakalialiweaakalihellosafarticabogauallylayer",
+            sound: true,
+          }
+        );
       }
     } catch (error) {
       console.log("Error getting a push token", error);

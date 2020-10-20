@@ -35,6 +35,7 @@ export default function AppPicker({ icon, items, width = "100%", onSelectItem, p
 
                                 }} />}
                     />
+
                 </Screen>
             </Modal>
 

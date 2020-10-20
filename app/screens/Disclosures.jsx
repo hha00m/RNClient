@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ReportCard, ListItemSeparator } from "../components/lists";
 import Screen from './../components/Screen'
 import AppPickerCity from './../components/AppPickerCites'
+import AppPickerTime from './../components/AppPickerTime'
 import Button from './../components/AppButton'
 import useAuth from "../auth/useAuth";
 import getStores from '../api/getStores'
@@ -71,12 +72,12 @@ function Dashboard() {
     }
 
     return (
-        <Screen>
+        <View style={{ flex: 1 }}>
             <View
                 style={{ flexDirection: "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.white }}>
 
                 <View style={{ width: "60%", marginHorizontal: 2 }}>
-                    <AppPickerCity placeholder="الحالة" name="calendar"
+                    <AppPickerTime placeholder="الحالة" name="calendar"
                         items={statues}
                         onSelectItem={item => setStatus(item)}
                         selectedItem={status}
@@ -84,7 +85,9 @@ function Dashboard() {
                         icon="calendar" />
                 </View>
                 <View style={{ width: "30%", marginHorizontal: 2 }}>
-                    <AppPickerCity placeholder="صفحة" name="page"
+                    <AppPickerCity
+                        placeholder="صفحة"
+                        name="page"
                         onSelectItem={item => setStore(item)}
                         selectedItem={store}
                         items={stores}
@@ -133,7 +136,6 @@ function Dashboard() {
             />
             {isLoading && <ActivityIndicator animating={isLoading} size="large" hidesWhenStopped={true} />}
 
-        </Screen>
-    );
+        </View>);
 }
 export default Dashboard;
