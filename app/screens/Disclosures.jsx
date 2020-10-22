@@ -3,13 +3,11 @@ import { View, FlatList, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { ReportCard, ListItemSeparator } from "../components/lists";
-import Screen from './../components/Screen'
 import AppPickerCity from './../components/AppPickerCites'
 import AppPickerTime from './../components/AppPickerTime'
 import Button from './../components/AppButton'
 import useAuth from "../auth/useAuth";
 import getStores from '../api/getStores'
-import getStatues from '../api/getStatues'
 import getPdfs from '../api/getPdfs'
 import colors from '../config/colors';
 import Routes from '../Routes';
@@ -29,21 +27,21 @@ function Dashboard() {
     const [status, setStatus] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [LoadMore, setLoadMore] = useState("1");
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
     const prefix = "Disclosures";
 
 
 
     const loadPdfs = async () => {
         setIsLoading(true);
-        const results = (await getPdfs.getPdfs(user.token, store));
+        const results = (await getPdfs.getPdfs(user.token, store, startDate ? startDate : null, endDate ? endDate : null));
         setPdfs(results.data.data);
         setTotal(results.data.total)
         setIsLoading(false);
     };
     useEffect(() => {
         loadStores();
-        loadStatues();
     }, []);
     useEffect(() => {
 
@@ -58,33 +56,41 @@ function Dashboard() {
         }];
         setStores([...array, ...results.data.data]);
     };
-    const loadStatues = async () => {
-        const results = await getStatues.getStatues(user.token);
-        const array = [{
-            name: "الكل",
-            id: ""
-        }];
-        setStatues([...array, ...results.data.data]);
-    };
+
 
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-
+    const updateStartTime = (value) => {
+        console.log("from disclosures start: ", value)
+        setStartDate(value)
+    }
+    const updateEndTime = (value) => {
+        console.log("from disclosures end: ", value)
+        setEndDate(value)
+    }
     return (
         <View style={{ flex: 1 }}>
             <View
                 style={{ flexDirection: "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.white }}>
-
-                <View style={{ width: "60%", marginHorizontal: 2 }}>
-                    <AppPickerTime placeholder="الحالة" name="calendar"
+                <View style={{ width: "33%", marginHorizontal: 2 }}>
+                    <AppPickerTime placeholder="من تاريخ" name="calendar"
                         items={statues}
-                        onSelectItem={item => setStatus(item)}
-                        selectedItem={status}
+                        updateTime={updateStartTime}
+                        selectedTime={startDate}
                         backgroundColor={colors.white}
                         icon="calendar" />
                 </View>
-                <View style={{ width: "30%", marginHorizontal: 2 }}>
+                <View style={{ width: "33%", marginHorizontal: 2 }}>
+                    <AppPickerTime placeholder="الى تاريخ" name="calendar"
+                        items={statues}
+                        updateTime={updateEndTime}
+                        selectedTime={endDate}
+                        backgroundColor={colors.white}
+                        icon="calendar" />
+                </View>
+
+                <View style={{ width: "25%", marginHorizontal: 2 }}>
                     <AppPickerCity
                         placeholder="صفحة"
                         name="page"
@@ -114,7 +120,7 @@ function Dashboard() {
                                 </View>
                                 <View style={{ flexDirection: "row-reverse" }}>
                                     <Text style={{ paddingHorizontal: 10 }}>صافي الحساب:</Text>
-                                    <Text style={{ paddingHorizontal: 10 }}> {total.income && numberWithCommas(total.income)}</Text>
+                                    <Text style={{ paddingHorizontal: 10 }}> {total.client_price && numberWithCommas(total.client_price)}</Text>
                                 </View>
                             </>
                         }
@@ -130,7 +136,6 @@ function Dashboard() {
                     <ReportCard
                         item={item}
                         onPress={() => navigator.navigate(Routes.PDF_VIEW, { item: item })} />
-
                 )}
                 ItemSeparatorComponent={ListItemSeparator}
             />

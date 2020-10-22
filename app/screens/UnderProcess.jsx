@@ -82,6 +82,18 @@ function Dashboard() {
     const onEndReachedMohamed = () => {
         loadOrders(page);
     }
+    const footer = () => {
+        return (
+            <View style={{
+                flex: 1,
+                height: 300,
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
+            </View>);
+    }
     const refreshingMethod = () => {
         setRefreshing(true);
         loadOrders("1");
@@ -138,8 +150,8 @@ function Dashboard() {
                 onEndReached={() => onEndReachedMohamed()}
                 refreshing={refreshing}
                 onRefresh={() => refreshingMethod()}
+                ListFooterComponent={footer}
             />
-            {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
 
         </View>
     );

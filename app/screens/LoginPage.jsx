@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, Image, Switch } from 'react-native'
 import * as Yup from 'yup';
 
 import { ErrorMessage, AppFormField, AppForm, SubmitButton } from '../components/forms'
@@ -46,6 +46,10 @@ export default function LoginPage() {
                     <Text style={styles.text}>أهلا وسهلا بكم </Text>
                 </View>
                 <View style={styles.formContainer}>
+                    <View style={styles.clinetDriverContaiar}>
+                        <Switch style={styles.switch} />
+                        <Text style={styles.textClient}>عميل</Text>
+                    </View>
                     <ErrorMessage error="رقم الهاتف او كلمة المرور خطاْ" visible={loginFailed} />
                     <AppFormField
                         rightIcon='cellphone-iphone'
@@ -83,6 +87,21 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingVertical: 5,
     },
+    textClient: {
+        fontSize: 12,
+        paddingVertical: 5,
+        color: colors.medium
+    },
+    switch: {
+        margin: 5,
+
+    },
+    clinetDriverContaiar: {
+        margin: 5,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+    },
 
     logo: {
         width: 100,
@@ -92,7 +111,7 @@ const styles = StyleSheet.create({
     formContainer: {
         backgroundColor: colors.white,
         width: "95%",
-        height: 220,
+        height: 240,
         top: "10%",
         alignSelf: 'center',
         borderWidth: 1,

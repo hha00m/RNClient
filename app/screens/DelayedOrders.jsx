@@ -58,6 +58,18 @@ function Dashboard() {
         }];
         setCities([...array, ...results.data.data]);
     };
+    const footer = () => {
+        return (
+            <View style={{
+                flex: 1,
+                height: 300,
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
+            </View>);
+    }
     const loadStores = async () => {
         const results = await getStores.getStores(user.token);
         const array = [{
@@ -138,8 +150,14 @@ function Dashboard() {
                 onEndReached={() => onEndReachedMohamed()}
                 refreshing={refreshing}
                 onRefresh={() => refreshingMethod()}
+                renderItem={({ item }) => (
+                    <OrderCard
+                        item={item}
+                    />
+                )}
+                ListFooterComponent={footer}
+
             />
-            {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
 
         </View>
     );

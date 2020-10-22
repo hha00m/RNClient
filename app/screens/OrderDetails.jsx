@@ -21,13 +21,15 @@ const OrderDetails = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [order, setOrder] = useState(null);
     const navigation = useNavigation();
-    const loadDetails = async (token, id) => {
-        const results = (await getOrder.getOrder(token, id));
+    const prefix = "DelayedOrders";
+
+    const loadDetails = async (token, id, notificatin_id = "0") => {
+        const results = (await getOrder.getOrder(token, id, notificatin_id));
         setOrder(results.data.data[0]);
         setIsLoading(false);
     };
     useEffect(() => {
-        loadDetails(user.token, route.params.id);
+        loadDetails(user.token, route.params.id, route.params.notify_id);
         // loadDetails("5f637eb2b080f5f637eb2b08115f637eb2b08135f637eb2b0814", "198932");
     }, [])
     const handelColor = (id) => {
@@ -54,49 +56,53 @@ const OrderDetails = () => {
         navigation.navigate(Routes.CHAT_MODEL, { id: id })
     }
     return (
-        <View style={{ flex: 1 }}>
-            {order ?
-                <View style={{ flex: 1 }}>
-                    <View style={styles.orderDetailsContainer}>
-                        <View style={{ width: "100%", height: "25%" }} >
-                            <View style={styles.headerDetails}>
-                                <View style={[styles.titleOrderStatusView, { backgroundColor: handelColor(order.order_status_id) }]}>
-                                    <Text style={styles.titleOrderStatus}>{order.order_status}</Text>
-                                </View>
-                                <Text style={styles.titleOrderId}>{order.order_no}</Text>
-                                <Text style={styles.titleStore}>{order.store_name}</Text>
-                            </View>
-                        </View>
-                        <View style={styles.textContainer} >
-                            <ListItemOrderDetail caption="أسم الزبون" details={order.customer_name} />
-                            <ListItemOrderDetail onPress={true} caption="هاتف الزبون" details={order.customer_phone} />
-                            {order.address ? <ListItemOrderDetail caption="عنوان الزبون" details={`${order.city} - ${order.town} - ${order.address}`} /> :
-                                <ListItemOrderDetail caption="عنوان الزبون" details={`${order.city} - ${order.town}`} />}
-                            {order.dev_price && <ListItemOrderDetail caption="سعر التوصيل" details={order.dev_price} />}
-                            {order.client_price && <ListItemOrderDetail caption="السعر الصافي" details={order.client_price} />}
-                            {order.price && <ListItemOrderDetail caption="مبلغ الوصل" details={order.price} />}
-                            {order.new_price && <ListItemOrderDetail caption="المبلغ المستلم" details={order.new_price} />}
-                            {order.driver_name && <ListItemOrderDetail caption="أسم المندوب" details={order.driver_name} />}
-                            {order.driver_phone && <ListItemOrderDetail onPress={true} caption="هاتف المندوب" details={order.driver_phone} />}
-                            {order.driver_phone && <ListItemOrderDetail caption="تم التحاسب؟" details={order.money_status === "1" ? "نعم" : "كلا"} />}
-                        </View>
+        <ScrollView
 
-                    </View>
-                    <TouchableWithoutFeedback onPress={() => startChating(order.id)}>
-                        <View style={styles.chatShadow}
-                        >
-                            <Image style={styles.chatIcon} source={require("./../assets/icons/chatIcon.png")} />
+        >
+            <View style={{ flex: 1 }}>
+                {order ?
+                    <View style={{ flex: 1 }}>
+                        <View style={styles.orderDetailsContainer}>
+                            <View style={{ width: "100%", height: "25%" }} >
+                                <View style={styles.headerDetails}>
+                                    <View style={[styles.titleOrderStatusView, { backgroundColor: handelColor(order.order_status_id) }]}>
+                                        <Text style={styles.titleOrderStatus}>{order.order_status}</Text>
+                                    </View>
+                                    <Text style={styles.titleOrderId}>{order.order_no}</Text>
+                                    <Text style={styles.titleStore}>{order.store_name}</Text>
+                                </View>
+                            </View>
+                            <View style={styles.textContainer} >
+                                <ListItemOrderDetail caption="أسم الزبون" details={order.customer_name} />
+                                <ListItemOrderDetail onPress={true} caption="هاتف الزبون" details={order.customer_phone} />
+                                {order.address ? <ListItemOrderDetail caption="عنوان الزبون" details={`${order.city} - ${order.town} - ${order.address}`} /> :
+                                    <ListItemOrderDetail caption="عنوان الزبون" details={`${order.city} - ${order.town}`} />}
+                                {order.dev_price && <ListItemOrderDetail caption="سعر التوصيل" details={order.dev_price} />}
+                                {order.client_price && <ListItemOrderDetail caption="السعر الصافي" details={order.client_price} />}
+                                {order.price && <ListItemOrderDetail caption="مبلغ الوصل" details={order.price} />}
+                                {order.new_price && <ListItemOrderDetail caption="المبلغ المستلم" details={order.new_price} />}
+                                {order.driver_name && <ListItemOrderDetail caption="أسم المندوب" details={order.driver_name} />}
+                                {order.driver_phone && <ListItemOrderDetail onPress={true} caption="هاتف المندوب" details={order.driver_phone} />}
+                                {order.driver_phone && <ListItemOrderDetail caption="تم التحاسب؟" details={order.money_status === "1" ? "نعم" : "كلا"} />}
+                            </View>
+
                         </View>
-                    </TouchableWithoutFeedback>
-                    <ScrollView >
-                        {order.tracking.map((item) =>
-                            <TrackingBox bgColor={handelColor(item.order_status_id)} item={item} />)}
-                    </ScrollView>
-                </View>
-                :
-                <ActivityIndicator visable={isLoading} />
-            }
-        </View >
+                        <TouchableWithoutFeedback onPress={() => startChating(order.id)}>
+                            <View style={styles.chatShadow}
+                            >
+                                <Image style={styles.chatIcon} source={require("./../assets/icons/chatIcon.png")} />
+                            </View>
+                        </TouchableWithoutFeedback>
+                        <ScrollView >
+                            {order.tracking.map((item) =>
+                                <TrackingBox key={`${prefix}_item.order_no`} bgColor={handelColor(item.order_status_id)} item={item} />)}
+                        </ScrollView>
+                    </View>
+                    :
+                    <ActivityIndicator visable={isLoading} />
+                }
+            </View >
+        </ScrollView>
     )
 }
 

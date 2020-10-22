@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import { ListItem, ListItemSeparator } from "../components/lists";
 
 import Screen from "../components/Screen";
-import {
-    ListItem,
-    ListItemSeparator,
-} from "../components/lists";
 import getChatListAPI from '../api/getChatList'
 import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
@@ -41,6 +38,7 @@ function NotificationScreen(props) {
             <AppText
                 style={styles.header}>جميع المحادثات المفتوحة:{totalNotificaiton}
             </AppText>
+
             {isLoading && <ActivityIndecator visable={isLoading} />}
             <FlatList
                 data={messages}
@@ -51,10 +49,9 @@ function NotificationScreen(props) {
                         subTitle={item.message}
                         date={item.date}
                         seen={item.client_seen === "1" ? colors.white : colors.unseen}
-                        image={item.client_seen === "1" ? require("../assets/notifications/seen.png") : require("../assets/notifications/unseen.png")}
+                        image={item.client_seen === "1" ? require("../assets/notifications/chatBlue.png") : require("../assets/notifications/chatRed.png")}
                         onPress={() =>
                             navigator.navigate(Routes.CHAT_MODEL, { id: item.id })
-
                         }
                     />
                 )}

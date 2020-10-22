@@ -84,6 +84,18 @@ function Dashboard() {
         loadOrders("1");
         setRefreshing(false);
     }
+    const footer = () => {
+        return (
+            <View style={{
+                flex: 1,
+                height: 300,
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
+            </View>);
+    }
     return (
         <View style={{ flex: 1 }}>
             <AppFormField
@@ -135,8 +147,8 @@ function Dashboard() {
                 onEndReached={() => onEndReachedMohamed()}
                 refreshing={refreshing}
                 onRefresh={() => refreshingMethod()}
+                ListFooterComponent={footer}
             />
-            {isLoading && <ActivityIndicator animating={isLoading} size="large" hidesWhenStopped={true} />}
 
         </View>
     );

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, FlatList, Text } from 'react-native';
 
 import { OrderCard, ListItemSeparator } from "../components/lists";
 import AppFormField from '../components/AppTextInput'
@@ -96,6 +95,18 @@ function Dashboard() {
         loadOrders("1");
         setRefreshing(false);
     }
+    const footer = () => {
+        return (
+            <View style={{
+                flex: 1,
+                height: 300,
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
+            </View>);
+    }
     return (
         <Screen>
             <AppFormField
@@ -155,10 +166,10 @@ function Dashboard() {
                 ItemSeparatorComponent={ListItemSeparator}
                 onEndReachedThreshold={0.5}
                 onEndReached={() => onEndReachedMohamed()}
-            // refreshing={refreshing}
-            // onRefresh={() => refreshingMethod()}
+                refreshing={refreshing}
+                onRefresh={() => refreshingMethod()}
+                ListFooterComponent={footer}
             />
-            {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
 
         </Screen>
     );

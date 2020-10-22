@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pc-api-5681511397009566761-839",
+  "private_key_id": "4d90747c0fc14f9912bfcc8e76213ed29e5eccfa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5D7c2uv+/vEVK\nU85kIYNwxfW/HzgtQWnuUOHb/ChFb2X3cRdqTnzGrmcdjNOBFS0QiA6VXauIJaAp\nFRfq03vruokda/BEgoasT95+tFLhpqTTd/v2X1OC+jrbmwQEllLOI7AYbhmZcSze\n12BbcP59iUxWUenKURL3yj/2K5YhDh/Hozkg3YcXU/ne8XfXKUrgM7E45SVYjeik\nGbs0GCvfBiz9r0nf0IdKyL976wXNaoSEryUTaCdjIbg+mihhkMiBDLgoXo7VLaL+\naJ5XN4Qunz9S1bnLRRWOd+rrW/wExndvxkCK+dK66yl5lUKk/BCfDpZoD1tY51sb\nOcRKUYRNAgMBAAECggEAM3KaiTUgf4HMM5cr5Ctq+rGWGa2ItRAf7nh+6eTmnzMS\ngmFm1I+AYc2/bfgmHpcwAY4Jm93AH6fyKCmsjgSASW8AynSlBa7R2NqVbN0dw4zL\n+tw66Gnk8h81uLKWQd42pAdI3+nP5RgRFNyEdbdqkKTYW5EHMU8rukZ4VKwWXxav\n2ALlhtmEcJea3qEGDyIC6OcF5tTXEu4rnFqPywJLsPvv9yOrtFXtsJzks2Zn24+b\n3gnLg4Glccwm78O/SotJ/zuoMNK34frK5ucMXo/6DSEKztO3HDf4Q5M3E4b9ro6g\nct4zBM859qHFjtLvGmR3WJNCMQfdbWGYX4sUKSTOQwKBgQDzcu1lDeDjOkR5kOIR\naB3K6H0E9LgwxlILblJzsxNIiqTuDAG9IqDLX1GweyZ/vrhNsgc+Biujgzwrs9py\nOIgjeVZikYsMs9hodOsvMDsNSMfLc1BxQwBL4SgP6IkMcGgOiZT0pzpdvVOY/0QM\n/z8m+K1eigTJKZLVNqlzOaAfXwKBgQDCmi50ZfTqQcM4MUkTi6Fk4PWIQ1J3K5wc\nr0C9dcqLwrZsSsz9pQ8p7G0nxUSJoHXfp/snPSlkf/Ed2a8jRK9NMqDkzZOk6Q6D\nIp3+R69LoGwDcmTnad5WB9XD6j2y0qi18n/CFeRbmHqGiuBVNUffXwHAuAadxf2L\nZE0Lks330wKBgQDBeqRK/OWvEV7cUpYoiVusKGs7phZAxUztQseKplZ7/5wmiCpV\nm5C5MM8meClXu0aUkRmKZLMH58PJY84HmwAvWT6bZdphxQkHs2w6e5Vi8GXBPqs+\n6KXyqEYDpqZM2YUJkLRuX/1WBKLM5Iq73ZveKCL5EK3PBhhpFWFEbxbf9wKBgD5V\nJIwkHE7swZs+LioUj53AcOU0qzWAwoBtok8Na9NYixYk34RfWnwTPuN+THXI7/iz\n1b672IZYdOMa1v51AbG4hdDECIbKH9vhOro4O+39dJumCKwXPSBRYide4GRnFaMy\nCbohSQQN0zFFSpYAewURaX5Rc80VniEH/6W1YEQBAoGAORQWNvbyoIaxaNuiBV28\nmRXexjJIb+L2kf1fcYUNESgTzYdZS1bSt5r5ZCsvfHJq7PWQLO6XQ8LXnZUL8L0S\nnMsnAh2mV/Kym3oISwO4B8uvicK7E6DctkBB6W6mVFH+dWaQpf+yGGif58IrQlv4\n9VKms6cIBpt0LM2PlWCbvSU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "alnahrformanagingdeliverycompa@pc-api-5681511397009566761-839.iam.gserviceaccount.com",
+  "client_id": "108167391960767451161",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/alnahrformanagingdeliverycompa%40pc-api-5681511397009566761-839.iam.gserviceaccount.com"
+}

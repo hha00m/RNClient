@@ -49,7 +49,8 @@ const ChatModel = () => {
                     {isLoading ? <ActivityIndecator visable={isLoading} /> :
                         <FlatList
                             style={{ flex: 1 }}
-                            data={messages.reverse()}
+                            // data={messages.reverse()}
+                            data={messages}
                             inverted={-1}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({ item }) => (

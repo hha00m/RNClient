@@ -18,6 +18,8 @@ function NotificationScreen(props) {
     const navigator = useNavigation();
     let { user } = useAuth();
     const prefix = "notificaiotnsScreens";
+    const [refreshing, setRefreshing] = useState(false);
+
 
     const config = {
         velocityThreshold: 0.3,
@@ -34,6 +36,11 @@ function NotificationScreen(props) {
     useEffect(() => {
         loadNotification();
     }, []);
+    const refreshingMethod = () => {
+        setRefreshing(true);
+        loadNotification();
+        setRefreshing(false);
+    }
     return (
         <Screen>
             <AppText
@@ -50,10 +57,12 @@ function NotificationScreen(props) {
                         date={item.date}
                         seen={item.client_seen === "1" ? colors.white : colors.unseen}
                         image={item.client_seen === "1" ? require("../assets/notifications/seen.png") : require("../assets/notifications/unseen.png")}
-                        onPress={() => navigator.navigate(Routes.ORDER_DETAILS, { id: item.order_id })}
+                        onPress={() => navigator.navigate(Routes.ORDER_DETAILS, { id: item.order_id, notify_id: item.id })}
                     />
                 )}
                 ItemSeparatorComponent={ListItemSeparator}
+                refreshing={refreshing}
+                onRefresh={() => refreshingMethod()}
 
             />
         </Screen>

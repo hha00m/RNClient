@@ -22,7 +22,7 @@ export default useNotifications = () => {
       const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
       if (!permission.granted) return null;
       const token = await Notifications.getExpoPushTokenAsync();
-      expoPushTokenApi.register(user.token, token);
+      expoPushTokenApi.register(user.token, JSON.stringify(token));
       if (Platform.OS === "android") {
         Notifications.setNotificationChannelAsync(
           "haydermohamedaliweaakalialiweaakalihellosafarticabogauallylayer",
