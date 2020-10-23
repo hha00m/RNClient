@@ -27,9 +27,6 @@ function OrderCard({ item, onPress, renderRightActions }) {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-
-  //===============================================
-
   //=========================================================
   return (
     <Swipeable renderRightActions={renderRightActions}>
@@ -77,9 +74,7 @@ function OrderCard({ item, onPress, renderRightActions }) {
             </View>
           </TouchableHighlight>
 
-          <TouchableWithoutFeedback
-            onPress={() => navigation.navigate(Routes.PDF_VIEW, { item: item })}
-          >
+          <TouchableWithoutFeedback onPress={onPress}>
             <Icon
               backgroundColor={handelColor(item.orders_status)}
               name="file-pdf"
