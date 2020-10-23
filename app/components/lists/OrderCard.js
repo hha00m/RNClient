@@ -1,12 +1,13 @@
 import React from "react";
 import { View, StyleSheet, Linking, TouchableHighlight } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { useNavigation } from "@react-navigation/native";
 
 import Icon from "./../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
 import Routes from "../../Routes";
-import { useNavigation } from "@react-navigation/native";
+
 function OrderCard({ item, onPress, renderRightActions }) {
   const navigation = useNavigation();
   const handelColor = (id) => {
@@ -37,7 +38,6 @@ function OrderCard({ item, onPress, renderRightActions }) {
           width: "90%",
           height: 80,
           paddingTop: 10,
-          // backgroundColor: colors.primery,
         }}
       >
         <View
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
+    fontSize: 12,
   },
 });
 

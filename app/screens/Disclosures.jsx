@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, Text, Share } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { ReportCard, ListItemSeparator } from "../components/lists";
+import { ReportCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
 import AppPickerCity from './../components/AppPickerCites'
 import AppPickerTime from './../components/AppPickerTime'
 import Button from './../components/AppButton'
@@ -70,6 +70,26 @@ function Dashboard() {
         setRefreshing(false);
     }
 
+    const onShare = async (item) => {
+        //item.path
+        try {
+            const result = await Share.share({
+                message: `https://albarqexpress.com/dash/invoice/${item.path}`,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert("تم الاغاء");
+        }
+    };
+
     return (
         <View style={{ flex: 1 }}>
             <View
@@ -135,6 +155,11 @@ function Dashboard() {
                     <ReportCard
                         item={item}
                         onPress={() => navigator.navigate(Routes.PDF_VIEW, { item: item })}
+                        renderRightActions={() =>
+                            <ListOrderCopyAction icon="share-variant"
+                                onPress={() => onShare(item)}
+                            />
+                        }
                     />
                 )}
                 ItemSeparatorComponent={ListItemSeparator}

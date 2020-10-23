@@ -132,6 +132,7 @@ function Dashboard() {
                 {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
             </View>);
     }
+
     return (
         <Screen>
             <AppFormField

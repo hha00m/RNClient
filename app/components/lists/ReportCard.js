@@ -1,19 +1,19 @@
 import React from "react";
 import {
   View,
-  Share,
-  TouchableWithoutFeedback,
   StyleSheet,
+  TouchableWithoutFeedback,
   TouchableHighlight,
 } from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { useNavigation } from "@react-navigation/native";
 
 import Icon from "../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
-import { useNavigation } from "@react-navigation/native";
 import Routes from "../../Routes";
 
-function OrderCard({ item, onPress }) {
+function OrderCard({ item, onPress, renderRightActions }) {
   const navigation = useNavigation();
   const handelColor = (id) => {
     switch (id) {
@@ -29,56 +29,56 @@ function OrderCard({ item, onPress }) {
   }
 
   //===============================================
-  const onShare = async (item) => {
-    //item.path
-    try {
-      const result = await Share.share({
-        message: item.path,
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+
   //=========================================================
   return (
-    <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+    <Swipeable renderRightActions={renderRightActions}>
       <View
         style={{
           alignSelf: "center",
-          width: "95%",
+          width: "90%",
           height: 80,
-          paddingVertical: 10,
-          // backgroundColor: colors.primery,
+          paddingTop: 10,
         }}
       >
-        <View style={styles.container}>
-          <View style={styles.detailsContainer}>
-            <Text style={styles.title} numberOfLines={1}>
-              {item.in_date}
-            </Text>
-            <Text style={styles.subTitle} numberOfLines={1}>
-              {item.store_name}
-            </Text>
-          </View>
-          <View style={styles.detailsContainer}>
-            <Text style={styles.title} numberOfLines={1}>
-              {item.orders} طلبية
-            </Text>
-            <Text style={styles.subTitle} numberOfLines={1}>
-              {numberWithCommas(item.total - item.dev_price)}
-            </Text>
-          </View>
+        <View
+          style={[
+            styles.container,
+            {
+              backgroundColor:
+                item.orders_status === "4" ? colors.lightGreen : "#FFE7D7",
+            },
+          ]}
+        >
+          <TouchableHighlight
+            style={{ width: "87%", height: "100%" }}
+            underlayColor={colors.light}
+            onPress={onPress}
+          >
+            <View
+              style={{ width: "100%", height: "100%", flexDirection: "row" }}
+            >
+              <View style={styles.detailsContainer}>
+                <Text style={styles.title} numberOfLines={1}>
+                  {item.in_date}
+                </Text>
+                <Text style={styles.subTitle} numberOfLines={1}>
+                  {item.store_name}
+                </Text>
+              </View>
+              <View style={styles.detailsContainer}>
+                <Text style={styles.title} numberOfLines={1}>
+                  {item.orders} طلبية
+                </Text>
+                <Text style={styles.subTitle} numberOfLines={1}>
+                  {numberWithCommas(item.total - item.dev_price)}
+                </Text>
+              </View>
+            </View>
+          </TouchableHighlight>
+
           <TouchableWithoutFeedback
-            onPress={() => navigation.navigate(Routes.PDF_VIEW)}
+            onPress={() => navigation.navigate(Routes.PDF_VIEW, { item: item })}
           >
             <Icon
               backgroundColor={handelColor(item.orders_status)}
@@ -88,7 +88,7 @@ function OrderCard({ item, onPress }) {
           </TouchableWithoutFeedback>
         </View>
       </View>
-    </TouchableHighlight>
+    </Swipeable>
   );
 }
 
@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    // marginBottom: 10,
+    marginBottom: 10,
+    width: "100%",
   },
   detailsContainer: {
     flex: 1,
