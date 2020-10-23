@@ -66,14 +66,14 @@ function Dashboard() {
     const handleCopy = (item) => {
         // console.log(item)
         Clipboard.setString(
-            `رقم الوصل: (${item.order_no}) \n
+            `رقم الوصل: (${item.order_no}) \r\n
             الاسم: ${item.name ? item.name : ""} - 
-            (${item.client_phone})\n 
-        العنوان (${item.city} - ${item.town})\n
+            (${item.client_phone})\r\n 
+        العنوان (${item.city} - ${item.town})\r\n
         الصفحة: (${item.store_name})\n
-        حالة الطلب: (${item.status_name})\n 
+        حالة الطلب: (${item.status_name})\r\n 
         ${item.t_note ? item.t_note : ""}
-        المبلغ: (${item.price})\n
+        المبلغ: (${item.price})\r\n
         المندوب (${item.driver_phone ? item.driver_phone : ""})
         `
         )

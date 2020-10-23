@@ -46,10 +46,7 @@ export default function LoginPage() {
                     <Text style={styles.text}>أهلا وسهلا بكم </Text>
                 </View>
                 <View style={styles.formContainer}>
-                    <View style={styles.clinetDriverContaiar}>
-                        <Switch style={styles.switch} />
-                        <Text style={styles.textClient}>عميل</Text>
-                    </View>
+
                     <ErrorMessage error="رقم الهاتف او كلمة المرور خطاْ" visible={loginFailed} />
                     <AppFormField
                         rightIcon='cellphone-iphone'

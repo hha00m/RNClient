@@ -49,12 +49,11 @@ const ChatModel = () => {
                     {isLoading ? <ActivityIndecator visable={isLoading} /> :
                         <FlatList
                             style={{ flex: 1 }}
-                            // data={messages.reverse()}
                             data={messages}
                             inverted={-1}
-                            keyExtractor={(item) => item.id.toString()}
+                            keyExtractor={(item) => `${item.id}_${item.message}`.toString()}
                             renderItem={({ item }) => (
-                                item.is_client === "1" ? <Sender item={item} key={item.id} /> : <Reciever item={item} key={item.id} />
+                                item.is_client === "1" ? <Sender item={item} /> : <Reciever item={item} />
                             )}
                         />
                     }
