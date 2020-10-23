@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, Clipboard, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { OrderCard, ListItemSeparator } from "../components/lists";
+import { OrderCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
 import AppFormField from '../components/AppTextInput'
-import Screen from './../components/Screen'
 import AppPickerCity from './../components/AppPickerCites'
 import Button from './../components/AppButton'
 import useAuth from "../auth/useAuth";
@@ -18,7 +17,6 @@ import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/Activ
 
 
 function Dashboard() {
-    const navigator = useNavigation();
     let { user } = useAuth();
     const [orders, setOrders] = useState([]);
     const [cities, setCities] = useState([]);
@@ -28,7 +26,6 @@ function Dashboard() {
     const [search, setSearch] = useState("");
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [update, setUpdate] = useState(false);
     const [noOrders, setNoOrders] = useState("0");
     const [page, setPage] = useState("1");
 
@@ -99,6 +96,31 @@ function Dashboard() {
         loadOrders("1");
         setRefreshing(false);
     }
+
+
+    const handleCopy = (item) => {
+        // console.log(item)
+        Clipboard.setString(
+            `رقم الوصل: (${item.order_no}) \n
+            الاسم: ${item.name ? item.name : ""} - 
+            (${item.client_phone})\n 
+        العنوان (${item.city} - ${item.town})\n
+        الصفحة: (${item.store_name})\n
+        حالة الطلب: (${item.status_name})\n 
+        ${item.t_note ? item.t_note : ""}
+        المبلغ: (${item.price})\n
+        المندوب (${item.driver_phone ? item.driver_phone : ""})
+        `
+        )
+        const msg = "تم نسخ المحتوى :)"
+        if (Platform.OS === 'android') {
+            ToastAndroid.show(msg, ToastAndroid.SHORT)
+        }
+        // else {
+        //     Alert.alert(msg);
+        // }
+        // console.log("copy")
+    }
     return (
         <View style={{ flex: 1 }}>
             <AppFormField
@@ -141,9 +163,19 @@ function Dashboard() {
                 data={orders}
                 keyExtractor={(item) => (`${item.id}-${prefix}`).toString()}
                 renderItem={({ item }) => (
+
                     <OrderCard
                         item={item}
-                        onPress={() => navigator.navigate(Routes.ORDER_DETAILS, { id: item.id })} />
+                        renderRightActions={() =>
+
+
+                            <ListOrderCopyAction icon="content-copy"
+                                onPress={() => handleCopy(item)}
+                            />
+
+                        }
+                    />
+
                 )}
                 ItemSeparatorComponent={ListItemSeparator}
                 onEndReachedThreshold={0.25}

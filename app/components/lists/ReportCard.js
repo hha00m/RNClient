@@ -1,15 +1,18 @@
 import React from "react";
 import {
   View,
+  Share,
   TouchableWithoutFeedback,
   StyleSheet,
   TouchableHighlight,
 } from "react-native";
+
 import Icon from "../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
 import { useNavigation } from "@react-navigation/native";
 import Routes from "../../Routes";
+
 function OrderCard({ item, onPress }) {
   const navigation = useNavigation();
   const handelColor = (id) => {
@@ -24,6 +27,28 @@ function OrderCard({ item, onPress }) {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
+  //===============================================
+  const onShare = async (item) => {
+    //item.path
+    try {
+      const result = await Share.share({
+        message: item.path,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  //=========================================================
   return (
     <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
       <View
@@ -49,7 +74,7 @@ function OrderCard({ item, onPress }) {
               {item.orders} طلبية
             </Text>
             <Text style={styles.subTitle} numberOfLines={1}>
-              {numberWithCommas(item.total)}
+              {numberWithCommas(item.total - item.dev_price)}
             </Text>
           </View>
           <TouchableWithoutFeedback

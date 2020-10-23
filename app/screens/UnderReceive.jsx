@@ -1,17 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, Clipboard, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { OrderCard, ListItemSeparator } from "../components/lists";
+import { OrderCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
 import AppFormField from '../components/AppTextInput'
-import Screen from './../components/Screen'
 import AppPickerCity from './../components/AppPickerCites'
 import Button from './../components/AppButton'
 import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
 import getCities from '../api/getCities'
 import getStores from '../api/getStores'
-import getStatues from '../api/getStatues'
 import getOrders from '../api/categoryOrders'
 import colors from '../config/colors';
 import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
@@ -26,12 +24,9 @@ function Dashboard() {
     const [city, setCity] = useState(null);
     const [stores, setStores] = useState([]);
     const [store, setStore] = useState(null);
-    const [statues, setStatues] = useState([]);
-    const [status, setStatus] = useState(null);
     const [search, setSearch] = useState("");
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [update, setUpdate] = useState(false);
     const [noOrders, setNoOrders] = useState("0");
     const [page, setPage] = useState("1");
 
@@ -84,14 +79,12 @@ function Dashboard() {
     }, []);
     //================================================
     const onEndReachedMohamed = () => {
-        loadOrders();
+        setIsLoading(true);
+        loadOrders(page);
     }
     const refreshingMethod = () => {
         setRefreshing(true);
-
-        setPage("1");
-        setOrders([]);
-        loadOrders();
+        loadOrders("1");
         setRefreshing(false);
     }
     const footer = () => {
@@ -105,6 +98,26 @@ function Dashboard() {
             }}>
                 {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
             </View>);
+    }
+    const handleCopy = (item) => {
+        // console.log(item)
+        Clipboard.setString(
+            `رقم الوصل: (${item.order_no}) \n
+            الاسم: ${item.name ? item.name : ""} - 
+            (${item.client_phone})\n 
+        العنوان (${item.city} - ${item.town})\n
+        الصفحة: (${item.store_name})\n
+        حالة الطلب: (${item.status_name})\n 
+        ${item.t_note ? item.t_note : ""}
+        المبلغ: (${item.price})\n
+        المندوب (${item.driver_phone ? item.driver_phone : ""})
+        `
+        )
+        const msg = "تم نسخ المحتوى :)"
+        if (Platform.OS === 'android') {
+            ToastAndroid.show(msg, ToastAndroid.SHORT)
+        }
+
     }
     return (
         <View style={{ flex: 1 }}>
@@ -160,6 +173,14 @@ function Dashboard() {
                 renderItem={({ item }) => (
                     <OrderCard
                         item={item}
+                        renderRightActions={() =>
+
+
+                            <ListOrderCopyAction icon="content-copy"
+                                onPress={() => handleCopy(item)}
+                            />
+
+                        }
                     />
                 )}
                 ListFooterComponent={footer}

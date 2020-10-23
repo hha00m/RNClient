@@ -15,7 +15,6 @@ import ActivityIndicator from '../components/ActivtyIndectors/ActivityIndecatorS
 import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorMoneyTotal';
 
 
-
 function Dashboard() {
     const navigator = useNavigation();
     let { user } = useAuth();
@@ -23,8 +22,6 @@ function Dashboard() {
     const [total, setTotal] = useState({});
     const [stores, setStores] = useState([]);
     const [store, setStore] = useState(null);
-    const [statues, setStatues] = useState([]);
-    const [status, setStatus] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [startDate, setStartDate] = useState(null);
@@ -62,20 +59,23 @@ function Dashboard() {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
     const updateStartTime = (value) => {
-        console.log("from disclosures start: ", value)
         setStartDate(value)
     }
     const updateEndTime = (value) => {
-        console.log("from disclosures end: ", value)
         setEndDate(value)
     }
+    const refreshingMethod = () => {
+        setRefreshing(true);
+        loadPdfs();
+        setRefreshing(false);
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <View
                 style={{ flexDirection: "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.white }}>
                 <View style={{ width: "33%", marginHorizontal: 2 }}>
                     <AppPickerTime placeholder="من تاريخ" name="calendar"
-                        items={statues}
                         updateTime={updateStartTime}
                         selectedTime={startDate}
                         backgroundColor={colors.white}
@@ -83,7 +83,6 @@ function Dashboard() {
                 </View>
                 <View style={{ width: "33%", marginHorizontal: 2 }}>
                     <AppPickerTime placeholder="الى تاريخ" name="calendar"
-                        items={statues}
                         updateTime={updateEndTime}
                         selectedTime={endDate}
                         backgroundColor={colors.white}
@@ -135,10 +134,12 @@ function Dashboard() {
                 renderItem={({ item }) => (
                     <ReportCard
                         item={item}
-                        onPress={() => navigator.navigate(Routes.PDF_VIEW, { item: item })} />
+                        onPress={() => navigator.navigate(Routes.PDF_VIEW, { item: item })}
+                    />
                 )}
                 ItemSeparatorComponent={ListItemSeparator}
-            />
+                refreshing={refreshing}
+                onRefresh={() => refreshingMethod()} />
             {isLoading && <ActivityIndicator animating={isLoading} size="large" hidesWhenStopped={true} />}
 
         </View>);

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Clipboard, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { OrderCard, ListItemSeparator } from "../components/lists";
+import { OrderCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
 import AppFormField from '../components/AppTextInput'
-import Screen from './../components/Screen'
 import AppPickerCity from './../components/AppPickerCites'
 import Button from './../components/AppButton'
 import useAuth from "../auth/useAuth";
@@ -98,6 +97,26 @@ function Dashboard() {
         {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
       </View>);
   }
+  const handleCopy = (item) => {
+    // console.log(item)
+    Clipboard.setString(
+      `رقم الوصل: (${item.order_no}) \n
+        الاسم: ${item.name ? item.name : ""} - 
+        (${item.client_phone})\n 
+    العنوان (${item.city} - ${item.town})\n
+    الصفحة: (${item.store_name})\n
+    حالة الطلب: (${item.status_name})\n 
+    ${item.t_note ? item.t_note : ""}
+    المبلغ: (${item.price})\n
+    المندوب (${item.driver_phone ? item.driver_phone : ""})
+    `
+    )
+    const msg = "تم نسخ المحتوى :)"
+    if (Platform.OS === 'android') {
+      ToastAndroid.show(msg, ToastAndroid.SHORT)
+    }
+
+  }
   return (
     <View style={{ flex: 1 }}>
       <AppFormField
@@ -152,6 +171,14 @@ function Dashboard() {
         renderItem={({ item }) => (
           <OrderCard
             item={item}
+            renderRightActions={() =>
+
+
+              <ListOrderCopyAction icon="content-copy"
+                onPress={() => handleCopy(item)}
+              />
+
+            }
           />
         )}
         ListFooterComponent={footer}
@@ -162,3 +189,4 @@ function Dashboard() {
   );
 }
 export default Dashboard;
+

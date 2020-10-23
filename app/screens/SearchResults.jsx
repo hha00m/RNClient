@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, Clipboard, ToastAndroid } from 'react-native';
 
-import { OrderCard, ListItemSeparator } from "../components/lists";
+import { OrderCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
 import AppFormField from '../components/AppTextInput'
 import Screen from './../components/Screen'
 import AppPickerCity from './../components/AppPickerCites'
@@ -12,6 +12,7 @@ import getStores from '../api/getStores'
 import getStatues from '../api/getStatues'
 import getOrders from '../api/getOrders'
 import colors from '../config/colors';
+
 import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 
 
@@ -61,6 +62,30 @@ function Dashboard() {
         loadStores();
         loadStatues();
     }, []);
+
+    const handleCopy = (item) => {
+        // console.log(item)
+        Clipboard.setString(
+            `رقم الوصل: (${item.order_no}) \n
+            الاسم: ${item.name ? item.name : ""} - 
+            (${item.client_phone})\n 
+        العنوان (${item.city} - ${item.town})\n
+        الصفحة: (${item.store_name})\n
+        حالة الطلب: (${item.status_name})\n 
+        ${item.t_note ? item.t_note : ""}
+        المبلغ: (${item.price})\n
+        المندوب (${item.driver_phone ? item.driver_phone : ""})
+        `
+        )
+        const msg = "تم نسخ المحتوى :)"
+        if (Platform.OS === 'android') {
+            ToastAndroid.show(msg, ToastAndroid.SHORT)
+        }
+        // else {
+        //     Alert.alert(msg);
+        // }
+        // console.log("copy")
+    }
 
     const loadCities = async () => {
         const results = await getCities.getCities(user.token);
@@ -161,6 +186,14 @@ function Dashboard() {
                 renderItem={({ item }) => (
                     <OrderCard
                         item={item}
+                        renderRightActions={() =>
+
+
+                            <ListOrderCopyAction icon="content-copy"
+                                onPress={() => handleCopy(item)}
+                            />
+
+                        }
                     />
                 )}
                 ItemSeparatorComponent={ListItemSeparator}

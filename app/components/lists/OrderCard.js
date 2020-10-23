@@ -1,17 +1,13 @@
 import React from "react";
-import {
-  View,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  Linking,
-  TouchableHighlight,
-} from "react-native";
+import { View, StyleSheet, Linking, TouchableHighlight } from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+
 import Icon from "./../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
 import Routes from "../../Routes";
 import { useNavigation } from "@react-navigation/native";
-function OrderCard({ item, onPress }) {
+function OrderCard({ item, onPress, renderRightActions }) {
   const navigation = useNavigation();
   const handelColor = (id) => {
     switch (id) {
@@ -34,65 +30,69 @@ function OrderCard({ item, onPress }) {
     }
   };
   return (
-    <View
-      style={{
-        alignSelf: "center",
-        width: "90%",
-        height: 80,
-        paddingTop: 10,
-        // backgroundColor: colors.primery,
-      }}
-    >
+    <Swipeable renderRightActions={renderRightActions}>
       <View
-        style={[
-          styles.container,
-          {
-            backgroundColor:
-              item.money_status === "1" ? colors.lightGreen : colors.white,
-          },
-        ]}
+        style={{
+          alignSelf: "center",
+          width: "90%",
+          height: 80,
+          paddingTop: 10,
+          // backgroundColor: colors.primery,
+        }}
       >
-        <TouchableHighlight
-          style={{ width: "87%", height: "100%" }}
-          underlayColor={colors.light}
-          onPress={() =>
-            navigation.navigate(Routes.ORDER_DETAILS, { id: item.id })
-          }
+        <View
+          style={[
+            styles.container,
+            {
+              backgroundColor:
+                item.money_status === "1" ? colors.lightGreen : colors.white,
+            },
+          ]}
         >
-          <View style={{ width: "100%", height: "100%", flexDirection: "row" }}>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.title} numberOfLines={1}>
-                {item.order_no}
-              </Text>
-              {item.city && (
-                <Text style={styles.subTitle} numberOfLines={1}>
-                  {item.city} - {item.town}
+          <TouchableHighlight
+            style={{ width: "87%", height: "100%" }}
+            underlayColor={colors.light}
+            onPress={() =>
+              navigation.navigate(Routes.ORDER_DETAILS, { id: item.id })
+            }
+          >
+            <View
+              style={{ width: "100%", height: "100%", flexDirection: "row" }}
+            >
+              <View style={styles.detailsContainer}>
+                <Text style={styles.title} numberOfLines={1}>
+                  {item.order_no}
                 </Text>
-              )}
-            </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.title} numberOfLines={1}>
-                {item.store_name}
-              </Text>
-              {item.city && (
-                <Text style={styles.subTitle} numberOfLines={1}>
-                  {item.status_name} - {item.t_note}
+                {item.city && (
+                  <Text style={styles.subTitle} numberOfLines={1}>
+                    {item.city} - {item.town}
+                  </Text>
+                )}
+              </View>
+              <View style={styles.detailsContainer}>
+                <Text style={styles.title} numberOfLines={1}>
+                  {item.store_name}
                 </Text>
-              )}
+                {item.city && (
+                  <Text style={styles.subTitle} numberOfLines={1}>
+                    {item.status_name} - {item.t_note}
+                  </Text>
+                )}
+              </View>
             </View>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={() => Linking.openURL(`tel:${item.driver_phone}`)}
-        >
-          <Icon
-            backgroundColor={handelColor(item.order_status_id)}
-            name="phone"
-            size={60}
-          />
-        </TouchableHighlight>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => Linking.openURL(`tel:${item.driver_phone}`)}
+          >
+            <Icon
+              backgroundColor={handelColor(item.order_status_id)}
+              name="phone"
+              size={60}
+            />
+          </TouchableHighlight>
+        </View>
       </View>
-    </View>
+    </Swipeable>
   );
 }
 
