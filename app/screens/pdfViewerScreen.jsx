@@ -4,7 +4,7 @@ import WebView from 'react-native-webview';
 import { View, StyleSheet } from 'react-native';
 import PDFReader from 'rn-pdf-reader-js'
 import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorLoading'
-
+import settings from '../config/settings'
 const pdfViewerScreen = () => {
     const route = useRoute();
     const [isLoading, setLoading] = useState(true);
@@ -19,7 +19,6 @@ const pdfViewerScreen = () => {
 
     return (
         <View style={styles.container}>
-            {/* <PdfReader url={`http://docs.google.com/gview?embedded=true&url=https://albarqexpress.com/dash/invoice/${route.params.item.path}`} /> */}
             {isLoading && <ActivityIndecator />}
             <PDFReader
                 onLoadEnd={() => setLoading(false)}
@@ -28,7 +27,7 @@ const pdfViewerScreen = () => {
                 withScroll={true}
 
                 source={{
-                    uri: `https://albarqexpress.com/dash/invoice/${route.params.item.path}`,
+                    uri: `${settings.apiUrl}/../../dash/invoice/${route.params.item.path}`,
                 }}
             />
 

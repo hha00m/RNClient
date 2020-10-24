@@ -11,6 +11,7 @@ import getStores from '../api/getStores'
 import getPdfs from '../api/getPdfs'
 import colors from '../config/colors';
 import Routes from '../Routes';
+import settings from '../config/settings'
 import ActivityIndicator from '../components/ActivtyIndectors/ActivityIndecatorSimpleLine'
 import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorMoneyTotal';
 
@@ -74,7 +75,7 @@ function Dashboard() {
         //item.path
         try {
             const result = await Share.share({
-                message: `https://albarqexpress.com/dash/invoice/${item.path}`,
+                message: `${settings.apiUrl}/../../dash/invoice/${item.path}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {

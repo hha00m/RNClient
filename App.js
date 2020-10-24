@@ -9,10 +9,11 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import OfflineNotice from "./app/components/OfflineNotice";
 import { I18nManager } from "react-native";
-import AcvityIn from "./app/components/ActivtyIndectors/ActivityIndecatorOrderDetails";
 import { navigationRef } from "./app/navigations/rootNavigation";
-import TimePickerReport from "./app/components/TimeApp";
+import Logger from "./app/utility/logger";
+
 export default function App() {
+  // Logger.start();
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
   I18nManager.forceRTL(false);

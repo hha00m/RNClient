@@ -1,5 +1,5 @@
 import client from "./client";
-
+import settings from "../config/settings";
 const getOrders = (
   token,
   status,
@@ -9,7 +9,8 @@ const getOrders = (
   page = 1,
   limit = 10
 ) => {
-  let url = `https://albarqexpress.com/client/api/search.php?token=${token}`;
+  // let url = `https://alzaimexpress.com/client/api/search.php?token=${token}`;
+  let url = `${settings.apiUrl}/search.php?token=${token}`;
   if (status) url += `&status=${status}`;
   if (search) url += `&search=${search}`;
   if (limit) url += `&limit=${limit}`;

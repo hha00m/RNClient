@@ -89,10 +89,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         color: colors.medium
     },
-    switch: {
-        margin: 5,
 
-    },
     clinetDriverContaiar: {
         margin: 5,
         flexDirection: "row",
@@ -101,14 +98,14 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-        width: 100,
+        width: 200,
         height: 100,
     },
 
     formContainer: {
         backgroundColor: colors.white,
         width: "95%",
-        height: 240,
+        height: 200,
         top: "10%",
         alignSelf: 'center',
         borderWidth: 1,

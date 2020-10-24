@@ -1,8 +1,8 @@
 import { create } from "apisauce";
 import cache from "../utility/cache";
-
+import settings from "../config/settings";
 const apiClient = create({
-  baseURL: "https://albarqexpress.com/client/api",
+  baseURL: settings.apiUrl,
 });
 
 // apiClient.addAsyncRequestTransform(async (request) => {
