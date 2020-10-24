@@ -57,7 +57,11 @@ function OrderCard({ item, onPress, renderRightActions }) {
             }
           >
             <View
-              style={{ width: "100%", height: "100%", flexDirection: "row" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                flexDirection: "row-reverse",
+              }}
             >
               <View style={styles.detailsContainer}>
                 <Text style={styles.title} numberOfLines={1}>
@@ -68,6 +72,11 @@ function OrderCard({ item, onPress, renderRightActions }) {
                     {item.city} - {item.town}
                   </Text>
                 )}
+                {item.days && (
+                  <Text style={styles.subTitle} numberOfLines={1}>
+                    {item.days} منذ تسجيل الطلب
+                  </Text>
+                )}
               </View>
               <View style={styles.detailsContainer}>
                 <Text style={styles.title} numberOfLines={1}>
@@ -75,7 +84,7 @@ function OrderCard({ item, onPress, renderRightActions }) {
                 </Text>
                 {item.city && (
                   <Text style={styles.subTitle} numberOfLines={1}>
-                    {item.status_name} - {item.t_note}
+                    {item.status_name} {item.t_note ? item.t_note : ""}
                   </Text>
                 )}
               </View>

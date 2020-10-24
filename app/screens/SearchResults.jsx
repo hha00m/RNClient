@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, Clipboard, ToastAndroid } from 'react-native';
+import Toast from '@rimiti/react-native-toastify';
 
 import { OrderCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
 import AppFormField from '../components/AppTextInput'
@@ -77,14 +78,10 @@ function Dashboard() {
         المندوب (${item.driver_phone ? item.driver_phone : ""})
         `
         )
-        const msg = "تم نسخ المحتوى :)"
-        if (Platform.OS === 'android') {
-            ToastAndroid.show(msg, ToastAndroid.SHORT)
-        }
-        // else {
-        //     Alert.alert(msg);
-        // }
-        // console.log("copy")
+
+        const msg = "تم نسخ معلومات الطلب"
+        this.toastify.show(msg, 750)
+
     }
 
     const loadCities = async () => {
@@ -135,6 +132,7 @@ function Dashboard() {
 
     return (
         <Screen>
+            <Toast ref={(c) => toastify = c} />
             <AppFormField
                 rightIcon='table-search'
                 autoCapitalize="none"
