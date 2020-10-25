@@ -33,6 +33,11 @@ function Dashboard() {
     const loadPdfs = async () => {
         setIsLoading(true);
         const results = (await getPdfs.getPdfs(user.token, store, startDate ? startDate : null, endDate ? endDate : null));
+        if (!results.ok || results.data.success === "0") {
+
+            return setIsLoading(false);
+        }
+
         setPdfs(results.data.data);
 
         setTotal(results.data.total)
