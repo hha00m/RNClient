@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Albarq",
-    "slug": "clients_Albarq",
+    "name": "Alzaim",
+    "slug": "clients_Alzaim",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./app/assets/albarqlogo.png",
+    "icon": "./app/assets/logoZaim.png",
     "splash": {
       "image": "./app/assets/splash.png",
       "resizeMode": "contain",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.alnahr.clientExpo",

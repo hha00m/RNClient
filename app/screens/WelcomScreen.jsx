@@ -4,16 +4,17 @@ import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native'
 
 import AppButton from '../components/AppButton';
 import Routes from './../Routes';
+import settings from '../config/settings'
+import { set } from 'react-native-reanimated';
 
 export default function WelcomeScreen() {
     const navigation = useNavigation();
-
     return (
         <ImageBackground
             blurRadius={2}
             style={styles.background} source={require('../assets/background/welcomePage.png')} >
             <View style={styles.logoContainer}>
-                <Image style={styles.logo} source={require('../assets/logo/logo.png')} />
+                <Image style={styles.logo} source={settings.logo} />
                 <Text style={styles.text}>انت مهم جدا لنا </Text>
                 <Text style={styles.text}>ولذالك أخترنا لك الافضل </Text>
             </View>

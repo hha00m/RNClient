@@ -29,7 +29,7 @@ function NotificationScreen(props) {
     const loadNotification = async () => {
         setIsLoading(true);
         const results = await getNotifications.get(user.token);
-        setMessages([...messages, ...results.data.data]);
+        setMessages(messages);
         setTotalNotificaiton(results.data.unseen);
         setIsLoading(false);
     };

@@ -8,6 +8,7 @@ import useAuth from "../auth/useAuth";
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorLoading';
+import settings from '../config/settings';
 
 const validationSchema = Yup.object().shape({
     phone: Yup.string().required().min(11).max(11).label("رقم الهاتف"),
@@ -42,7 +43,7 @@ export default function LoginPage() {
                 validationSchema={validationSchema}
             >
                 <View style={styles.logoContainer}>
-                    <Image style={styles.logo} source={require('../assets/logo/logo.png')} />
+                    <Image style={styles.logo} source={settings.logo} />
                     <Text style={styles.text}>أهلا وسهلا بكم </Text>
                 </View>
                 <View style={styles.formContainer}>

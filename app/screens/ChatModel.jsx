@@ -28,7 +28,10 @@ const ChatModel = () => {
     const sendMessages = async (token, id, message) => {
         const result = (await getMessages.sendMessages(token, id, message));
         if (!result.ok) loadMessages(token, id);
-        if (result.ok) loadMessages(token, id);
+        if (result.ok) {
+            loadMessages(token, id);
+            onChangeText("")
+        }
     };
     //---------------------------------------------------------
     return (

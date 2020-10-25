@@ -37,7 +37,7 @@ const Dashboard = () => {
         <Screen>
             <ScrollView>
                 {!adsText.c_ad1 ? <ActivityIndecator visable={isLoading} type={loadings.adsTab} /> :
-                    <AdsCompany title={adsText.c_ad1} />}
+                    adsText.c_ad1 && <AdsCompany title={adsText.c_ad1} />}
                 <SummaryBoxes />
                 <OptionsList />
             </ScrollView>
