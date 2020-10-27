@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Clipboard, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Toast from '@rimiti/react-native-toastify';
+import { View, FlatList } from 'react-native';
 
 import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 import { OrderCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
-import AppFormField from '../components/AppTextInput'
 import AppPickerCity from './../components/AppPickerCites'
+import AppFormField from '../components/AppTextInput'
+import { handleCopy } from '../utility/helper'
 import Button from './../components/AppButton'
-import useAuth from "../auth/useAuth";
-import Routes from '../Routes';
+import getOrders from '../api/categoryOrders'
 import getCities from '../api/getCities'
 import getStores from '../api/getStores'
-import getOrders from '../api/categoryOrders'
 import colors from '../config/colors';
-
+import useAuth from "../auth/useAuth";
+import Routes from '../Routes';
 
 
 function Dashboard() {
-    const navigator = useNavigation();
     let { user } = useAuth();
+    const navigator = useNavigation();
     const [orders, setOrders] = useState([]);
     const [cities, setCities] = useState([]);
     const [city, setCity] = useState(null);
@@ -29,7 +30,6 @@ function Dashboard() {
     const [isLoading, setIsLoading] = useState(false);
     const [noOrders, setNoOrders] = useState("0");
     const [page, setPage] = useState("1");
-
     const prefix = "DelayedOrders";
 
     const loadOrders = async (nextPage) => {
@@ -96,28 +96,10 @@ function Dashboard() {
         loadOrders("1");
         setRefreshing(false);
     }
-    const handleCopy = (item) => {
-        console.log(item)
-        Clipboard.setString(
-            `رقم الوصل: (${item.order_no}) \n
-            الاسم: ${item.name ? item.name : ""} - 
-            (${item.client_phone})\n 
-        العنوان (${item.city} - ${item.town})\n
-        الصفحة: (${item.store_name})\n
-        حالة الطلب: (${item.status_name})\n 
-        ${item.t_note ? item.t_note : ""}
-        المبلغ: (${item.price})\n
-        المندوب (${item.driver_phone ? item.driver_phone : ""})
-        `
-        )
-        const msg = "تم نسخ المحتوى :)"
-        if (Platform.OS === 'android') {
-            ToastAndroid.show(msg, ToastAndroid.SHORT)
-        }
-
-    }
     return (
         <View style={{ flex: 1 }}>
+            <Toast ref={(c) => this.toastify = c} />
+
             <AppFormField
                 rightIcon='table-search'
                 autoCapitalize="none"

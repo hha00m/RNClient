@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Image, FlatList, View } from 'react-native'
+import { StyleSheet, FlatList, View } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import Sender from '../components/chat/Sender'
 import Reciever from '../components/chat/Receiver'
@@ -9,6 +9,7 @@ import Screen from './../components/Screen'
 import getMessages from './../api/getMessages'
 import useAuth from "../auth/useAuth";
 import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorChatLoading'
+
 const ChatModel = () => {
     const [value, onChangeText] = React.useState('');
     const route = useRoute();
@@ -19,6 +20,7 @@ const ChatModel = () => {
     const loadMessages = async (token, id) => {
         const results = (await getMessages.getMessages(token, id));
         setMessages(results.data.data);
+        // console.log(results.data.data)
         setIsLoading(false);
     };
     useEffect(() => {
@@ -27,10 +29,14 @@ const ChatModel = () => {
 
     const sendMessages = async (token, id, message) => {
         const result = (await getMessages.sendMessages(token, id, message));
-        if (!result.ok) loadMessages(token, id);
+        if (!result.ok) {
+            loadMessages(token, id);
+            onChangeText("");
+
+        }
         if (result.ok) {
             loadMessages(token, id);
-            onChangeText("")
+            onChangeText("");
         }
     };
     //---------------------------------------------------------
@@ -53,7 +59,7 @@ const ChatModel = () => {
                         <FlatList
                             style={{ flex: 1 }}
                             data={messages}
-                            inverted={-1}
+                            // inverted={-1}
                             keyExtractor={(item) => `${item.id}_${item.message}`.toString()}
                             renderItem={({ item }) => (
                                 item.is_client === "1" ? <Sender item={item} /> : <Reciever item={item} />

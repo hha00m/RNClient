@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Clipboard, ToastAndroid } from 'react-native';
+import { View, FlatList } from 'react-native';
 import Toast from '@rimiti/react-native-toastify';
 
+import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 import { OrderCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
 import AppFormField from '../components/AppTextInput'
 import Screen from './../components/Screen'
@@ -13,11 +14,8 @@ import getStores from '../api/getStores'
 import getStatues from '../api/getStatues'
 import getOrders from '../api/getOrders'
 import colors from '../config/colors';
-
-import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
-
-
-
+import { handleCopy } from '../utility/helper'
+//-------------------------------------------------------------------------
 function Dashboard() {
     let { user } = useAuth();
     const [orders, setOrders] = useState([]);
@@ -64,25 +62,6 @@ function Dashboard() {
         loadStatues();
     }, []);
 
-    const handleCopy = (item) => {
-        // console.log(item)
-        Clipboard.setString(
-            `رقم الوصل: (${item.order_no}) \r\n
-            الاسم: ${item.name ? item.name : ""} - 
-            (${item.client_phone})\r\n 
-        العنوان (${item.city} - ${item.town})\r\n
-        الصفحة: (${item.store_name})\n
-        حالة الطلب: (${item.status_name})\r\n 
-        ${item.t_note ? item.t_note : ""}
-        المبلغ: (${item.price})\r\n
-        المندوب (${item.driver_phone ? item.driver_phone : ""})
-        `
-        )
-
-        const msg = "تم نسخ معلومات الطلب"
-        this.toastify.show(msg, 750)
-
-    }
 
     const loadCities = async () => {
         const results = await getCities.getCities(user.token);
@@ -132,7 +111,7 @@ function Dashboard() {
 
     return (
         <Screen>
-            <Toast ref={(c) => toastify = c} />
+            <Toast ref={(c) => this.toastify = c} />
             <AppFormField
                 rightIcon='table-search'
                 autoCapitalize="none"

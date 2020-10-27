@@ -34,6 +34,7 @@ export default TrackingBox
 const styles = StyleSheet.create({
     mainContanerBox: {
         marginTop: 25,
+        marginBottom: 10,
         height: 75,
         width: "100%",
         flexDirection: "row-reverse",

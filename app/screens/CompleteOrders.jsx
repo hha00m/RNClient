@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Clipboard, ToastAndroid } from 'react-native';
+import Toast from '@rimiti/react-native-toastify';
+import { View, FlatList } from 'react-native';
 
+import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 import { OrderCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
-import AppFormField from '../components/AppTextInput'
 import AppPickerCity from './../components/AppPickerCites'
+import AppFormField from '../components/AppTextInput'
 import Button from './../components/AppButton'
+import { handleCopy } from '../utility/helper'
+import getOrders from '../api/categoryOrders'
 import useAuth from "../auth/useAuth";
 import getCities from '../api/getCities'
 import getStores from '../api/getStores'
-import getOrders from '../api/categoryOrders'
 import colors from '../config/colors';
-import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 
-
+//================================================
 
 function Dashboard() {
     let { user } = useAuth();
@@ -26,7 +28,7 @@ function Dashboard() {
     const [isLoading, setIsLoading] = useState(false);
     const [noOrders, setNoOrders] = useState("0");
     const [page, setPage] = useState("1");
-
+    //================================================
     const loadOrders = async (nextPage) => {
         const results = (await getOrders.get(user.token, "recived", city ? city.id : null, store ? store.id : null, search ? search : null, nextPage));
         if (!results.ok || results.data.success === "0") {
@@ -43,6 +45,7 @@ function Dashboard() {
         setOrders([...orders, ...results.data.data]);
         setIsLoading(false);
     }
+    //================================================
 
     const loadCities = async () => {
         const results = await getCities.getCities(user.token);
@@ -52,6 +55,8 @@ function Dashboard() {
         }];
         setCities([...array, ...results.data.data]);
     };
+    //================================================
+
     const loadStores = async () => {
         const results = await getStores.getStores(user.token);
         const array = [{
@@ -60,26 +65,29 @@ function Dashboard() {
         }];
         setStores([...array, ...results.data.data]);
     };
+    //================================================
 
     useEffect(() => {
         setIsLoading(true);
         loadOrders("1");
     }, [city, store]);
-
     useEffect(() => {
         setIsLoading(true);
         loadCities();
         loadStores();
     }, []);
+
     //================================================
     const onEndReachedMohamed = () => {
         loadOrders(page);
     }
+    //================================================
     const refreshingMethod = () => {
         setRefreshing(true);
         loadOrders("1");
         setRefreshing(false);
     }
+    //================================================
     const footer = () => {
         return (
             <View style={{
@@ -92,28 +100,10 @@ function Dashboard() {
                 {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
             </View>);
     }
-    const handleCopy = (item) => {
-        // console.log(item)
-        Clipboard.setString(
-            `رقم الوصل: (${item.order_no}) \n
-            الاسم: ${item.name ? item.name : ""} - 
-            (${item.client_phone})\n 
-        العنوان (${item.city} - ${item.town})\n
-        الصفحة: (${item.store_name})\n
-        حالة الطلب: (${item.status_name})\n 
-        ${item.t_note ? item.t_note : ""}
-        المبلغ: (${item.price})\n
-        المندوب (${item.driver_phone ? item.driver_phone : ""})
-        `
-        )
-        const msg = "تم نسخ المحتوى :)"
-        if (Platform.OS === 'android') {
-            ToastAndroid.show(msg, ToastAndroid.SHORT)
-        }
-
-    }
+    //================================================
     return (
         <View style={{ flex: 1 }}>
+            <Toast ref={(c) => this.toastify = c} />
             <AppFormField
                 rightIcon='table-search'
                 autoCapitalize="none"
@@ -157,12 +147,9 @@ function Dashboard() {
                     <OrderCard
                         item={item}
                         renderRightActions={() =>
-
-
                             <ListOrderCopyAction icon="content-copy"
                                 onPress={() => handleCopy(item)}
                             />
-
                         }
                     />)}
                 ItemSeparatorComponent={ListItemSeparator}
@@ -172,7 +159,6 @@ function Dashboard() {
                 onRefresh={() => refreshingMethod()}
                 ListFooterComponent={footer}
             />
-
         </View>
     );
 }

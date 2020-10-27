@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Text, Share } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { ReportCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
@@ -11,10 +11,9 @@ import getStores from '../api/getStores'
 import getPdfs from '../api/getPdfs'
 import colors from '../config/colors';
 import Routes from '../Routes';
-import settings from '../config/settings'
 import ActivityIndicator from '../components/ActivtyIndectors/ActivityIndecatorSimpleLine'
 import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorMoneyTotal';
-
+import { onShare } from '../utility/helper'
 
 function Dashboard() {
     const navigator = useNavigation();
@@ -76,25 +75,7 @@ function Dashboard() {
         setRefreshing(false);
     }
 
-    const onShare = async (item) => {
-        //item.path
-        try {
-            const result = await Share.share({
-                message: `${settings.apiUrl}/../../dash/invoice/${item.path}`,
-            });
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-            }
-        } catch (error) {
-            alert("تم الاغاء");
-        }
-    };
+
 
     return (
         <View style={{ flex: 1 }}>

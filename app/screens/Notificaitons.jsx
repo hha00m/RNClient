@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 import Screen from "../components/Screen";
@@ -9,7 +9,8 @@ import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
 import colors from "../config/colors";
 import AppText from "../components/AppText";
-import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorSimpleLine";
+// import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorSimpleLine";
+import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 
 function NotificationScreen(props) {
     const [messages, setMessages] = useState([]);
@@ -19,6 +20,7 @@ function NotificationScreen(props) {
     let { user } = useAuth();
     const prefix = "notificaiotnsScreens";
     const [refreshing, setRefreshing] = useState(false);
+    const [page, setPage] = useState("1");
 
 
     const config = {
@@ -26,27 +28,53 @@ function NotificationScreen(props) {
         directionalOffsetThreshold: 80
     };
 
-    const loadNotification = async () => {
+    const loadNotification = async (nextPage) => {
         setIsLoading(true);
-        const results = await getNotifications.get(user.token);
-        setMessages(messages);
+        const results = await getNotifications.get(user.token, nextPage);
+        if (!results.ok || results.data.success == "0") {
+            return setIsLoading(false);
+        }
+        setPage(results.data.nextPage);
+        if (results.data.data.length > 0) {
+            setMessages([...messages, ...results.data.data]);
+        }
         setTotalNotificaiton(results.data.unseen);
         setIsLoading(false);
     };
+
+
+    const onEndReachedMohamed = () => {
+        loadNotification(page);
+    }
+
+
     useEffect(() => {
-        loadNotification();
+        loadNotification("1");
     }, []);
     const refreshingMethod = () => {
         setRefreshing(true);
-        loadNotification();
+        //  loadNotification("1");
         setRefreshing(false);
+    }
+
+    const footer = () => {
+        return (
+            <View style={{
+                flex: 1,
+                height: 300,
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                {isLoading && <ActivityIndecatorLoadingList visable={isLoading} />}
+            </View>);
     }
     return (
         <Screen>
             <AppText
                 style={styles.header}>جميع الاشعارات:{totalNotificaiton}
             </AppText>
-            {isLoading && <ActivityIndecator visable={isLoading} />}
+            {/* {isLoading && <ActivityIndecator visable={isLoading} />} */}
             <FlatList
                 data={messages}
                 keyExtractor={(item) => `${item.id}-${prefix}`.toString()}
@@ -63,6 +91,9 @@ function NotificationScreen(props) {
                 ItemSeparatorComponent={ListItemSeparator}
                 refreshing={refreshing}
                 onRefresh={() => refreshingMethod()}
+                onEndReachedThreshold={0.5}
+                onEndReached={() => onEndReachedMohamed()}
+                ListFooterComponent={footer}
 
             />
         </Screen>

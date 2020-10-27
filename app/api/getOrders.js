@@ -17,6 +17,7 @@ const getOrders = (
   if (page) url += `&page=${page}`;
   if (store) url += `&store=${store}`;
   if (city) url += `&city=${city}`;
+  console.log(url);
   return client.get(url);
 };
 

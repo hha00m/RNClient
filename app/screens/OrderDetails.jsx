@@ -4,7 +4,6 @@ import { Image } from 'react-native-animatable'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import ListItemOrderDetail from '../components/ListItemOrderDetail'
-import Screen from '../components/Screen'
 import colors from '../config/colors'
 import TrackingBox from '../components/TrackingBox'
 import getOrder from '../api/getOrder'
@@ -59,9 +58,9 @@ const OrderDetails = () => {
         <ScrollView
 
         >
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, marginBottom: 10, paddingBottom: 5 }}>
                 {order ?
-                    <View style={{ flex: 1 }}>
+                    <View style={{ flex: 1, marginBottom: 10, paddingBottom: 5 }}>
                         <View style={styles.orderDetailsContainer}>
                             <View style={{ width: "100%", height: "25%" }} >
                                 <View style={styles.headerDetails}>
@@ -130,6 +129,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         width: "100%",
         height: 300,
+        marginBottom: 10,
+        paddingBottom: 5,
         justifyContent: "flex-end",
         alignItems: "flex-end",
         borderBottomLeftRadius: 25,
@@ -170,14 +171,25 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
 
         elevation: 5,
-        padding: 5,
+        padding: 10,
+        margin: 5,
     },
     chatIcon: {
-        width: "100%",
-        height: "100%",
+        width: "90%",
+        height: "90%",
+        padding: 5,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: colors.medium,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
     },
     titleStore: {
         fontSize: 22,
