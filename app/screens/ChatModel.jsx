@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, FlatList, View } from 'react-native'
 import { useRoute } from '@react-navigation/native'
-import Sender from '../components/chat/Sender'
-import Reciever from '../components/chat/Receiver'
-import InputTextMessage from '../components/chat/InputTextMessage'
-import colors from '../config/colors'
-import Screen from './../components/Screen'
-import getMessages from './../api/getMessages'
-import useAuth from "../auth/useAuth";
+
 import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorChatLoading'
+import InputTextMessage from '../components/chat/InputTextMessage'
+import Reciever from '../components/chat/Receiver'
+import Sender from '../components/chat/Sender'
+import getMessages from './../api/getMessages'
+import Screen from './../components/Screen'
+import useAuth from "../auth/useAuth";
+import colors from '../config/colors'
 
 const ChatModel = () => {
+
     const [value, onChangeText] = React.useState('');
     const route = useRoute();
     let { user } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
     const [messages, setMessages] = useState([]);
-    //---------------------------------------------------------
+
+
     const loadMessages = async (token, id) => {
         const results = (await getMessages.getMessages(token, id));
         setMessages(results.data.data);
-        // console.log(results.data.data)
         setIsLoading(false);
     };
     useEffect(() => {
@@ -32,7 +34,6 @@ const ChatModel = () => {
         if (!result.ok) {
             loadMessages(token, id);
             onChangeText("");
-
         }
         if (result.ok) {
             loadMessages(token, id);
@@ -67,9 +68,7 @@ const ChatModel = () => {
                         />
                     }
                 </View>
-
             </View>
-
         </Screen>
     )
 }
@@ -82,31 +81,10 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column-reverse"
     },
-    logoContainer: {
-        position: "absolute",
-        top: "5%",
-        alignItems: 'center',
-        alignSelf: 'center',
-        backgroundColor: colors.white,
-        padding: 10,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        borderRadius: 10
-    },
 
-    logo: {
-        width: 100,
-        height: 100,
-        alignSelf: 'center',
-    },
+
     sendingBottonContainer: {
-        height: "15%",
+        height: 50,
         width: "100%",
         justifyContent: "center",
         alignItems: "center",

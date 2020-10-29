@@ -10,8 +10,6 @@ export default function AppTextinput({ onPress, ...otherProps }) {
         <View style={styles.contaioner}>
 
             <View style={styles.inputContainer}>
-
-
                 <View style={{ width: '90%' }}>
                     <TextInput
                         keyboardType="twitter"
@@ -30,19 +28,21 @@ export default function AppTextinput({ onPress, ...otherProps }) {
 
 const styles = StyleSheet.create({
     contaioner: {
-        paddingHorizontal: 15,
-        borderColor: "black",
+        paddingHorizontal: 10,
         justifyContent: "center",
         alignItems: "center"
     },
     inputContainer: {
         backgroundColor: defultStyle.colors.light,
         borderRadius: 5,
-        width: '100%',
-        padding: 8,
+        width: '95%',
+        padding: 5,
         alignSelf: 'center',
         flexDirection: 'row-reverse',
         color: defultStyle.colors.medium,
+        borderBottomWidth: 2,
+        borderBottomColor: defultStyle.colors.primery,
+        marginVertical: 2
     },
     icon: {
         marginLeft: 10,

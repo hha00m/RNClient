@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import Toast from '@rimiti/react-native-toastify';
 import { View, FlatList } from 'react-native';
 
-import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
+import ActivityIndecatorLoadingList from "../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 import { OrderCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
-import AppPickerCity from './../components/AppPickerCites';
-import AppFormField from '../components/AppTextInput';
-import Button from './../components/AppButton';
-import { handleCopy } from '../utility/helper';
-import getOrders from '../api/categoryOrders';
-import getCities from '../api/getCities';
-import getStores from '../api/getStores';
+import AppPickerCity from '../components/AppPickerCites'
+import AppFormField from '../components/AppTextInput'
+import Button from '../components/AppButton'
+import { handleCopy } from '../utility/helper'
+import getOrders from '../api/categoryOrders'
 import useAuth from "../auth/useAuth";
+import getCities from '../api/getCities'
+import getStores from '../api/getStores'
 import colors from '../config/colors';
-import Routes from '../Routes';
+import { useRoute } from '@react-navigation/native';
 
-
+//================================================
 
 function Dashboard() {
-    const navigator = useNavigation();
     let { user } = useAuth();
+    const route = useRoute();
     const [orders, setOrders] = useState([]);
     const [cities, setCities] = useState([]);
     const [city, setCity] = useState(null);
@@ -31,13 +30,11 @@ function Dashboard() {
     const [isLoading, setIsLoading] = useState(false);
     const [noOrders, setNoOrders] = useState("0");
     const [page, setPage] = useState("1");
-
-    const prefix = "UnderReceive";
-
     //================================================
     const loadOrders = async (nextPage) => {
-        const results = (await getOrders.get(user.token, "onway", city ? city.id : null, store ? store.id : null, search ? search : null, nextPage));
+        const results = (await getOrders.get(user.token, route.params.action, city ? city.id : null, store ? store.id : null, search ? search : null, nextPage));
         if (!results.ok || results.data.success === "0") {
+
             return setIsLoading(false);
         }
         setPage(results.data.nextPage);
@@ -51,6 +48,7 @@ function Dashboard() {
         setIsLoading(false);
     }
     //================================================
+
     const loadCities = async () => {
         const results = await getCities.getCities(user.token);
         const array = [{
@@ -60,6 +58,7 @@ function Dashboard() {
         setCities([...array, ...results.data.data]);
     };
     //================================================
+
     const loadStores = async () => {
         const results = await getStores.getStores(user.token);
         const array = [{
@@ -69,16 +68,17 @@ function Dashboard() {
         setStores([...array, ...results.data.data]);
     };
     //================================================
+
     useEffect(() => {
         setIsLoading(true);
         loadOrders("1");
     }, [city, store]);
-
     useEffect(() => {
         setIsLoading(true);
         loadCities();
         loadStores();
     }, []);
+
     //================================================
     const onEndReachedMohamed = () => {
         setIsLoading(true);
@@ -135,44 +135,33 @@ function Dashboard() {
             <View style={{
                 alignItems: "center",
                 width: "100%",
-                borderBottomColor: colors.dark,
+                borderBottomColor: colors.black,
                 borderBottomWidth: 2,
                 marginBottom: 5,
                 backgroundColor: colors.white
             }}>
-                <Button color="basic" onPress={() => loadOrders("1")} title={`أبحث في (${noOrders}) طلبية`} />
+                <Button color="black" onPress={() => loadOrders("1")} title={`أبحث في (${noOrders}) طلبية`} />
             </View>
             <FlatList
                 style={{ flex: 1, width: "100%", }}
                 data={orders}
-                keyExtractor={(item) => (`${item.id}-${prefix}`).toString()}
+                keyExtractor={(item) => (`${item.id}-${item.date}`).toString()}
                 renderItem={({ item }) => (
                     <OrderCard
                         item={item}
-                        onPress={() => navigator.navigate(Routes.ORDER_DETAILS, { id: item.id })} />
-                )}
+                        renderRightActions={() =>
+                            <ListOrderCopyAction icon="content-copy"
+                                onPress={() => handleCopy(item)}
+                            />
+                        }
+                    />)}
                 ItemSeparatorComponent={ListItemSeparator}
                 onEndReachedThreshold={0.25}
                 onEndReached={() => onEndReachedMohamed()}
                 refreshing={refreshing}
                 onRefresh={() => refreshingMethod()}
-                renderItem={({ item }) => (
-                    <OrderCard
-                        item={item}
-                        renderRightActions={() =>
-
-
-                            <ListOrderCopyAction icon="content-copy"
-                                onPress={() => handleCopy(item)}
-                            />
-
-                        }
-                    />
-                )}
                 ListFooterComponent={footer}
-
             />
-
         </View>
     );
 }

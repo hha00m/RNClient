@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const sender = ({ item }) => {
     return (
-        <View style={{ alignSelf: "flex-start", height: 90 }}>
+        <View style={{ alignSelf: "flex-start" }}>
             <Text style={styles.data}>{item.client_name} (تاجر)</Text>
             <View style={styles.container
             } >

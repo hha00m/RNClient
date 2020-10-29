@@ -148,14 +148,16 @@ function Dashboard() {
             <View style={{
                 alignItems: "center",
                 width: "100%",
-                borderBottomColor: colors.primery,
+                borderBottomColor: colors.black,
                 borderBottomWidth: 2,
                 backgroundColor: colors.white
             }}>
-                <Button onPress={() => {
-                    setIsLoading(true);
-                    loadOrders("1")
-                }} title={`أبحث في (${noOrders}) طلبية`} />
+                <Button
+                    color="black"
+                    onPress={() => {
+                        setIsLoading(true);
+                        loadOrders("1")
+                    }} title={`أبحث في (${noOrders}) طلبية`} />
             </View>
             <FlatList
                 style={{ flex: 1, width: "100%", }}

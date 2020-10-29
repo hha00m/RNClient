@@ -6,7 +6,7 @@ const OptionsList = ({ path }) => {
     return (
         <>
             <TouchableOpacity style={styles.box}
-                onPress={() => navigator.navigate(path.forwardTo)} >
+                onPress={() => navigator.navigate(path.forwardTo, { action: path.action, name: path.name })} >
                 <Image style={styles.adsAlart}
                     source={path.path}
                 />

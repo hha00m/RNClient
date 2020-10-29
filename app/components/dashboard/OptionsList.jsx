@@ -8,10 +8,10 @@ const options = [
     {
         options: [
             {
-                path: require("./../../assets/dashboard/underReceive.png"), name: "جاري التسليم", forwardTo: Routes.UNDER_RECEIVER_ORDERS
+                path: require("./../../assets/dashboard/underReceive.png"), name: "جاري التسليم", forwardTo: Routes.DASHBOARD_LIST, action: "onway"
             },
             {
-                path: require("./../../assets/dashboard/underProcess.png"), name: "قيد المعالجة", forwardTo: Routes.UNDER_PROCESS_ORDERS
+                path: require("./../../assets/dashboard/underProcess.png"), name: "قيد المعالجة", forwardTo: Routes.DASHBOARD_LIST, action: "returned"
             },
         ],
 
@@ -20,10 +20,10 @@ const options = [
     {
         options: [
             {
-                path: require("./../../assets/dashboard/puse.png"), name: "مؤجل", forwardTo: Routes.DELAYED_ORDERS
+                path: require("./../../assets/dashboard/puse.png"), name: "مؤجل", forwardTo: Routes.DASHBOARD_LIST, action: "posponded"
             },
             {
-                path: require("./../../assets/dashboard/reports.png"), name: "كشوفات", forwardTo: Routes.DISCLOSURES
+                path: require("./../../assets/dashboard/reports.png"), name: "كشوفات", forwardTo: Routes.DISCLOSURES, action: "disclosures"
             },
         ],
         key: 232333232,
@@ -31,13 +31,13 @@ const options = [
     {
         options: [
             {
-                path: require("./../../assets/dashboard/inWarehouse.png"), name: "في المخزن الرئيسي",
-                forwardTo: Routes.IN_WEARHOUSE_ORDERS
+                path: require("./../../assets/dashboard/inWarehouse.png"), name: "في المخزن الرئيسي", action: "instorage",
+                forwardTo: Routes.DASHBOARD_LIST
 
             },
             {
-                path: require("./../../assets/dashboard/delivery.png"), name: "تم التوصيل",
-                forwardTo: Routes.COMPLETE_ORDERS
+                path: require("./../../assets/dashboard/delivery.png"), name: "تم التوصيل", action: "recived",
+                forwardTo: Routes.DASHBOARD_LIST
             },
         ],
         key: 3424232233,

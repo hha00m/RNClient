@@ -10,12 +10,11 @@ export default Object.freeze({
   UNDER_RECEIVER_ORDERS: "UnderReceive",
   UNDER_PROCESS_ORDERS: "UnderProcess",
   DELAYED_ORDERS: "Delayed",
-  IN_WEARHOUSE_ORDERS: "InWarehouseOrders",
-  COMPLETE_ORDERS: "CompleteOrders",
   STATISTICS_PAGE: "StatisticsPage",
   DISCLOSURES: "Disclosures",
   ORDER_DETAILS: "OrderDetails",
   CHANGE_PASSWORD: "ChangePassword",
   CHAT_MODEL: "ChatModel",
   PDF_VIEW: "pdfView",
+  DASHBOARD_LIST: "dashboardList",
 });

@@ -9,7 +9,6 @@ const getOrders = (
   page = 1,
   limit = 10
 ) => {
-  // let url = `https://alzaimexpress.com/client/api/search.php?token=${token}`;
   let url = `${settings.apiUrl}/search.php?token=${token}`;
   if (status) url += `&status=${status}`;
   if (search) url += `&search=${search}`;
@@ -17,7 +16,6 @@ const getOrders = (
   if (page) url += `&page=${page}`;
   if (store) url += `&store=${store}`;
   if (city) url += `&city=${city}`;
-  console.log(url);
   return client.get(url);
 };
 
