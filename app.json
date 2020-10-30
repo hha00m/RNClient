@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Albarq",
-    "slug": "clients_Albarq",
-    "version": "1.0.1",
+    "name": "hayder",
+    "slug": "clientExpo",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./app/assets/albarqlogo.png",
     "splash": {
@@ -17,12 +17,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.alnahr.clientExpo",
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.0.2"
     },
     "android": {
       "useNextNotificationsApi": true,
       "package": "com.alnahr.clientExpo",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
