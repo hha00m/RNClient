@@ -2,6 +2,8 @@ import React, { PureComponent } from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import colors from "../../config/colors";
+import Text from "../AppText";
 
 export default class ListItem extends PureComponent {
   render() {
@@ -21,12 +23,12 @@ export default class ListItem extends PureComponent {
               <Text style={styles.title} numberOfLines={1}>
                 {this.props.title}
               </Text>
-              {subTitle && (
+              {this.props.subTitle && (
                 <Text style={styles.subTitle} numberOfLines={1}>
                   {this.props.subTitle}
                 </Text>
               )}
-              {date && (
+              {this.props.date && (
                 <Text style={styles.subTitle} numberOfLines={1}>
                   {this.props.date}
                 </Text>
@@ -42,3 +44,29 @@ export default class ListItem extends PureComponent {
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    flexDirection: "row",
+    padding: 15,
+    backgroundColor: colors.white,
+  },
+  detailsContainer: {
+    flex: 1,
+    marginRight: 10,
+    justifyContent: "center",
+  },
+  image: {
+    width: 40,
+    height: 40,
+  },
+  subTitle: {
+    color: colors.medium,
+    fontSize: 12,
+    paddingTop: 2,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 12,
+  },
+});

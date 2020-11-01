@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import { Image } from 'react-native-animatable'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import uuid from 'uuid/v4';
 
+import ActivityIndicator from '../components/ActivtyIndectors/ActivityIndecatorOrderDetails'
 import ListItemOrderDetail from '../components/ListItemOrderDetail'
 import colors from '../config/colors'
 import TrackingBox from '../components/TrackingBox'
 import getOrder from '../api/getOrder'
 import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
-import ActivityIndicator from '../components/ActivtyIndectors/ActivityIndecatorOrderDetails'
 
 
 
@@ -29,7 +30,6 @@ const OrderDetails = () => {
     };
     useEffect(() => {
         loadDetails(user.token, route.params.id, route.params.notify_id);
-        // loadDetails("5f637eb2b080f5f637eb2b08115f637eb2b08135f637eb2b0814", "198932");
     }, [])
     const handelColor = (id) => {
         switch (id) {
@@ -55,9 +55,7 @@ const OrderDetails = () => {
         navigation.navigate(Routes.CHAT_MODEL, { id: id })
     }
     return (
-        <ScrollView
-
-        >
+        <ScrollView>
             <View style={{ flex: 1, marginBottom: 10, paddingBottom: 5 }}>
                 {order ?
                     <View style={{ flex: 1, marginBottom: 10, paddingBottom: 5 }}>
@@ -94,7 +92,7 @@ const OrderDetails = () => {
                         </TouchableWithoutFeedback>
                         <ScrollView >
                             {order.tracking.map((item) =>
-                                <TrackingBox key={`${prefix}_item.order_no`} bgColor={handelColor(item.order_status_id)} item={item} />)}
+                                <TrackingBox key={`${item.order_status_id}${uuid()}`.toString()} bgColor={handelColor(item.order_status_id)} item={item} />)}
                         </ScrollView>
                     </View>
                     :
@@ -181,15 +179,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: colors.medium,
-        shadowColor: colors.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 5,
     },
     titleStore: {
         fontSize: 22,

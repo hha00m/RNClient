@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import {
   View,
   StyleSheet,
@@ -6,16 +6,13 @@ import {
   TouchableHighlight,
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { useNavigation } from "@react-navigation/native";
 
 import Icon from "../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
-import Routes from "../../Routes";
 
-function OrderCard({ item, onPress, renderRightActions }) {
-  const navigation = useNavigation();
-  const handelColor = (id) => {
+export default class ReportCard extends PureComponent {
+  handelColor(id) {
     switch (id) {
       case "4":
         return colors.success;
@@ -23,68 +20,77 @@ function OrderCard({ item, onPress, renderRightActions }) {
       default:
         return colors.returned;
     }
-  };
-  function numberWithCommas(x) {
+  }
+  numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-  //=========================================================
-  return (
-    <Swipeable renderRightActions={renderRightActions}>
-      <View
-        style={{
-          alignSelf: "center",
-          width: "90%",
-          height: 80,
-          paddingTop: 10,
-        }}
-      >
+  render() {
+    return (
+      <Swipeable renderRightActions={this.props.renderRightActions}>
         <View
-          style={[
-            styles.container,
-            {
-              backgroundColor:
-                item.orders_status === "4" ? colors.lightGreen : "#FFE7D7",
-            },
-          ]}
+          style={{
+            alignSelf: "center",
+            width: "90%",
+            height: 80,
+            paddingTop: 10,
+          }}
         >
-          <TouchableHighlight
-            style={{ width: "87%", height: "100%" }}
-            underlayColor={colors.light}
-            onPress={onPress}
+          <View
+            style={[
+              styles.container,
+              {
+                backgroundColor:
+                  this.props.item.orders_status === "4"
+                    ? colors.lightGreen
+                    : "#FFE7D7",
+              },
+            ]}
           >
-            <View
-              style={{ width: "100%", height: "100%", flexDirection: "row" }}
+            <TouchableHighlight
+              style={{ width: "87%", height: "100%" }}
+              underlayColor={colors.light}
+              onPress={this.props.onPress}
             >
-              <View style={styles.detailsContainer}>
-                <Text style={styles.title} numberOfLines={1}>
-                  {item.in_date}
-                </Text>
-                <Text style={styles.subTitle} numberOfLines={1}>
-                  {item.store_name}
-                </Text>
+              <View
+                style={{ width: "100%", height: "100%", flexDirection: "row" }}
+              >
+                <View style={styles.detailsContainer}>
+                  <Text style={styles.title} numberOfLines={1}>
+                    {this.props.item.in_date}
+                  </Text>
+                  <Text style={styles.subTitle} numberOfLines={1}>
+                    {this.props.item.store_name}
+                  </Text>
+                </View>
+                <View style={styles.detailsContainer}>
+                  <Text style={styles.title} numberOfLines={1}>
+                    {this.props.item.orders} طلبية
+                  </Text>
+                  {this.props.item.total != "0" && (
+                    <Text style={styles.subTitle} numberOfLines={1}>
+                      {this.numberWithCommas(
+                        this.props.item.total - this.props.item.dev_price
+                      )}
+                    </Text>
+                  )}
+                </View>
               </View>
-              <View style={styles.detailsContainer}>
-                <Text style={styles.title} numberOfLines={1}>
-                  {item.orders} طلبية
-                </Text>
-                <Text style={styles.subTitle} numberOfLines={1}>
-                  {numberWithCommas(item.total - item.dev_price)}
-                </Text>
-              </View>
-            </View>
-          </TouchableHighlight>
+            </TouchableHighlight>
 
-          <TouchableWithoutFeedback onPress={onPress}>
-            <Icon
-              backgroundColor={handelColor(item.orders_status)}
-              name="file-pdf"
-              size={60}
-            />
-          </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={this.props.onPress}>
+              <Icon
+                backgroundColor={this.handelColor(
+                  this.props.item.orders_status
+                )}
+                name="file-pdf"
+                size={60}
+              />
+            </TouchableWithoutFeedback>
+          </View>
         </View>
-      </View>
-    </Swipeable>
-  );
+      </Swipeable>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -127,5 +133,3 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
-
-export default OrderCard;

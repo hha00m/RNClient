@@ -3,13 +3,13 @@ import { FlatList, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { ListItem, ListItemSeparator } from "../components/lists";
 
-import Screen from "../components/Screen";
+import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorSimpleLine";
 import getChatListAPI from '../api/getChatList'
+import AppText from "../components/AppText";
+import Screen from "../components/Screen";
+import colors from "../config/colors";
 import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
-import colors from "../config/colors";
-import AppText from "../components/AppText";
-import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorSimpleLine";
 
 function NotificationScreen(props) {
     const [messages, setMessages] = useState([]);
