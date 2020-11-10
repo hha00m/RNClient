@@ -26,7 +26,10 @@ export default class ReportCard extends PureComponent {
   }
   render() {
     return (
-      <Swipeable renderRightActions={this.props.renderRightActions}>
+      <Swipeable
+        renderLeftActions={this.props.renderRightActions}
+        renderRightActions={this.props.renderRightActions}
+      >
         <View
           style={{
             alignSelf: "center",

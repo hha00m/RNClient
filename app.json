@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "hayder",
+    "name": "البرق",
     "slug": "clientExpo",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./app/assets/albarqlogo.png",
     "splash": {
@@ -17,12 +17,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.alnahr.clientExpo",
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.3"
     },
     "android": {
       "useNextNotificationsApi": true,
       "package": "com.alnahr.clientExpo",
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/favicon.png"

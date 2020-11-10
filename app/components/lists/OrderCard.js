@@ -34,7 +34,10 @@ class OrderCard extends PureComponent {
     const { navigation } = this.props;
 
     return (
-      <Swipeable renderRightActions={this.props.renderRightActions}>
+      <Swipeable
+        renderLeftActions={this.props.renderRightActions}
+        renderRightActions={this.props.renderRightActions}
+      >
         <View
           style={{
             alignSelf: "center",
