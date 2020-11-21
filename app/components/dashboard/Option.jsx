@@ -1,8 +1,23 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-const OptionsList = ({ path }) => {
+const OptionsList = ({ path, data }) => {
     const navigator = useNavigation();
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    const handelData = (key) => {
+        switch (key) {
+            case "disclosures": return "";// `(${numberWithCommas(data.client_price)})`;
+            case "returned": return `(${data.inprocess})`;;
+            case "instorage": return `(${parseInt(data.instorageReturnd) + parseInt(data.instoragereplace) + parseInt(data.instoragepartiallyReturnd)})`;
+            case "onway": return `(${data.onway})`;
+            case "posponded": return `(${data.posponded})`;
+            case "recived": return `(${parseInt(data.replace) + parseInt(data.recieved) + parseInt(data.partiallyReturnd)})`;
+            default:
+                return "(0)";
+        }
+    }
     return (
         <>
             <TouchableOpacity style={styles.box}
@@ -10,7 +25,7 @@ const OptionsList = ({ path }) => {
                 <Image style={styles.adsAlart}
                     source={path.path}
                 />
-                <Text style={styles.text}>{path.name}</Text>
+                <Text style={styles.text}>{path.name} {data && handelData(path.action)}</Text>
             </TouchableOpacity>
         </>
     )
@@ -45,7 +60,7 @@ const styles = StyleSheet.create({
     },
     text: {
         alignSelf: "center",
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: "bold"
     }
 

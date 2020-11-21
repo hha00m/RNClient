@@ -29,7 +29,7 @@ const SummaryBoxes = () => {
     return (
         <>
 
-            <AppText style={styles.text}>خلاصة الطلبيات والمبالغ</AppText>
+            <AppText style={styles.text}>مرحبا, {user.data.name} ...</AppText>
             {isLoading && <ActivityIndecator style={styles.summaryContainer} visable={isLoading} />}
             <View style={styles.summaryContainer}>
                 {oneDay && <SummaryBox isLoading={isLoading} background="#4CAF50" boxes={oneDay.orders} amount={oneDay.client_price} time="اليوم" />}

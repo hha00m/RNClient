@@ -44,18 +44,17 @@ const options = [
 
     }
 ]
-const OptionsList = () => {
+const OptionsList = ({ data }) => {
     return (
 
         <View>
             {
                 options.map((item) => {
-                    return <OptionsTwo key={Math.random()} options={item} />
+                    return <OptionsTwo data={data} key={Math.random()} options={item} />
                 })
             }
         </View>
     )
 }
 export default OptionsList;
-const styles = StyleSheet.create({
-})
+
