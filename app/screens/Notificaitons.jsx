@@ -31,7 +31,7 @@ function NotificationScreen(props) {
     const loadNotification = async (nextPage) => {
         setIsLoading(true);
         const results = await getNotifications.get(user.token, nextPage);
-        if (!results.ok || results.data.success == "0") {
+        if (results.data.success == "0") {
             return setIsLoading(false);
         }
         setPage(results.data.nextPage);

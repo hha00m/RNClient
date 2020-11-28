@@ -21,10 +21,9 @@ const AppNavigator = (ref) => {
   const { user } = useAuth();
   useEffect(() => {
     regesterForPushNotificaition();
-    Notifications.addNotificationReceivedListener(
-      (notificationListener) =>
-        navitation.navigate(Routes.ORDER_DETAILS, { id: "233469" })
-      //console.log(notificationListener)
+    Notifications.addNotificationReceivedListener((notificationListener) =>
+      // navitation.navigate(Routes.ORDER_DETAILS, { id: "233469" })
+      console.log(notificationListener)
     );
   }, []);
   const regesterForPushNotificaition = async () => {

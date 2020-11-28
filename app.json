@@ -33,6 +33,12 @@
         "apiKey": "4b2e8b74dfe082ebedd918ea93f2b4cc"
       }
     },
+    "notification": {
+      "icon": "./app/assets/albarqlogo.png",
+      "color": "#FFFFFF",
+      "iosDisplayInForeground": true,
+      "androidMode": "default"
+    },
     "hooks": {
       "postPublish": [
         {
