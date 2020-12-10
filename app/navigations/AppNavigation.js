@@ -1,36 +1,60 @@
 import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
-
-import Profile from "./../screens/Profile";
-import SearchResults from "./../navigations/SearchNavigator";
-import colors from "../config/colors";
-import Routes from "../Routes";
-import DashboardNavigator from "./DashboardNavigator";
-import ChatNavigator from "./ChatNavigator";
-import NotificationsNavigator from "./NotificationsNavigator";
-import expoPushTokenApi from "../api/expoPushTokens";
-import useAuth from "../auth/useAuth";
-import navitation from "../navigations/rootNavigation";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
+import Constants from "expo-constants";
 import { Platform } from "react-native";
+
+import SearchResults from "./../navigations/SearchNavigator";
+import NotificationsNavigator from "./NotificationsNavigator";
+import DashboardNavigator from "./DashboardNavigator";
+import navitation from "../navigations/rootNavigation";
+import expoPushTokenApi from "../api/expoPushTokens";
+import ChatNavigator from "./ChatNavigator";
+import Profile from "./../screens/Profile";
+import useAuth from "../auth/useAuth";
+import colors from "../config/colors";
+import Routes from "../Routes";
 
 const Tab = createBottomTabNavigator();
 const AppNavigator = (ref) => {
   const { user } = useAuth();
   useEffect(() => {
     regesterForPushNotificaition();
-    Notifications.addNotificationReceivedListener((notificationListener) =>
-      // navitation.navigate(Routes.ORDER_DETAILS, { id: "233469" })
-      console.log(notificationListener)
+    Notifications.addNotificationReceivedListener(
+      (notificationListener) =>
+        navitation.navigate(Routes.ORDER_DETAILS, { id: "233469" })
+      // console.log(notificationListener)
     );
   }, []);
   const regesterForPushNotificaition = async () => {
     try {
-      const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      if (!permission.granted) return null;
-      const token = await Notifications.getExpoPushTokenAsync();
+      let experienceId = undefined;
+      if (!Constants.manifest) {
+        // Absence of the manifest means we're in bare workflow
+        experienceId = "@username/clientExpo";
+      }
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS
+        );
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+      // const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      // if (!permission.granted) return null;
+      const token = await Notifications.getExpoPushTokenAsync({
+        experienceId,
+      });
       expoPushTokenApi.register(user.token, JSON.stringify(token.data));
       if (Platform.OS === "android") {
         Notifications.setNotificationChannelAsync(

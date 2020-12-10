@@ -2,7 +2,7 @@
   "expo": {
     "name": "البرق",
     "slug": "clientExpo",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./app/assets/albarqlogo.png",
     "splash": {
@@ -17,12 +17,18 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.alnahr.clientExpo",
-      "buildNumber": "1.0.4"
+      "buildNumber": "1.0.5"
     },
     "android": {
       "useNextNotificationsApi": true,
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "4b2e8b74dfe082ebedd918ea93f2b4cc"
+        }
+      },
       "package": "com.alnahr.clientExpo",
-      "versionCode": 5
+      "versionCode": 6
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,12 +38,6 @@
       "bugsnag": {
         "apiKey": "4b2e8b74dfe082ebedd918ea93f2b4cc"
       }
-    },
-    "notification": {
-      "icon": "./app/assets/albarqlogo.png",
-      "color": "#FFFFFF",
-      "iosDisplayInForeground": true,
-      "androidMode": "default"
     },
     "hooks": {
       "postPublish": [

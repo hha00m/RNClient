@@ -39,6 +39,26 @@ export default class ReportCard extends PureComponent {
           }}
         >
           <View
+            style={{
+              backgroundColor:
+                this.props.item.orders_status === "4"
+                  ? colors.success
+                  : colors.danger,
+              width: "40%",
+              borderTopLeftRadius: 100,
+              borderRadius: 2,
+              marginLeft: 10,
+            }}
+          >
+            <Text
+              style={[styles.subTitle, { color: "white", paddingRight: 5 }]}
+            >
+              {this.props.item.orders_status === "4"
+                ? "كشف الواصل"
+                : "كشف الراجع"}
+            </Text>
+          </View>
+          <View
             style={[
               styles.container,
               {
@@ -118,8 +138,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginBottom: 10,
+
+    marginBottom: 5,
     width: "100%",
+    height: 40,
   },
   detailsContainer: {
     flex: 1,

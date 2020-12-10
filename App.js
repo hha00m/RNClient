@@ -10,7 +10,6 @@ import authStorage from "./app/auth/storage";
 import OfflineNotice from "./app/components/OfflineNotice";
 import { I18nManager } from "react-native";
 import { navigationRef } from "./app/navigations/rootNavigation";
-import Logger from "./app/utility/logger";
 
 export default function App() {
   // Logger.start();
