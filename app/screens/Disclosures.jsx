@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { ReportCard, ListItemSeparator, ListOrderCopyAction } from "../components/lists";
 import AppPickerCity from './../components/AppPickerCites'
-import AppPickerTime from './../components/AppPickerTime'
+// import AppPickerTime from './../components/AppPickerTime'
 import Button from './../components/AppButton'
 import useAuth from "../auth/useAuth";
 import getStores from '../api/getStores'
@@ -81,7 +81,7 @@ function Dashboard() {
         <View style={{ flex: 1 }}>
             <View
                 style={{ flexDirection: "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.white }}>
-                <View style={{ width: "33%", marginHorizontal: 2 }}>
+                {/* <View style={{ width: "33%", marginHorizontal: 2 }}>
                     <AppPickerTime placeholder="من تاريخ" name="calendar"
                         updateTime={updateStartTime}
                         selectedTime={startDate}
@@ -94,7 +94,7 @@ function Dashboard() {
                         selectedTime={endDate}
                         backgroundColor={colors.white}
                         icon="calendar" />
-                </View>
+                </View> */}
 
                 <View style={{ width: "25%", marginHorizontal: 2 }}>
                     <AppPickerCity

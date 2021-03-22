@@ -27,6 +27,13 @@ const menuItems = [
             backgroundColor: colors.secondary,
         },
         targetScreen: routes.CHAT,
+    }, {
+        title: "مفضلاتي",
+        icon: {
+            name: "star",
+            backgroundColor: colors.secondary,
+        },
+        targetScreen: routes.CHAT,
     },
 ];
 
@@ -60,7 +67,9 @@ function AccountScreen({ navigation }) {
                             IconComponent={
                                 <Icon
                                     name={item.icon.name}
-                                    backgroundColor={colors.primery}
+                                    backgroundColor={colors.light4}
+                                    size={50}
+                                    iconColor={colors.primery}
                                 />
                             }
                             onPress={() => navigation.navigate(item.targetScreen)}
@@ -70,7 +79,7 @@ function AccountScreen({ navigation }) {
             </View>
             <ListItem
                 title="تسجيل خروج"
-                IconComponent={<Icon name="logout" />}
+                IconComponent={<Icon name="logout" size={50} />}
                 onPress={() => logOut()}
             />
         </Screen>

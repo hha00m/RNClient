@@ -11,6 +11,7 @@ import TrackingBox from '../components/TrackingBox'
 import getOrder from '../api/getOrder'
 import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
+import borderRadiuss from '../config/borderRadiuss';
 
 
 
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 150,
         left: 30,
-        borderRadius: 10,
+        borderRadius: borderRadiuss.Radius_larg,
         shadowColor: colors.black,
         shadowOffset: {
             width: 0,
@@ -176,25 +177,30 @@ const styles = StyleSheet.create({
         width: "90%",
         height: "90%",
         padding: 5,
-        borderRadius: 10,
+        borderRadius: borderRadiuss.Radius_larg,
         borderWidth: 1,
         borderColor: colors.medium,
     },
     titleStore: {
-        fontSize: 22,
-        paddingTop: 5
+        fontSize: 20,
+        paddingTop: 5,
+        fontFamily: 'Tjw_medum'
+
     },
     titleOrderId: {
-        fontSize: 22
+        fontSize: 22,
+        fontFamily: 'Tjw_medum'
+
     },
     titleOrderStatus: {
         color: "white",
-        fontWeight: "bold"
+        fontFamily: 'Tjw_xblod'
+
     },
     titleOrderStatusView: {
         backgroundColor: colors.primery,
         padding: 15,
-        borderRadius: 40,
+        borderRadius: borderRadiuss.Radius_circl,
         margin: 5,
         shadowColor: "#000",
         shadowOffset: {
@@ -204,6 +210,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        fontFamily: 'Tjw_blod'
     },
     contanerBox: {
         height: "100%",
@@ -214,7 +221,7 @@ const styles = StyleSheet.create({
     },
     trackingTitle: {
         color: "#39C555",
-        fontWeight: "bold",
+        fontFamily: 'Tjw_blod',
         fontSize: 14,
         paddingBottom: 10,
     },

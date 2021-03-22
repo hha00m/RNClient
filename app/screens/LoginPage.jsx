@@ -9,6 +9,7 @@ import Screen from '../components/Screen';
 import colors from '../config/colors';
 import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorLoading';
 import settings from '../config/settings';
+import borderRadiuss from '../config/borderRadiuss';
 
 const validationSchema = Yup.object().shape({
     phone: Yup.string().required().min(11).max(11).label("رقم الهاتف"),
@@ -44,7 +45,7 @@ export default function LoginPage() {
             >
                 <View style={styles.logoContainer}>
                     <Image style={styles.logo} source={settings.logo} />
-                    <Text style={styles.text}>أهلا وسهلا بكم </Text>
+                    <Text style={styles.text}>تسجيل دخول </Text>
                 </View>
                 <View style={styles.formContainer}>
 
@@ -57,6 +58,7 @@ export default function LoginPage() {
                         keyboardType="phone-pad"
                         autoCorrect={false}
                     />
+
                     <AppFormField
                         rightIcon='lock'
                         leftIcon='eye'
@@ -79,16 +81,19 @@ const styles = StyleSheet.create({
         top: "5%",
         alignItems: 'center',
         alignSelf: 'center',
-        marginBottom: 5
+        marginBottom: 5,
+        // backgroundColor: colors.black
     },
     text: {
         fontSize: 20,
         paddingVertical: 5,
+        fontFamily: "Tjw_blod",
+
     },
     textClient: {
         fontSize: 12,
         paddingVertical: 5,
-        color: colors.medium
+        color: colors.medium,
     },
 
     clinetDriverContaiar: {
@@ -100,18 +105,18 @@ const styles = StyleSheet.create({
 
     logo: {
         width: 200,
-        height: 100,
+        height: 200,
     },
 
     formContainer: {
         backgroundColor: colors.white,
         width: "95%",
-        height: 200,
-        top: "10%",
+        height: 300,
+        top: "5%",
         alignSelf: 'center',
         borderWidth: 1,
         borderColor: colors.gray,
-        borderRadius: 5,
+        borderRadius: borderRadiuss.Radius_light,
         shadowColor: colors.black,
         shadowOffset: {
             width: 0,

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, TextInput, View, TouchableWithoutFeedback } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import defultStyle from '../../config/styles'
+import borderRadiuss from '../../config/borderRadiuss';
 
 export default function AppTextinput({ onPress, ...otherProps }) {
     // I18nManager.forceRTL(false)
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         backgroundColor: defultStyle.colors.light,
-        borderRadius: 5,
+        borderRadius: borderRadiuss.Radius_light,
         width: '95%',
         padding: 5,
         alignSelf: 'center',

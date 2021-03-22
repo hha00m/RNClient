@@ -3,6 +3,9 @@ import { StyleSheet, TextInput, View, TouchableWithoutFeedback } from 'react-nat
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppText from './AppText'
 import defultStyle from '../config/styles'
+import borderRadiuss from '../config/borderRadiuss';
+import { Text } from 'react-native';
+import colors from '../config/colors';
 
 export default function AppTextinput({ rightIcon, leftIcon, caption, ...otherProps }) {
     const [secureTextEntry, setSecureTextEntry] = React.useState(true);
@@ -14,7 +17,7 @@ export default function AppTextinput({ rightIcon, leftIcon, caption, ...otherPro
 
     return (
         <View style={styles.contaioner}>
-            {caption && <AppText style={{ fontWeight: "bold" }}>{caption}</AppText>}
+            {caption && <Text style={styles.caption}>{caption}</Text>}
 
             <View style={styles.inputContainer}>
                 {rightIcon && <MaterialCommunityIcons style={styles.icon} size={20} colors={defultStyle.colors.medium} name={rightIcon} />}
@@ -24,8 +27,8 @@ export default function AppTextinput({ rightIcon, leftIcon, caption, ...otherPro
                         : <TextInput style={defultStyle.text} {...otherProps} />}
                 </View>
                 {leftIcon &&
-                    <TouchableWithoutFeedback onPress={toggleSecureEntry}>
-                        <MaterialCommunityIcons size={20} colors={defultStyle.colors.medium} name={secureTextEntry ? 'eye-off' : 'eye'} />
+                    <TouchableWithoutFeedback onPress={toggleSecureEntry} >
+                        <MaterialCommunityIcons style={styles.icon} size={20} colors={defultStyle.colors.medium} name={secureTextEntry ? 'eye-off' : 'eye'} />
                     </TouchableWithoutFeedback>}
             </View>
         </View>
@@ -35,25 +38,31 @@ export default function AppTextinput({ rightIcon, leftIcon, caption, ...otherPro
 const styles = StyleSheet.create({
     contaioner: {
         paddingHorizontal: 15,
-        borderColor: "black",
+        paddingTop: 15,
         backgroundColor: defultStyle.colors.white,
 
     },
     inputContainer: {
-        backgroundColor: defultStyle.colors.light,
-        borderRadius: 5,
-        width: '100%',
-        padding: 10,
+        width: 335,
+        height: 50,
         alignSelf: 'center',
+        justifyContent: "center",
+        alignContent: "center",
         marginHorizontal: 5,
         flexDirection: 'row-reverse',
-        borderWidth: 1,
-        borderColor: defultStyle.colors.black,
-
-
+        borderColor: defultStyle.colors.medium,
+        backgroundColor: defultStyle.colors.white,
+        borderBottomWidth: 1,
     },
     icon: {
-        marginLeft: 10,
+        paddingLeft: 10,
+        alignSelf: "center"
+    },
+    caption: {
+        fontFamily: "Tjw_medum",
+        textAlign: "right",
+        color: colors.vueColorButtom,
+        fontSize: 12
     }
 
 })

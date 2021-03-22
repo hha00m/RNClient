@@ -7,7 +7,7 @@ const getOrders = (
   store,
   search,
   page = 1,
-  limit = 10
+  limit = 20
 ) => {
   let url = `${settings.apiUrl}/search.php?token=${token}`;
   if (status) url += `&status=${status}`;

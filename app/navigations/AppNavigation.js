@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
+import {
+  MaterialIcons,
+  Ionicons,
+  MaterialCommunityIcons,
+  Feather,
+} from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-import { Platform, Vibration } from "react-native";
+import { Platform } from "react-native";
+import { Vibration } from "react-native";
 
 import SearchResults from "./../navigations/SearchNavigator";
 import NotificationsNavigator from "./NotificationsNavigator";
 import DashboardNavigator from "./DashboardNavigator";
-import navitation from "../navigations/rootNavigation";
 import expoPushTokenApi from "../api/expoPushTokens";
 import ChatNavigator from "./ChatNavigator";
 import Profile from "./../screens/Profile";
@@ -18,16 +23,17 @@ import colors from "../config/colors";
 import Routes from "../Routes";
 
 const Tab = createBottomTabNavigator();
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-});
 const AppNavigator = (ref) => {
   const { user } = useAuth();
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
+
   useEffect(() => {
     regesterForPushNotificaition();
     Notifications.addNotificationReceivedListener((notificationListener) => {
@@ -35,14 +41,15 @@ const AppNavigator = (ref) => {
         Vibration.vibrate();
         Notifications.presentNotificationAsync({
           title: "تحديث حالة",
-          body: notificationListener.request.content.body,
+          body: "تاكد من تحديث الحالة",
           ios: { _displayInForeground: true },
         });
       }
-      navitation.navigate(Routes.NOTIFICATION);
-      // console.log(notificationListener.request.content.body);
+      //  navitation.navigate(Routes.NOTIFICATION);
+      // console.log(notificationListener.request.content.data.id);
     });
   }, []);
+
   const regesterForPushNotificaition = async () => {
     try {
       let experienceId = undefined;
@@ -65,11 +72,10 @@ const AppNavigator = (ref) => {
         alert("Failed to get push token for push notification!");
         return;
       }
-      // const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      // if (!permission.granted) return null;
       const token = await Notifications.getExpoPushTokenAsync({
         experienceId,
       });
+      console.log(token, experienceId);
       expoPushTokenApi.register(user.token, JSON.stringify(token.data));
       if (Platform.OS === "android") {
         Notifications.setNotificationChannelAsync(
@@ -77,6 +83,9 @@ const AppNavigator = (ref) => {
           {
             name: `alnahr_user_id_${user.data.id}`,
             sound: true,
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: "#FF231F7C",
           }
         );
       }
@@ -86,18 +95,19 @@ const AppNavigator = (ref) => {
   };
   return (
     <Tab.Navigator
-      activeColor={colors.primery}
-      style={{ backgroundColor: colors.primery }}
+      activeColor={colors.vueColorButtom}
+      style={{ backgroundColor: colors.vueColorButtom, fontFamily: "Tjw_blod" }}
       initialRouteName={Routes.DASHBOARD}
-      // screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
         name={Routes.SEARCH_RESULTS}
         component={SearchResults}
         options={{
-          tabBarLabel: "بحث",
+          // tabBarLabel: "بحث",
+          tabBarLabel: () => null,
+
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="search" color={color} size={size} />
+            <Ionicons name="ios-search" color={color} size={size} />
           ),
         }}
       />
@@ -105,9 +115,14 @@ const AppNavigator = (ref) => {
         name={Routes.NOTIFICATION}
         component={NotificationsNavigator}
         options={{
-          tabBarLabel: "اشعاراتي",
+          // tabBarLabel: "اشعاراتي",
+          tabBarLabel: () => null,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="md-notifications" color={color} size={size} />
+            <MaterialIcons
+              name="notifications-none"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
@@ -115,9 +130,14 @@ const AppNavigator = (ref) => {
         name={Routes.DASHBOARD}
         component={DashboardNavigator}
         options={({ navigation }) => ({
-          tabBarLabel: "لوحة التحكم",
+          tabBarLabel: () => null,
+          // tabBarLabel: "لوحة التحكم",
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="home" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="home-outline"
+              color={color}
+              size={size}
+            />
           ),
           // tabBarButton: () => (
           //   <DashboardButton
@@ -131,9 +151,14 @@ const AppNavigator = (ref) => {
         name={Routes.CHAT}
         component={ChatNavigator}
         options={{
-          tabBarLabel: "محادثتي",
+          tabBarLabel: () => null,
+          //tabBarLabel: "محادثتي",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="ios-chatbubbles" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="chat-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
@@ -141,9 +166,14 @@ const AppNavigator = (ref) => {
         name={Routes.PROFILE}
         component={Profile}
         options={{
-          tabBarLabel: "حسابي",
+          tabBarLabel: () => null,
+          // tabBarLabel: "حسابي",
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="account-circle" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="account-circle-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />

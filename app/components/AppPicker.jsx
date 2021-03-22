@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppText from './AppText';
 import defultStyle from '../config/styles';
 import PickerItem from './PickerItem'
+import borderRadiuss from '../config/borderRadiuss';
 export default function AppPicker({ icon, items, width = "100%", onSelectItem, placeholder, selectedItem, PickerItemComponent = PickerItem }) {
     const [modalVisable, setModalVisable] = useState(false);
     return (
@@ -44,7 +45,7 @@ export default function AppPicker({ icon, items, width = "100%", onSelectItem, p
 const styles = StyleSheet.create({
     container: {
         backgroundColor: defultStyle.colors.light,
-        borderRadius: 25,
+        borderRadius: borderRadiuss.Radius_larg,
         padding: 10,
         marginVertical: 5,
         flexDirection: 'row-reverse',

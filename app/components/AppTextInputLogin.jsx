@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppText from './AppText'
 import defultStyle from '../config/styles'
 import colors from '../config/colors';
+import borderRadiuss from '../config/borderRadiuss';
 
 export default function AppTextinput({ rightIcon, leftIcon, caption, ...otherProps }) {
     const [secureTextEntry, setSecureTextEntry] = React.useState(true);
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         backgroundColor: defultStyle.colors.light,
-        borderRadius: 5,
+        borderRadius: borderRadiuss.light,
         width: '100%',
         padding: 15,
         alignSelf: 'center',

@@ -10,6 +10,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import Icon from "../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
+import borderRadiuss from "../../config/borderRadiuss";
 
 export default class ReportCard extends PureComponent {
   handelColor(id) {
@@ -46,7 +47,7 @@ export default class ReportCard extends PureComponent {
                   : colors.danger,
               width: "40%",
               borderTopLeftRadius: 100,
-              borderRadius: 2,
+              borderRadius: borderRadiuss.Radius_extraLight,
               marginLeft: 10,
             }}
           >
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row-reverse",
     backgroundColor: colors.white,
-    borderRadius: 5,
+    borderRadius: borderRadiuss.light,
     borderTopLeftRadius: 35,
     borderBottomLeftRadius: 35,
     shadowColor: "#000",

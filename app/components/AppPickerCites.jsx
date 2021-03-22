@@ -7,6 +7,7 @@ import defultStyle from '../config/styles';
 import PickerItem from './PickerItem'
 import colors from '../config/colors';
 import ListItemSeparator from './lists/ListItemSeparator'
+import borderRadiuss from '../config/borderRadiuss';
 export default function AppPicker({ icon, items, width = "100%", onSelectItem, placeholder, selectedItem, PickerItemComponent = PickerItem, backgroundColor, color }) {
     const [modalVisable, setModalVisable] = useState(false);
     return (
@@ -48,8 +49,8 @@ export default function AppPicker({ icon, items, width = "100%", onSelectItem, p
 const styles = StyleSheet.create({
     container: {
         backgroundColor: defultStyle.colors.light,
-        borderRadius: 5,
-        padding: 10,
+        borderRadius: borderRadiuss.light,
+        padding: 5,
         marginVertical: 8,
         flexDirection: 'row-reverse',
         borderWidth: 1,

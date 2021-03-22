@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native'
 import AppTaxt from '../components/AppText'
 import colors from '../config/colors'
 import Icon from '../components/Icon'
+import borderRadiuss from '../config/borderRadiuss'
 const iconNames = [
     "", "car", "car", "van-utility", "check-bold", "arrow-left-right-bold-outline", "backburger", "timer", "map", "logout", "axis-x-arrow"
 ]
@@ -43,14 +44,17 @@ const styles = StyleSheet.create({
     },
     trackingTitle: {
         color: colors.success,
-        fontWeight: "bold",
         fontSize: 14,
         paddingBottom: 10,
+        fontFamily: 'Tjw_xblod'
+
 
     },
     trackingNote: {
         color: colors.medium,
-        fontSize: 12
+        fontSize: 12,
+        fontFamily: 'Tjw_medum'
+
     },
 
     boxContainer: {
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
         width: "75%",
         height: "100%",
         alignSelf: "flex-start",
-        borderRadius: 10,
+        borderRadius: borderRadiuss.Radius_larg,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,

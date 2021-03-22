@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { default as UUID } from "uuid";
 
 import Option from './Option';
 const OptionsList = ({ options, data }) => {
@@ -7,7 +8,7 @@ const OptionsList = ({ options, data }) => {
         <View>
             <View style={styles.container}>
                 {options.options.map((item) => {
-                    return <Option data={data} key={Math.random()} path={item} />
+                    return <Option data={data} key={UUID.v4()} path={item} />
                 })}
 
             </View>

@@ -13,7 +13,7 @@ export default ErrorMessage
 const styles = StyleSheet.create({
     error: {
         color: 'red',
-        fontSize: 12,
+        fontSize: 10,
         paddingRight: 20,
     }
 })

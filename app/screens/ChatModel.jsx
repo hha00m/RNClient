@@ -31,6 +31,7 @@ const ChatModel = () => {
 
     const sendMessages = async (token, id, message) => {
         const result = (await getMessages.sendMessages(token, id, message));
+        onChangeText("");
         if (!result.ok) {
             loadMessages(token, id);
             onChangeText("");
@@ -51,7 +52,6 @@ const ChatModel = () => {
                         onChangeText={message => onChangeText(message)}
                         value={value}
                         multiline
-
                         onPress={() => sendMessages(user.token, route.params.id, value)}
                     />
                 </View>
@@ -60,7 +60,6 @@ const ChatModel = () => {
                         <FlatList
                             style={{ flex: 1 }}
                             data={messages}
-                            // inverted={-1}
                             keyExtractor={(item) => `${item.id}_${item.message}`.toString()}
                             renderItem={({ item }) => (
                                 item.is_client === "1" ? <Sender item={item} /> : <Reciever item={item} />

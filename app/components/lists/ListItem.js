@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import colors from "../../config/colors";
 import Text from "../AppText";
+import borderRadiuss from "../../config/borderRadiuss";
 
 export default class ListItem extends PureComponent {
   render() {
@@ -48,7 +49,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flexDirection: "row",
-    padding: 15,
+    borderRadius: borderRadiuss.Radius_larg,
+    width: "90%",
+    alignSelf: "center",
+    padding: 5,
     backgroundColor: colors.white,
   },
   detailsContainer: {
@@ -63,10 +67,10 @@ const styles = StyleSheet.create({
   subTitle: {
     color: colors.medium,
     fontSize: 12,
-    paddingTop: 2,
+    fontFamily: "Tjw_reg",
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 12,
+    fontSize: 14,
+    fontFamily: "Tjw_xblod",
   },
 });

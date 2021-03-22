@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import { default as UUID } from "uuid";
 
 import Screen from "../components/Screen";
 import { ListItem, ListItemSeparator } from "../components/lists";
@@ -53,7 +54,7 @@ function NotificationScreen(props) {
     }, []);
     const refreshingMethod = () => {
         setRefreshing(true);
-        //  loadNotification("1");
+        loadNotification("1");
         setRefreshing(false);
     }
 
@@ -77,7 +78,7 @@ function NotificationScreen(props) {
             {/* {isLoading && <ActivityIndecator visable={isLoading} />} */}
             <FlatList
                 data={messages}
-                keyExtractor={(item) => `${item.id}-${prefix}`.toString()}
+                keyExtractor={(item) => `${item.id}-${prefix}-${UUID.v4()}`.toString()}
                 renderItem={({ item }) => (
                     <ListItem
                         title={`${item.title} - ${item.order_no}`}

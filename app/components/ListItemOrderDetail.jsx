@@ -42,16 +42,18 @@ const styles = StyleSheet.create({
         height: "100%",
         justifyContent: "center",
         alignItems: "flex-end",
-        // backgroundColor: "gold"
     },
     text: {
-        fontWeight: "bold",
-        fontSize: 12
+        fontFamily: 'Tjw_xblod',
+        fontSize: 12,
+        fontFamily: 'Tjw_blod'
     },
     titleText: {
         fontWeight: "200",
-        fontSize: 12,
-        color: colors.medium
+        fontSize: 11,
+        color: colors.medium,
+        fontFamily: 'Tjw_medum'
+
     },
 
 })

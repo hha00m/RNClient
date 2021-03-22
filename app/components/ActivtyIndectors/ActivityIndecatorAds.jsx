@@ -1,7 +1,6 @@
 import React from 'react'
 import LottieView from 'lottie-react-native';
 import Loading from '../../config/loadings'
-import colors from '../../config/colors';
 
 const ActivityIndecator = (visable = false, style) => {
     const t = Loading.adsTab;
@@ -9,7 +8,7 @@ const ActivityIndecator = (visable = false, style) => {
     return <LottieView
         style={{
             width: "90%",
-            height: 200,
+            height: 100,
         }}
         autoPlay
         loop

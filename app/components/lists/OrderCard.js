@@ -2,13 +2,14 @@ import React, { PureComponent } from "react";
 import { View, StyleSheet, Linking, TouchableHighlight } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Icon from "./../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
 import Routes from "../../Routes";
+import borderRadiuss from "../../config/borderRadiuss";
 class OrderCard extends PureComponent {
-  // const navigation = useNavigation();
   handelColor = (id) => {
     switch (id) {
       case "4":
@@ -29,10 +30,13 @@ class OrderCard extends PureComponent {
         return colors.medium;
     }
   };
-
+  openWindowFast = () => {
+    this.props.openWindowFast(this.props.item);
+  };
   render() {
-    const { navigation } = this.props;
-
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     return (
       <Swipeable
         renderLeftActions={this.props.renderRightActions}
@@ -42,8 +46,7 @@ class OrderCard extends PureComponent {
           style={{
             alignSelf: "center",
             width: "90%",
-            height: 80,
-            paddingTop: 10,
+            height: 72,
           }}
         >
           <View
@@ -60,11 +63,7 @@ class OrderCard extends PureComponent {
             <TouchableHighlight
               style={{ width: "87%", height: "100%" }}
               underlayColor={colors.light}
-              onPress={() =>
-                navigation.navigate(Routes.ORDER_DETAILS, {
-                  id: this.props.item.id,
-                })
-              }
+              onPress={this.openWindowFast.bind(this)}
             >
               <View
                 style={{
@@ -98,7 +97,19 @@ class OrderCard extends PureComponent {
                       {this.props.item.t_note ? this.props.item.t_note : ""}
                     </Text>
                   )}
+                  <Text style={styles.subTitle2} numberOfLines={1}>
+                    المبلغ ({numberWithCommas(this.props.item.new_price)})
+                  </Text>
                 </View>
+                {false && (
+                  <View style={styles.detailsContainer2}>
+                    <MaterialCommunityIcons
+                      name="star"
+                      size={25}
+                      color={colors.pause}
+                    />
+                  </View>
+                )}
               </View>
             </TouchableHighlight>
             <TouchableHighlight
@@ -124,24 +135,23 @@ class OrderCard extends PureComponent {
 const styles = StyleSheet.create({
   text: {
     paddingRight: 20,
-    paddingTop: 10,
     fontSize: 14,
-    fontWeight: "bold",
   },
   container: {
     alignItems: "center",
     flexDirection: "row-reverse",
-    borderRadius: 5,
+    borderRadius: borderRadiuss.Radius_light,
     borderTopLeftRadius: 35,
     borderBottomLeftRadius: 35,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
     marginBottom: 10,
     width: "100%",
   },
@@ -149,15 +159,22 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 10,
     justifyContent: "center",
-    flex: 1,
+  },
+  detailsContainer2: {
+    justifyContent: "center",
   },
   subTitle: {
     color: colors.medium,
     fontSize: 12,
   },
-  title: {
-    fontWeight: "bold",
+  subTitle2: {
+    color: colors.secondery,
     fontSize: 12,
+  },
+  title: {
+    fontFamily: "Tjw_xblod",
+    fontSize: 12,
+    color: colors.secondery,
   },
 });
 export default function (props) {

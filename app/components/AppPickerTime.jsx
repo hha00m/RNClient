@@ -5,6 +5,7 @@ import TimeApp from '../components/TimeApp'
 
 import AppText from './AppText';
 import defultStyle from '../config/styles';
+import borderRadiuss from '../config/borderRadiuss';
 export default function AppPicker({ icon, width = "100%", updateTime, placeholder, selectedTime, PickerItemComponent = TimeApp }) {
     const [modalVisable, setModalVisable] = useState(false);
     const handerSelectedDate = (dateS) => {
@@ -42,7 +43,7 @@ export default function AppPicker({ icon, width = "100%", updateTime, placeholde
 const styles = StyleSheet.create({
     container: {
         backgroundColor: defultStyle.colors.light,
-        borderRadius: 5,
+        borderRadius: borderRadiuss.light,
         padding: 9,
 
         marginVertical: 10,

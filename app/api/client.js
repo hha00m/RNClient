@@ -1,6 +1,7 @@
 import { create } from "apisauce";
 import cache from "../utility/cache";
 import settings from "../config/settings";
+// import authStorage from "../auth/storage";
 const apiClient = create({
   baseURL: settings.apiUrl,
 });

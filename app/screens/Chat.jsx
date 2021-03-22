@@ -5,11 +5,12 @@ import { ListItem, ListItemSeparator } from "../components/lists";
 
 import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorSimpleLine";
 import getChatListAPI from '../api/getChatList'
-import AppText from "../components/AppText";
+// import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
+import AppText from "../components/AppText";
 
 function NotificationScreen(props) {
     const [messages, setMessages] = useState([]);

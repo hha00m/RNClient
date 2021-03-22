@@ -36,6 +36,5 @@ export const handleCopy = (item) => {
     })`
   );
   const msg = "تم نسخ معلومات الطلب";
-  this.toastify.show(msg, 750);
 };
 //================================================

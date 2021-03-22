@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFormikContext } from 'formik'
+import { Icon, Input } from '@ui-kitten/components';
 
 import AppTextInput from '../AppTextInputLogin'
 import ErrorMessage from './ErrorMessage'
@@ -8,10 +9,10 @@ export default function AppFormField({ name, ...otherProps }) {
 
     return (
         <>
-            <AppTextInput
+            <Input
                 onBlur={() => setFieldTouched(name)}
                 onChangeText={handleChange(name)}
-                {...otherProps} />
+            />
             <ErrorMessage visible={touched[name]} error={errors[name] ? "تأكد من المعلومات" : ""} />
         </>
     )

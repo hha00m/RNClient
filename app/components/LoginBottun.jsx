@@ -1,5 +1,6 @@
 import React from 'react'
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import borderRadiuss from '../config/borderRadiuss'
 import colors from '../config/colors'
 
 const AppButton = ({ title, onPress, color = 'primery', isLoading = false }) => {
@@ -15,7 +16,7 @@ const AppButton = ({ title, onPress, color = 'primery', isLoading = false }) => 
 const styles = StyleSheet.create({
     button: {
         backgroundColor: colors.primery,
-        borderRadius: 50,
+        borderRadius: borderRadiuss.Radius_circl,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
@@ -35,7 +36,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         color: colors.white,
-        fontWeight: "bold"
     }
 
 

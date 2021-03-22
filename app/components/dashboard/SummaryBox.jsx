@@ -4,40 +4,51 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 import AppText from '../AppText';
 import colors from '../../config/colors'
+import { Text } from 'react-native';
+import borderRadiuss from '../../config/borderRadiuss';
 const SummaryBox = ({ background, boxes, amount, time, colorM }) => {
 
     return (
         <View
             style={{
-                width: "27%",
-                height: 90,
-                borderRadius: 5,
+                width: "26%",
+                height: 94,
+                borderRadius: borderRadiuss.Radius_light,
                 backgroundColor: background,
-                flexDirection: "column",
-                alignItems: 'flex-end',
                 shadowColor: "#000",
                 shadowOffset: {
                     width: 0,
-                    height: 5,
+                    height: 1,
                 },
-                shadowOpacity: 0.36,
-                shadowRadius: 6.68,
+                shadowOpacity: 0.20,
+                shadowRadius: 1.41,
 
-                elevation: 11,
+                elevation: 2,
 
             }}>
             <View style={styles.boxContainer}>
-                <FontAwesome5 name="box-open" size={20} color={colorM ? colorM : colors.dark} />
-                <AppText style={{ fontSize: 14, paddingRight: 5, color: colorM ? colorM : colors.dark }}>{boxes}</AppText>
+                <FontAwesome5 name="box-open" size={17} color={colorM ? colorM : colors.black} />
+                <Text style={{ fontSize: 15, paddingRight: 5, color: colorM ? colorM : colors.black }}>{boxes}</Text>
             </View>
 
             <View style={{
                 alignSelf: 'center',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                padding: 5
             }}>
-                <AppText style={{ fontSize: 16, fontWeight: "bold", color: colorM ? colorM : colors.dark }}> {(amount)}</AppText>
-                <AppText style={{ fontSize: 14, color: colorM ? colorM : colors.dark }}> {(time)}</AppText>
+                <Text style={{ fontFamily: 'Tjw_blod', fontSize: 15, color: colorM ? colorM : colors.dark }}> {(amount)}</Text>
+                <Text style={{
+                    fontFamily: 'Tjw_blod', fontSize: 12, color: colorM ? colorM : colors.black, shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 1,
+                    },
+                    shadowOpacity: 0.20,
+                    shadowRadius: 1.41,
+
+                    elevation: 2,
+                }}> {(time)}</Text>
 
             </View>
 
@@ -48,7 +59,5 @@ export default SummaryBox;
 const styles = StyleSheet.create({
     boxContainer: {
         flexDirection: 'row-reverse',
-        padding: 5,
-
     },
 })
