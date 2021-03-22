@@ -4,7 +4,7 @@ import { MaterialIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-import { Platform } from "react-native";
+import { Platform, Vibration } from "react-native";
 
 import SearchResults from "./../navigations/SearchNavigator";
 import NotificationsNavigator from "./NotificationsNavigator";
@@ -18,15 +18,30 @@ import colors from "../config/colors";
 import Routes from "../Routes";
 
 const Tab = createBottomTabNavigator();
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 const AppNavigator = (ref) => {
   const { user } = useAuth();
   useEffect(() => {
     regesterForPushNotificaition();
-    Notifications.addNotificationReceivedListener(
-      (notificationListener) =>
-        navitation.navigate(Routes.ORDER_DETAILS, { id: "233469" })
-      // console.log(notificationListener)
-    );
+    Notifications.addNotificationReceivedListener((notificationListener) => {
+      if (notificationListener.remote) {
+        Vibration.vibrate();
+        Notifications.presentNotificationAsync({
+          title: "تحديث حالة",
+          body: notificationListener.request.content.body,
+          ios: { _displayInForeground: true },
+        });
+      }
+      navitation.navigate(Routes.NOTIFICATION);
+      // console.log(notificationListener.request.content.body);
+    });
   }, []);
   const regesterForPushNotificaition = async () => {
     try {
