@@ -71,7 +71,7 @@ const Dashboard = () => {
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 
                 {!adsText.c_ad1 ? <ActivityIndecator visable={isLoading} type={loadings.adsTab} /> :
-                    adsText.d_ad1 && <AdsCompany title={adsText.d_ad1} />}
+                    adsText.c_ad1 && <AdsCompany title={adsText.c_ad1} />}
                 {<SummaryBoxes data={calcData} isLoading={isLoading} />}
                 {<OptionsList data={data} />}
             </ScrollView>

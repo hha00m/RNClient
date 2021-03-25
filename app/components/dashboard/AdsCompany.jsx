@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, Image, Animated } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Image, Animated, Pressable, Modal } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import colors from '../../config/colors'
@@ -8,6 +8,7 @@ import borderRadiuss from '../../config/borderRadiuss';
 
 const AdsCompany = ({ title }) => {
     const regex = /(<([^>]+)>)/ig;
+    const [modalVisible, setModalVisible] = useState(false);
     const result = title.replace(regex, '');
     const startValue = new Animated.Value(1);
     const endValue = 1.5;
@@ -27,26 +28,51 @@ const AdsCompany = ({ title }) => {
     return (
         <View style={styles.adsContainer}>
             <View style={{ width: 60, height: 60, alignSelf: "center" }}>
-                <Animated.View
-                    style={[
-                        styles.adsAlart,
-                        {
-                            transform: [
-                                {
-                                    scale: startValue,
-                                },
-                            ],
-                        },
-                    ]}
+                <Pressable style={{ flex: 1 }}
+                    onPress={() => setModalVisible(!modalVisible)}
                 >
-                    <Image style={styles.img}
-                        source={require("../../assets/dashboard/advertisement.png")}
-                    />
-                </Animated.View>
+                    <Animated.View
+                        style={[
+                            styles.adsAlart,
+                            {
+                                transform: [
+                                    {
+                                        scale: startValue,
+                                    },
+                                ],
+                            },
+                        ]}
+                    >
+                        <Image style={styles.img}
+                            source={require("../../assets/dashboard/advertisement.png")}
+                        />
+                    </Animated.View>
+                </Pressable>
             </View>
             <ScrollView>
                 <Text style={{ textAlign: "right", fontFamily: 'Tjw_reg', fontSize: 12, color: colors.black }}>{result}</Text>
             </ScrollView>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>{result}</Text>
+                        <Pressable
+                            style={[styles.button,]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>اخفاء</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
         </View>
 
     )
@@ -92,4 +118,43 @@ const styles = StyleSheet.create({
 
 
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+        backgroundColor: colors.vueColorButtom
+    },
+
+    textStyle: {
+        color: "white",
+        fontFamily: "Tjw_blod",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center",
+        fontFamily: "Tjw_reg"
+    }
+
 })
