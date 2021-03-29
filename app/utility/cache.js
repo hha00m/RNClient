@@ -2,7 +2,7 @@ import { AsyncStorage } from "react-native";
 import dayjs from "dayjs";
 
 const prefix = "cache";
-const expiryInMinutes = 1;
+const expiryInMinutes = 60 * 24;
 
 const store = async (key, value) => {
   try {

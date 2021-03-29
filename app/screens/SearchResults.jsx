@@ -156,15 +156,7 @@ function Dashboard() {
         </View>
     );
     //=====================LOADING==================================
-    const loadOrders_local = async (nextPage) => {
-        const results = await cache.get("http://albarqexpress.com/client/api/search.php?token=" + user.token + "&limit=10&page=" + nextPage);
-        if (results.data.length < 1) {
 
-            return setIsLoading(false);
-        }
-        setOrders(results.data);
-        setIsLoading(false);
-    }
     const loadOrders = async (nextPage) => {
         const results = (await getOrders.getOrders(user.token, status ? status.row : null, city ? city.row : null, store ? store.row.id : null, search ? search : null, nextPage));
         if (results.data.success === "0") {
@@ -183,7 +175,6 @@ function Dashboard() {
     }
     useEffect(() => {
         setIsLoading(true);
-        loadOrders_local("1");
         loadOrders("1");
     }, [status, city, store]);
     useEffect(() => {
