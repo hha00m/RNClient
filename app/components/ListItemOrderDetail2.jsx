@@ -1,4 +1,5 @@
 import React from 'react'
+import { I18nManager } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
 import { Linking } from 'react-native'
 
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     containertextContainer: {
         width: "100%",
         height: 20,
-        flexDirection: "row",
+        flexDirection: I18nManager.isRTL ? "row" : "row",
         // backgroundColor: "gold"
     },
     textView: {

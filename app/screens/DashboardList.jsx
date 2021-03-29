@@ -6,6 +6,7 @@ import {
 import { Searchbar } from 'react-native-paper';
 import { Select, SelectItem, Modal, Card, Text, Spinner, Button } from '@ui-kitten/components';
 import { default as UUID } from "uuid";
+import cache from "../utility/cache";
 
 import ActivityIndecatorLoadingList from "../components/ActivtyIndectors/ActivityIndecatorLoadingList";
 import { OrderCard, ListItemSeparator, QuckViewDetails, QuckViewDetails2, OrderSheet } from "../components/lists";
@@ -18,6 +19,7 @@ import colors from '../config/colors';
 import { useRoute } from '@react-navigation/native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Routes from '../Routes';
+import { I18nManager } from 'react-native';
 //================================================
 
 function Dashboard() {
@@ -112,7 +114,7 @@ function Dashboard() {
                 alignSelf: "center",
                 justifyContent: "center",
                 alignItems: "center",
-                flexDirection: "row"
+                flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
             }}>
             {/* <QuckViewDetails2 icon="information"
                 onPress={() =>
@@ -143,8 +145,20 @@ function Dashboard() {
         </View>
     );
     //=================token, status, city, store, search, page = 1, limit = 10===========
+    const loadOrders_local = async (nextPage) => {
+        const results = await cache.get("/getOrders.php?token=" + user.token + "&status=" + route.params.action + "&limit=10&page=" + nextPage);
+        if (results.data.length < 1) {
+
+            return setIsLoading(false);
+        }
+        setOrders(results.data);
+        setIsLoading(false);
+    }
+    //   ================================  
     const loadOrders = async (nextPage) => {
-        const results = (await getOrders.get(user.token, route.params.action, city ? city.row : null, store ? store.row.id : null, search ? search : null, nextPage));
+        const results = (await getOrders.get(user.token, route.params.action,
+            city ? city.row : null, store ? store.row.id : null,
+            search ? search : null, nextPage));
         if (results.data.success === "0") {
 
             return setIsLoading(false);
@@ -169,7 +183,7 @@ function Dashboard() {
     const loadCities = async () => {
         const results = await getCities.getCities(user.token);
         const array = [{
-            name: "الكل",
+            name: "المحافظات",
             id: ""
         }];
         setCities([...array, ...results.data.data]);
@@ -179,7 +193,7 @@ function Dashboard() {
     const loadStores = async () => {
         const results = await getStores.getStores(user.token);
         const array = [{
-            name: "الكل",
+            name: "الصفحات",
             id: ""
         }];
         setStores([...array, ...results.data.data]);
@@ -189,6 +203,7 @@ function Dashboard() {
     useEffect(() => {
         setIsLoading(true);
         loadOrders("1");
+        loadOrders_local("1");
     }, [city, store]);
     useEffect(() => {
         setIsLoading(true);
@@ -238,13 +253,12 @@ function Dashboard() {
 
             />
             <View
-                style={{ flexDirection: "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.light, paddingHorizontal: 5 }}>
+                style={{ flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.light, paddingHorizontal: 5 }}>
                 <View style={{ width: "45%", marginHorizontal: 2 }}>
 
                     <Select
                         selectedIndex={city}
-                        label="المحافظة"
-                        value={city ? cities[city.row].name : "الكل"}
+                        value={city ? cities[city.row].name : "المحافظة"}
                         size='small'
                         onSelect={index => setCity(index)}
                         style={{ direction: "rtl", textAlign: "right" }}
@@ -260,8 +274,7 @@ function Dashboard() {
                 <View style={{ width: "45%", marginHorizontal: 2 }}>
                     <Select
                         selectedIndex={store}
-                        label="الصفحة"
-                        value={store ? stores[store.row].name : "الكل"}
+                        value={store ? stores[store.row].name : "الصفحة"}
                         size='small'
                         onSelect={index => setStore(index)}
                         style={{ direction: "rtl" }}>

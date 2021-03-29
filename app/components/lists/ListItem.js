@@ -5,6 +5,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import colors from "../../config/colors";
 import Text from "../AppText";
 import borderRadiuss from "../../config/borderRadiuss";
+import { I18nManager } from "react-native";
 
 export default class ListItem extends PureComponent {
   render() {
@@ -48,7 +49,7 @@ export default class ListItem extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    flexDirection: "row",
+    flexDirection: I18nManager.isRTL ? "row" : "row",
     borderRadius: borderRadiuss.Radius_larg,
     width: "90%",
     alignSelf: "center",

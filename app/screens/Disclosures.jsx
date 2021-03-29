@@ -14,6 +14,7 @@ import Routes from '../Routes';
 import ActivityIndicator from '../components/ActivtyIndectors/ActivityIndecatorSimpleLine'
 import ActivityIndecator from '../components/ActivtyIndectors/ActivityIndecatorMoneyTotal';
 import { onShare } from '../utility/helper'
+import { I18nManager } from 'react-native';
 
 function Dashboard() {
     const navigator = useNavigation();
@@ -80,7 +81,7 @@ function Dashboard() {
     return (
         <View style={{ flex: 1 }}>
             <View
-                style={{ flexDirection: "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.white }}>
+                style={{ flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse", width: "100%", justifyContent: "space-around", backgroundColor: colors.white }}>
                 {/* <View style={{ width: "33%", marginHorizontal: 2 }}>
                     <AppPickerTime placeholder="من تاريخ" name="calendar"
                         updateTime={updateStartTime}

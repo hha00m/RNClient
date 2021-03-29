@@ -6,6 +6,7 @@ import ListItemOrderDetail from "../ListItemOrderDetail2";
 import colors from "../../config/colors";
 import Routes from "../../Routes";
 import borderRadiuss from "../../config/borderRadiuss";
+import { I18nManager } from "react-native";
 
 const OrderDetails = ({ order }) => {
   const navigation = useNavigation();
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "space-between",
-    flexDirection: "row-reverse",
+    flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
     borderBottomColor: colors.primery,
     borderBottomWidth: 1,
   },
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
   contanerBox: {
     height: "100%",
     width: "100%",
-    flexDirection: "row-reverse",
+    flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
     justifyContent: "space-around",
     margin: 5,
   },

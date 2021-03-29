@@ -5,6 +5,7 @@ import AppTaxt from '../components/AppText'
 import colors from '../config/colors'
 import Icon from '../components/Icon'
 import borderRadiuss from '../config/borderRadiuss'
+import { I18nManager } from 'react-native'
 const iconNames = [
     "", "car", "car", "van-utility", "check-bold", "arrow-left-right-bold-outline", "backburger", "timer", "map", "logout", "axis-x-arrow"
 ]
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         height: 75,
         width: "100%",
-        flexDirection: "row-reverse",
+        flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
         justifyContent: "space-around",
         alignItems: "center",
     },
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderColor: colors.medium,
-        flexDirection: "row-reverse",
+        flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "white",

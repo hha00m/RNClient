@@ -122,7 +122,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        marginTop: 22,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
     },
     modalView: {
         margin: 20,

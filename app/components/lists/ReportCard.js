@@ -11,6 +11,7 @@ import Icon from "../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
 import borderRadiuss from "../../config/borderRadiuss";
+import { I18nManager } from "react-native";
 
 export default class ReportCard extends PureComponent {
   handelColor(id) {
@@ -76,7 +77,13 @@ export default class ReportCard extends PureComponent {
               onPress={this.props.onPress}
             >
               <View
-                style={{ width: "100%", height: "100%", flexDirection: "row" }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  flexDirection: I18nManager.isRTL
+                    ? "row-reverse"
+                    : "row-reverse",
+                }}
               >
                 <View style={styles.detailsContainer}>
                   <Text style={styles.title} numberOfLines={1}>
@@ -126,7 +133,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    flexDirection: "row-reverse",
+    flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
     backgroundColor: colors.white,
     borderRadius: borderRadiuss.light,
     borderTopLeftRadius: 35,

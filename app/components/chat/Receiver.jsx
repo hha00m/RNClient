@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import colors from '../../config/colors'
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { I18nManager } from 'react-native';
 
 const Receiver = ({ item }) => {
     return (
@@ -10,7 +11,7 @@ const Receiver = ({ item }) => {
             <View style={styles.container
             } >
                 <Text style={styles.text}>{item.message}</Text>
-                <View style={{ flexDirection: "row-reverse", alignItems: "flex-end" }}>
+                <View style={{ flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse", alignItems: "flex-end" }}>
                     <MaterialCommunityIcons style={styles.checkIcon} name="checkbox-marked-circle" size={12} color={item.driver_seen === "0" ? "white" : colors.secondery} />
                     <MaterialCommunityIcons style={styles.checkIcon} name="checkbox-marked-circle" size={12} color={item.admin_seen === "0" ? "white" : colors.secondery} />
                 </View >

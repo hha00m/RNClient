@@ -7,8 +7,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Icon from "./../Icon";
 import Text from "../AppText";
 import colors from "../../config/colors";
-import Routes from "../../Routes";
 import borderRadiuss from "../../config/borderRadiuss";
+import { I18nManager } from "react-native";
 class OrderCard extends PureComponent {
   handelColor = (id) => {
     switch (id) {
@@ -69,7 +69,9 @@ class OrderCard extends PureComponent {
                 style={{
                   width: "100%",
                   height: "100%",
-                  flexDirection: "row-reverse",
+                  flexDirection: I18nManager.isRTL
+                    ? "row-reverse"
+                    : "row-reverse",
                 }}
               >
                 <View style={styles.detailsContainer}>
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    flexDirection: "row-reverse",
+    flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
     borderRadius: borderRadiuss.Radius_light,
     borderTopLeftRadius: 35,
     borderBottomLeftRadius: 35,

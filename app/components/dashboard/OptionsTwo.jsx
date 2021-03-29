@@ -1,4 +1,5 @@
 import React from 'react';
+import { I18nManager } from 'react-native';
 import { View, StyleSheet } from 'react-native';
 import { default as UUID } from "uuid";
 
@@ -19,7 +20,7 @@ export default OptionsList;
 const styles = StyleSheet.create({
 
     container: {
-        flexDirection: "row-reverse",
+        flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
         justifyContent: "center",
         alignItems: "center",
     }

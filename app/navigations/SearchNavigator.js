@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Text } from "react-native";
 
 import OrderDetails from "../screens/OrderDetails";
 import SearchResults from "../screens/SearchResults";
@@ -13,18 +14,24 @@ const DashboardNavigator = () => {
       <Stack.Screen
         name={Routes.SEARCH_RESULTS}
         component={SearchResults}
-        options={{ headerShown: false, title: "صفحة البحث" }}
+        options={{ headerShown: false, title: () => null }}
       />
 
       <Stack.Screen
         name={Routes.ORDER_DETAILS}
         component={OrderDetails}
-        options={{ title: "طلبية" }}
+        options={{
+          title: <Text style={{ fontFamily: "Tjw_reg" }}>طلبية</Text>,
+        }}
       />
       <Stack.Screen
         name={Routes.CHAT_MODEL}
         component={ChatModel}
-        options={{ title: "محادثة فورية" }}
+        options={{
+          title: (
+            <Text style={{ fontFamily: "Tjw_reg" }}>محادثة مع الشركة</Text>
+          ),
+        }}
       />
     </Stack.Navigator>
   );

@@ -12,6 +12,7 @@ import getOrder from '../api/getOrder'
 import useAuth from "../auth/useAuth";
 import Routes from '../Routes';
 import borderRadiuss from '../config/borderRadiuss';
+import { I18nManager } from 'react-native';
 
 
 
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         justifyContent: "space-between",
-        flexDirection: "row",
+        flexDirection: I18nManager.isRTL ? "row" : "row",
         borderBottomColor: colors.primery,
         borderBottomWidth: 1,
         marginBottom: 5
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
     contanerBox: {
         height: "100%",
         width: "100%",
-        flexDirection: "row-reverse",
+        flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
         justifyContent: "space-around",
         margin: 5,
     },

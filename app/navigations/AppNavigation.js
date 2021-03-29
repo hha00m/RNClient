@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  MaterialIcons,
-  Ionicons,
-  MaterialCommunityIcons,
-  Feather,
-} from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
@@ -107,7 +102,7 @@ const AppNavigator = (ref) => {
           tabBarLabel: () => null,
 
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="ios-search" color={color} size={size} />
+            <Feather name="search" color={color} size={size} />
           ),
         }}
       />
@@ -118,11 +113,7 @@ const AppNavigator = (ref) => {
           // tabBarLabel: "اشعاراتي",
           tabBarLabel: () => null,
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons
-              name="notifications-none"
-              color={color}
-              size={size}
-            />
+            <Feather name="bell" color={color} size={size} />
           ),
         }}
       />
@@ -133,11 +124,7 @@ const AppNavigator = (ref) => {
           tabBarLabel: () => null,
           // tabBarLabel: "لوحة التحكم",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="home-outline"
-              color={color}
-              size={size}
-            />
+            <Feather name="home" color={color} size={size} />
           ),
           // tabBarButton: () => (
           //   <DashboardButton
@@ -154,11 +141,7 @@ const AppNavigator = (ref) => {
           tabBarLabel: () => null,
           //tabBarLabel: "محادثتي",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="chat-outline"
-              color={color}
-              size={size}
-            />
+            <Feather name="message-circle" color={color} size={size} />
           ),
         }}
       />
@@ -169,11 +152,7 @@ const AppNavigator = (ref) => {
           tabBarLabel: () => null,
           // tabBarLabel: "حسابي",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="account-circle-outline"
-              color={color}
-              size={size}
-            />
+            <Feather name="user" color={color} size={size} />
           ),
         }}
       />
