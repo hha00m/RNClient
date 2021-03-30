@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { ListItem, ListItemSeparator } from "../components/lists";
+import cache from "../utility/cache";
 
 import ActivityIndecator from "../components/ActivtyIndectors/ActivityIndecatorSimpleLine";
 import getChatListAPI from '../api/getChatList'
@@ -31,8 +32,17 @@ function NotificationScreen(props) {
         setTotalNotificaiton(results.data.count);
         setIsLoading(false);
     };
+    const loadNotification_local = async () => {
+        setIsLoading(true);
+        const results = await cache.get("/chat.php?token=" + user.token);
+        setMessages([...messages, ...results.data]);
+        // setTotalNotificaiton(results.data.count);
+        setIsLoading(false);
+    };
     useEffect(() => {
+        loadNotification_local();
         loadNotification();
+
     }, []);
     return (
         <Screen>

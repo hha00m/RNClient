@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { default as UUID } from "uuid";
+import cache from "../utility/cache";
 
 import Screen from "../components/Screen";
 import { ListItem, ListItemSeparator } from "../components/lists";
@@ -30,7 +31,6 @@ function NotificationScreen(props) {
     };
 
     const loadNotification = async (nextPage) => {
-        setIsLoading(true);
         const results = await getNotifications.get(user.token, nextPage);
         if (results.data.success == "0") {
             return setIsLoading(false);
@@ -42,6 +42,14 @@ function NotificationScreen(props) {
         setTotalNotificaiton(results.data.unseen);
         setIsLoading(false);
     };
+    const loadNotification_local = async (nextPage) => {
+        setIsLoading(true);
+        const results = await cache.get("/getNotification.php?token=" + user.token + "&page=" + nextPage + "&limit=20");
+        setMessages([...messages, ...results.data]);
+        // setTotalNotificaiton(results.data.count);
+        setIsLoading(false);
+        loadNotification("1");
+    };
 
 
     const onEndReachedMohamed = () => {
@@ -50,7 +58,7 @@ function NotificationScreen(props) {
 
 
     useEffect(() => {
-        loadNotification("1");
+        loadNotification_local("1");
     }, []);
     const refreshingMethod = () => {
         setRefreshing(true);

@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { Searchbar } from 'react-native-paper';
 import { default as UUID } from "uuid";
+import cache from "../utility/cache";
 
 import { OrderCard, ListItemSeparator, QuckViewDetails, QuckViewDetails2, OrderSheet } from "../components/lists";
 import ActivityIndecatorLoadingList from "./../components/ActivtyIndectors/ActivityIndecatorLoadingList";
@@ -173,8 +174,18 @@ function Dashboard() {
         setOrders([...orders, ...results.data.data]);
         setIsLoading(false);
     }
+    const loadOrders_local = async (nextPage) => {
+        const results = await cache.get("http://albarqexpress.com/client/api/search.php?token=" + user.token + "&limit=20&page=" + nextPage);
+        if (results.data.success === "0") {
+
+            return null;
+        }
+        setOrders(results.data);
+        setIsLoading(false);
+    }
     useEffect(() => {
         setIsLoading(true);
+        loadOrders_local("1");
         loadOrders("1");
     }, [status, city, store]);
     useEffect(() => {
