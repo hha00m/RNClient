@@ -27,7 +27,7 @@ export default ListItemOrderDetail
 const styles = StyleSheet.create({
 
     containertextContainer: {
-        width: "100%",
+        width: "98%",
         height: 20,
         flexDirection: I18nManager.isRTL ? "row-reverse" : "row-reverse",
         // backgroundColor: "gold"

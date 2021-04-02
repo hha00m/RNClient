@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
     View, FlatList, StyleSheet, Linking, Animated, TouchableOpacity,
-    Dimensions
+    Dimensions, Pressable, Modal
 } from 'react-native';
 import { Searchbar } from 'react-native-paper';
-import { Select, SelectItem, Modal, Card, Text, Spinner, Button } from '@ui-kitten/components';
+import { Select, SelectItem, Card, Text, Spinner, Button } from '@ui-kitten/components';
 import { default as UUID } from "uuid";
 import cache from "../utility/cache";
 
@@ -36,6 +36,7 @@ function Dashboard() {
     const [noOrders, setNoOrders] = useState("0");
     const [page, setPage] = useState("1");
     const [order, setOrder] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     //================================================
     const window = Dimensions.get('window');
@@ -47,6 +48,7 @@ function Dashboard() {
         isOpen: false,
     });
     const onClose = () => {
+
         Animated.timing(state.opacity, {
             toValue: 0,
             duration: 350,
@@ -54,7 +56,7 @@ function Dashboard() {
         }).start();
         bs.current.snapTo(0);
         setTimeout(() => {
-            setState({ ...state, isOpen: false });
+            setModalVisible(!modalVisible);
         }, 50);
     };
 
@@ -93,18 +95,13 @@ function Dashboard() {
     //---------------
     const openWindowFast = (order) => {
         setOrder(order);
-        onOpen();
+        setModalVisible(true);
     }
 
-    //---------------
 
-    const renderInner = () => (
-        <OrderSheet order={order} />
-    );
     const renderHeader = () => (
         <View
             style={{
-                width: '100%',
                 backgroundColor: colors.light4,
                 height: 50,
                 borderTopLeftRadius: 10,
@@ -241,6 +238,7 @@ function Dashboard() {
             <Searchbar
                 placeholder='بحث رقم الوصل او رقم الهاتف...'
                 onChangeText={x => setSearch(x)}
+                onSubmitEditing={true}
                 value={search}
                 onChange={x => setSearch(x)}
                 style={{
@@ -332,28 +330,82 @@ function Dashboard() {
                     <Text> 😻 تم نسخ المعلومات</Text>
                 </Card>
             </Modal>
-            {state.isOpen && renderBackDrop()}
-
-            <BottomSheet
-                ref={bs}
-                snapPoints={[
-                    '-10%',
-                    window.height * 0.4,
-                    window.height * 0.6,
-                    window.height * 0.8,
-                ]}
-                initialSnap={0}
-                renderContent={renderInner}
-                renderHeader={renderHeader}
-                onCloseEnd={onClose}
-            />
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        {renderHeader()}
+                        <OrderSheet order={order} />
+                        <Pressable
+                            style={[styles.button,]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>اخفاء</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
 const styles = StyleSheet.create({
 
-    backdrop: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // backdrop: {
+    //     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // },
+    centeredView: {
+        height: "50%",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 150,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
+    },
+    modalView: {
+        margin: 10,
+        backgroundColor: colors.light4,
+        borderRadius: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+        backgroundColor: colors.danger,
+        marginBottom: 20,
+    },
+
+    textStyle: {
+        color: "white",
+        fontFamily: "Tjw_blod",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center",
+        fontFamily: "Tjw_reg"
     }
 });
 export default Dashboard;

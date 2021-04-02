@@ -249,6 +249,7 @@ function Dashboard() {
                 value={search}
                 onChange={x => setSearch(x)}
                 iconColor={colors.secondery}
+                onSubmitEditing={true}
                 style={{
                     // backgroundColor: colors.light3,
                     margin: 10,
@@ -388,6 +389,8 @@ function Dashboard() {
                 renderHeader={renderHeader}
                 onCloseEnd={onClose}
             />
+            {state.isOpen && renderBackDrop()}
+
         </Screen>
     );
 }

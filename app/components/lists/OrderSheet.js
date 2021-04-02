@@ -1,16 +1,12 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
 
-import ListItemOrderDetail from "../ListItemOrderDetail2";
+import ListItemOrderDetail from "../ListItemOrderDetail";
 import colors from "../../config/colors";
-import Routes from "../../Routes";
 import borderRadiuss from "../../config/borderRadiuss";
 import { I18nManager } from "react-native";
 
 const OrderDetails = ({ order }) => {
-  const navigation = useNavigation();
-
   const handelColor = (id) => {
     switch (id) {
       case "4":
@@ -118,13 +114,13 @@ const OrderDetails = ({ order }) => {
                     details={order.money_status === "1" ? "نعم" : "كلا"}
                   />
                 )}
-                {order.driver_phone && (
+                {order.date && (
                   <ListItemOrderDetail
                     caption="تاريخ الطلب"
                     details={order.date}
                   />
                 )}
-                {order.t_note && (
+                {order.t_note != "" && (
                   <ListItemOrderDetail
                     caption="الحالة "
                     details={order.t_note}
@@ -145,7 +141,7 @@ export default OrderDetails;
 
 const styles = StyleSheet.create({
   headerDetails: {
-    width: "95%",
+    width: "80%",
     height: "100%",
     alignItems: "center",
     alignSelf: "center",
