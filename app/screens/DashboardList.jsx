@@ -60,38 +60,9 @@ function Dashboard() {
         }, 50);
     };
 
-    const onOpen = () => {
-        setState({ ...state, isOpen: true });
-        bs.current.snapTo(2);
-        Animated.timing(state.opacity, {
-            toValue: 0.7,
-            duration: 300,
-            useNativeDriver: true,
-        }).start();
-    };
 
-    const renderBackDrop = () => (
-        <Animated.View
-            style={{
-                opacity: state.opacity,
-                backgroundColor: '#000',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-            }}>
-            <TouchableOpacity
-                style={{
-                    width: window.width,
-                    height: window.height,
-                    backgroundColor: 'transparent',
-                }}
-                activeOpacity={1}
-                onPress={onClose}
-            />
-        </Animated.View>
-    );
+
+
     //---------------
     const openWindowFast = (order) => {
         setOrder(order);
@@ -361,7 +332,7 @@ const styles = StyleSheet.create({
     //     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     // },
     centeredView: {
-        height: "50%",
+        height: "60%",
         justifyContent: "center",
         alignItems: "center",
         marginTop: 150,
@@ -394,7 +365,8 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 2,
         backgroundColor: colors.danger,
-        marginBottom: 20,
+        marginBottom: 5
+
     },
 
     textStyle: {

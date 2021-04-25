@@ -175,7 +175,7 @@ function Dashboard() {
         setIsLoading(false);
     }
     const loadOrders_local = async (nextPage) => {
-        const results = await cache.get("http://albarqexpress.com/client/api/search.php?token=" + user.token + "&limit=20&page=" + nextPage);
+        const results = await cache.get("http://aldeqaexpress.com/client/api/search.php?token=" + user.token + "&limit=20&page=" + nextPage);
         if (results.data.success === "0") {
 
             return null;
@@ -389,7 +389,6 @@ function Dashboard() {
                 renderHeader={renderHeader}
                 onCloseEnd={onClose}
             />
-            {state.isOpen && renderBackDrop()}
 
         </Screen>
     );
@@ -398,6 +397,7 @@ const styles = StyleSheet.create({
 
     backdrop: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    }
+    },
+
 });
 export default Dashboard;

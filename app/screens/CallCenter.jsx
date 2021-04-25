@@ -14,44 +14,44 @@ import { I18nManager } from "react-native";
 const menuItems = [
     {
         title: "بغداد",
-        subTitle: "07721307505",
+        subTitle: "07722877759",
         img: require("../assets/avatar/call-center.png"),
 
         targetScreen: routes.NOTIFICATION,
     },
     {
-        title: "انبار, سماوة, كركوك",
-        subTitle: "07718136687",
+        title: "كربلاء نجف",
+        subTitle: "07733003055",
         img: require("../assets/avatar/call-center-agent.png"),
 
         targetScreen: routes.CHAT,
     }, {
-        title: "كربلاء, نجف, صلاح الدين",
-        subTitle: "07835723017",
+        title: "بابل",
+        subTitle: "07812334335",
         img: require("../assets/avatar/24-hours-support.png"),
 
         targetScreen: routes.CHAT,
     },
     {
-        title: "ناصرية, ديالى, دهوك, عمارة",
-        subTitle: "07739089539",
+        title: "باقي المدن",
+        subTitle: "07722877759",
         img: require("../assets/avatar/call-cente.png"),
 
         targetScreen: routes.CHAT,
     },
-    {
-        title: "بصرة, أربيل, سليمانية",
-        subTitle: "07835723018",
-        img: require("../assets/avatar/24-hours-suppor.png"),
+    // {
+    //     title: "بصرة, أربيل, سليمانية",
+    //     subTitle: "07835723018",
+    //     img: require("../assets/avatar/24-hours-suppor.png"),
 
-        targetScreen: routes.CHAT,
-    },
-    {
-        title: "ديوانية, موصل, بابل, كوت",
-        subTitle: "07835723019",
-        img: require("../assets/avatar/woman-with-headset.png"),
-        targetScreen: routes.CHAT,
-    },
+    //     targetScreen: routes.CHAT,
+    // },
+    // {
+    //     title: "ديوانية, موصل, بابل, كوت",
+    //     subTitle: "07835723019",
+    //     img: require("../assets/avatar/woman-with-headset.png"),
+    //     targetScreen: routes.CHAT,
+    // },
 ];
 
 function CallCenter() {

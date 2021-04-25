@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "البرق",
+    "name": "الدقة",
     "slug": "clientExpo",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "orientation": "portrait",
-    "icon": "./app/assets/albarqlogo.png",
+    "icon": "./app/assets/logo22.png",
     "splash": {
       "image": "./app/assets/splash.png",
       "resizeMode": "contain",
@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.alnahr.clientExpo",
-      "buildNumber": "1.0.5"
+      "buildNumber": "1.0.6"
     },
     "android": {
       "useNextNotificationsApi": true,
@@ -28,7 +28,7 @@
         }
       },
       "package": "com.alnahr.clientExpo",
-      "versionCode": 6
+      "versionCode": 7
     },
     "web": {
       "favicon": "./app/assets/favicon.png"

@@ -120,10 +120,17 @@ const OrderDetails = ({ order }) => {
                     details={order.date}
                   />
                 )}
-                {order.t_note != "" && (
+                {order.t_note ? (
+                  order.t_note != "" && (
+                    <ListItemOrderDetail
+                      caption="الحالة "
+                      details={order.t_note}
+                    />
+                  )
+                ) : (
                   <ListItemOrderDetail
                     caption="الحالة "
-                    details={order.t_note}
+                    details={order.status_name}
                   />
                 )}
               </View>

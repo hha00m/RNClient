@@ -93,7 +93,7 @@ const Dashboard = () => {
                         color: colors.black,
                     }}
                 >
-                    شركة البرق
+                    أهل الدقة
             </Headline>
                 <View
                     style={{
